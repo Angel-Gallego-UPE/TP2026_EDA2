@@ -2,7 +2,7 @@
 using namespace std;
 
 class Cuidad{
-	//atributo
+	//atributo priv
 	int id;
 	int x;
 	int y;

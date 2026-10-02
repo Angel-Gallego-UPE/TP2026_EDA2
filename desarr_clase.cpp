@@ -22,7 +22,7 @@ Cuidad::Cuidad(){
 Cuidad::~Cuidad(){
 }
 	
-	//METODOS PUBLICOS
+//METODOS PUBLICOS
 void Cuidad::mostrar(Cuidad N){
 
     cout<<"Id: "<<N.id<<endl;
