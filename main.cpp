@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream> //archivos
 #include "clase.h" 
+#include "Grafo.h" 
+//#include "Ruta.h" 
+
 
 using namespace std;
 //Declaraciones de funciones-------------------------------------------------------------------------
@@ -20,6 +23,7 @@ void menu(){
 	cout<<"3- Borrar ultimo elemento\n";
     cout<<"4- Borrar elemento especifico\n";
 	cout<<"5- Modificar elemento especifico\n";
+	cout<<"6- Probamos la matriz\n";
 	cout<<"opc: ";
 
 }
@@ -192,11 +196,16 @@ void modificarEspecifico(){
 
 //Func. Principal------------------------------------------------------------------------------------
 int main(){
-	//variables
+	// creamos un objeto Grafo.
+	// su matriz comienza vacía y la cantidad de ciudades es 0
+	 Grafo mi_grafo;
+    
+
+    //variables
 	int opc;
 	//objeto con parametros
-	Cuidad mg(01,8,6,"monteGrande",2);
-	
+	Ciudad mg(01,8,6,"monteGrande",2);
+
 //Ciclo principal
 do{
 	menu();
@@ -218,7 +227,26 @@ do{
         case 5: //borrar elemento especifico de la fila
 				modificarEspecifico();
 			break;
-		default:
+	    case 6:
+		
+	    // agregamos una ciudad a la matriz
+		// cada llamada aumenta la cantidad de filas y columnas en 1
+		mi_grafo.agregar_ciudad();
+		mi_grafo.agregar_ciudad();
+		mi_grafo.agregar_ciudad();
+		  
+		
+		// mostramos la cantidad actual de ciudades
+		// el resultado esperado es 3
+		cout << "Cantidad de ciudades: "
+		<< mi_grafo.obtener_cantidad_de_ciudades() << endl;
+		
+		// mostramos la matriz por pantalla
+		// debería verse una matriz de 3 filas y 3 columnas
+		mi_grafo.mostrar_matriz();
+		
+		    break;
+	    default:
 				cout<<"OPCION INCORRECTA";  //opcion DEFAULT
 			break;		
 	}

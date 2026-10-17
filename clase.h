@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-class Cuidad{
+class Ciudad{
 	//atributo priv
 	int id;
 	int x;
@@ -10,10 +10,10 @@ class Cuidad{
 	int cant_aristas;
 	//metodos
 	public:
-		Cuidad(int, int, int, string, int); //constructor
-		Cuidad(); //contructor inicializado en 0
-		~Cuidad(); //destructor
+		Ciudad(int, int, int, string, int); //constructor
+		Ciudad(); //contructor inicializado en 0
+		~Ciudad(); //destructor
 		
 		//metodos
-		void mostrar(Cuidad x);	
+		void mostrar(Ciudad x);	
 };
