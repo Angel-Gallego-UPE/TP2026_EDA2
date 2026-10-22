@@ -1,0 +1,12 @@
+#Archivos objeto
+*.o
+*.obj
+
+#Ejecutables
+*.exe
+*.out
+
+#Archivos generados por compilación
+*.a
+*.so
+*.dll
