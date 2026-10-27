@@ -2,18 +2,29 @@
 using namespace std;
 
 class Ciudad{
-	//atributo priv
-	int id;
-	int x;
-	int y;
-	string nombre;
-	int cant_aristas;
-	//metodos
+	//atributo privados
+		int id;
+		int x;
+		int y;
+		string nombre;
+		
 	public:
-		Ciudad(int, int, int, string, int); //constructor
-		Ciudad(); //contructor inicializado en 0
+		//metodos contructores y destructor
+		Ciudad(int, int, int, string); //constructor
+		Ciudad();  //contructor inicializado en 0
 		~Ciudad(); //destructor
 		
+		//metodos GETTERS
+		int getID();
+		int getX();
+		int getY();
+		string getNombre();
+		//metodos SETTERS
+		void setID(int _id);
+		void setX(int _x);
+		void setY(int _y);
+		void setNombre(string _nombre);
 		//metodos
-		void mostrar(Ciudad x);	
+		void escribir();
+		void leer();
 };

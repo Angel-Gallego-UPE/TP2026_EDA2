@@ -1,3 +1,5 @@
+#ifndef GRAFO_H
+#define GRAFO_H
 #include <iostream>
 #include "Ruta.h"
 using namespace std;
@@ -21,12 +23,4 @@ public:
 	void mostrar_matriz();// funcion para mostrar que la matriz funciona correctamente
 };
 
-
-
-
-
-
-
-
-
-
+#endif // GRAFO_H

@@ -1,18 +1,11 @@
-[Editors]
-Order=0,1,2
-Focused=1
-[Editor_0]
-CursorCol=12
-CursorRow=1
-TopLine=1
-LeftChar=1
-[Editor_1]
-CursorCol=17
-CursorRow=5
-TopLine=1
-LeftChar=1
-[Editor_2]
-CursorCol=1
-CursorRow=1
-TopLine=1
-LeftChar=1
+[
+    {
+        "caretX": 21,
+        "caretY": 12,
+        "filename": "C:/Users/Usuario/OneDrive/Escritorio/Proyecto-EDA2/main.cpp",
+        "focused": false,
+        "isOpen": false,
+        "left": 0,
+        "top": 0
+    }
+]

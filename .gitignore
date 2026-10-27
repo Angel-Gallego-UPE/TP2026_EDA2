@@ -10,3 +10,5 @@
 *.a
 *.so
 *.dll
+*.debug
+*.bookmarks

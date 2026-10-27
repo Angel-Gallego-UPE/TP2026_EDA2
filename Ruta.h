@@ -1,3 +1,5 @@
+#ifndef RUTA_H
+#define RUTA_H
 #include <iostream>
 using namespace std;
 
@@ -16,13 +18,4 @@ public:
 	~Ruta(); //destructor	
 };
 
-
-
-
-
-
-
-
-
-
-
+#endif // RUTA_H
