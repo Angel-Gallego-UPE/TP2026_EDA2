@@ -1,9 +1,8 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream> //archivos
-#include "clase.h" 
-#include "Grafo.h" 
-#include "Ruta.h" 
-
+#include "clase.h"
+#include "Grafo.h"
+#include "Ruta.h"
 using namespace std;
 //Declaraciones de funciones-------------------------------------------------------------------------
 void menu();
@@ -64,8 +63,7 @@ do{
 		mi_grafo.agregar_ciudad();
 		mi_grafo.agregar_ciudad();
 		mi_grafo.agregar_ciudad();
-		  
-		
+
 		// mostramos la cantidad actual de ciudades
 		// el resultado esperado es 3
 		cout << "Cantidad de ciudades: "

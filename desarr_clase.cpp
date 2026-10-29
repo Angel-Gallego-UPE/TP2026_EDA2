@@ -1,4 +1,4 @@
-#include "clase.h"
+﻿#include "clase.h"
 #include <iostream>
 #include <fstream> //libreria de manejo de archivos
 #include <string> //libreria necesaria
@@ -11,7 +11,6 @@ Ciudad::Ciudad(int _id, int _x, int _y, string _nombre){
 	y=_y;
 	nombre=_nombre;
 }
-
 //CONSTRUCTOR (Iniciado en 0)
 Ciudad::Ciudad(){
 	id = 0; //atributo bandera
@@ -19,7 +18,6 @@ Ciudad::Ciudad(){
     y = 0;
     nombre = "";
 }
-
 //DESTRUCTOR
 Ciudad::~Ciudad(){
 }
@@ -124,8 +122,3 @@ void Ciudad::escribir(){
 		cout<<"No se puedo abrir el archivo"<<endl;
 	}
 }
-
-
-
-
-

@@ -1,3 +1,5 @@
+#ifndef clase.h
+#define clase.h
 #include <iostream>
 using namespace std;
 
@@ -28,3 +30,4 @@ class Ciudad{
 		void escribir();
 		void leer();
 };
+#endif
