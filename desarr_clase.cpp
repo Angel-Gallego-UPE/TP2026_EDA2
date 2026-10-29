@@ -52,59 +52,77 @@ void Ciudad::setNombre(string _nombre){
 //METODO LEER
 void Ciudad::leer() {
     
-	ifstream archivo("archivo.bin", ios::binary);//archivo + r
-
-    int auxID; //variables aux
-	int auxX;
-	int auxY;
-	string auxNombre;
-	int longitud; 	//saber la cantidad de caracteres
+	ifstream archivo("archivo.bin", ios::binary);//abro archivo.bin + r
+	if(archivo){
+		
+    	int auxID; //variables aux
+		int auxX;
+		int auxY;
+		string auxNombre;//string
+		int longitud; 	//saber la cantidad de caracteres
     
-	//copio lo del archivo a las variables aux (es lo que hace read)
-    archivo.read((char*)&auxID, sizeof(auxID));
-    archivo.read((char*)&auxX, sizeof(auxX));
-    archivo.read((char*)&auxY, sizeof(auxY));
+		//copio lo del archivo a las variables aux (es lo que hace read)
+    	archivo.read((char*)&auxID, sizeof(auxID));
+    	archivo.read((char*)&auxX, sizeof(auxX));
+    	archivo.read((char*)&auxY, sizeof(auxY));
     
-    archivo.read((char*)&longitud, sizeof(longitud));//obtengo el tamaño
-    auxNombre.resize(longitud); //resize() prepara el string para recibir esa cantidad de caracteres
+    	archivo.read((char*)&longitud, sizeof(longitud));//obtengo el tamaño nombre
 
-    if (longitud > 0){//por si no hay nada 
-        archivo.read(&auxNombre[0], longitud);
-		//archivo.read(& obtiene la primera[0] direccion de memoria de la primera letra, tamaño);
+    	if (longitud > 0){//por si no hay nada
+    		//resize() prepara el string para recibir esa cantidad de caracteres
+			auxNombre.resize(longitud);
+        	archivo.read(&auxNombre[0], longitud);
+			//archivo.read(& obtiene la primera[0] direccion de memoria de la primera letra, tamaño);
+    	}
+
+		//Metodo SETTERS
+    	setID(auxID);
+    	setX(auxX);
+    	setY(auxY);
+    	setNombre(auxNombre);
+
+    	archivo.close();//cierro archivo
     }
-
-	//Metodo SETTERS
-    setID(auxID);
-    setX(auxX);
-    setY(auxY);
-    setNombre(auxNombre);
-
-    archivo.close();//cierro archivo
+    else{
+    	cout<<"No se puedo abrir el archivo"<<endl;
+	}
 }
 //METODO ESCRIBIR 
 void Ciudad::escribir(){
-	ofstream archivo("archivo.bin", ios::binary | ios::app);//archivo + outfile(write) + al final
 	
-	int longitud=0;//variable de caracteres
-	//obtengo los nuevos datos del objeto(GET)
-    int auxID = getID(); //y las guardo en auxiliares
-    int auxX = getX();
-    int auxY = getY();
-    string auxNombre = getNombre();
+	ofstream archivo("archivo.bin", ios::binary | ios::app);//abro archivo + outfile(write) + al final
+	
+	if(archivo){//abrio bien
+		
+		int longitud=0;//variable de caracteres
+		//obtengo los nuevos datos del objeto(GET)
+    	int auxID = getID(); //y las guardo en auxiliares
+    	int auxX = getX();
+    	int auxY = getY();
+    	string auxNombre = getNombre();
+   		
+   		    	
+    	//escribe las variables enteras al archivo
+    	archivo.write((char*)&auxID, sizeof(auxID));
+    	archivo.write((char*)&auxX, sizeof(auxX));
+    	archivo.write((char*)&auxY, sizeof(auxY));
+   		
+		//longitud = 6 ejemplo
+    	longitud = auxNombre.size();//devuelve la cantidad de caracteres que contiene el string
     
-	//escribe las variables enteras al archivo
-    archivo.write((char*)&auxID, sizeof(auxID));
-    archivo.write((char*)&auxX, sizeof(auxX));
-    archivo.write((char*)&auxY, sizeof(auxY));
-    
-	//6 ejemplo
-    longitud = auxNombre.size();//devuelve la cantidad de caracteres que contiene el string
-    
-	if(longitud>0){
-    	archivo.write((char*)&longitud, sizeof(longitud)); //guarda espacio para la longitud
-    	archivo.write(&auxNombre[0], longitud); //escribe lo que hay dentro de auxNombre
+		if(longitud>0){
+    		archivo.write((char*)&longitud, sizeof(longitud)); //guarda espacio para la longitud
+    		archivo.write(&auxNombre[0], longitud); //escribe lo que hay dentro de auxNombre
+		}
+		else{
+			cout<<"*Requerimiento incumplido para guarda"<<endl;
+		}
+		
+		archivo.close();//cierro archivo
 	}
-    archivo.close();//cierro archivo
+	else{//no se pudo abrir
+		cout<<"No se puedo abrir el archivo"<<endl;
+	}
 }
 
 

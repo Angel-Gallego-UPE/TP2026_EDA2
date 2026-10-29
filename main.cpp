@@ -28,24 +28,34 @@ int main(){
 	int opc;
 	//objeto con parametros
 	Ciudad mg(1,8,6,"monte Grande");
-	Ciudad ez(2,10,7,"ezeiza");
+	Ciudad ez;
 
 //Ciclo principal
 do{
+	cout<<"OBJETO______________________\n";
+				cout<<"Nombre: "<<ez.getNombre()<<endl;
+				cout<<"ID: "<<ez.getID()<<endl;
+				cout<<"Coordenada X: "<<ez.getX()<<endl;
+				cout<<"Coordenada Y: "<<ez.getY()<<endl;
+				cout<<"_____________________________\n";
 	menu();
+	
 	cin>>opc; //Switch Case
+	
 	switch(opc){
 		case 0:	//salida del programa
 				cout<<"Gracias por elegirnos...";
-		case 1: //agregar un objeto
-				ez.escribir();
+		case 1: //Ciudad guardada en el archivo binario
+				mg.escribir();
+				cout<<"Guardado\n";
 			break;
 		case 2: //leer archivo
+				ez.leer();
 				cout<<"OBJETO______________________\n";
-				cout<<"Nombre: "<<mg.getNombre()<<endl;
-				cout<<"ID: "<<mg.getID()<<endl;
-				cout<<"Coordenada X: "<<mg.getX()<<endl;
-				cout<<"Coordenada Y: "<<mg.getY()<<endl;
+				cout<<"Nombre: "<<ez.getNombre()<<endl;
+				cout<<"ID: "<<ez.getID()<<endl;
+				cout<<"Coordenada X: "<<ez.getX()<<endl;
+				cout<<"Coordenada Y: "<<ez.getY()<<endl;
 				cout<<"_____________________________\n";
 			break;
 	    case 3:

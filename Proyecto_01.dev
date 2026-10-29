@@ -65,7 +65,7 @@ SyncProduct = 1
 
 
 [Unit2]
-FileName = Grafo.cpp
+FileName = clase.h
 CompileCpp = 1
 Folder = 
 Compile = 1
@@ -104,7 +104,20 @@ RealEncoding = ASCII
 
 
 [Unit4]
-FileName = clase.h
+FileName = main.cpp
+CompileCpp = 1
+Folder = 
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+FileEncoding = PROJECT
+RealEncoding = UTF-8
+
+
+[Unit5]
+FileName = Grafo.cpp
 CompileCpp = 1
 Folder = 
 Compile = 1
@@ -116,7 +129,7 @@ FileEncoding = PROJECT
 RealEncoding = ASCII
 
 
-[Unit5]
+[Unit6]
 FileName = Grafo.h
 CompileCpp = 0
 Folder = 
@@ -129,7 +142,7 @@ FileEncoding = PROJECT
 RealEncoding = ASCII
 
 
-[Unit6]
+[Unit7]
 FileName = Ruta.h
 CompileCpp = 0
 Folder = 
@@ -140,19 +153,6 @@ OverrideBuildCmd = 0
 BuildCmd = 
 FileEncoding = PROJECT
 RealEncoding = ASCII
-
-
-[Unit7]
-FileName = main.cpp
-CompileCpp = 1
-Folder = 
-Compile = 1
-Link = 1
-Priority = 1000
-OverrideBuildCmd = 0
-BuildCmd = 
-FileEncoding = PROJECT
-RealEncoding = UTF-8
 
 
 [Unit8]
