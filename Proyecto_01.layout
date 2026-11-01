@@ -1,16 +1,72 @@
 [
     {
-        "caretX": 21,
+        "caretX": 17,
         "caretY": 12,
-        "filename": "C:/Users/Usuario/OneDrive/Escritorio/Proyecto-EDA2/main.cpp",
+        "filename": "C:/Users/estudiante/Downloads/projectos de codeblocks/TP2026_EDA2_GIT_CLONE/TP2026_EDA2/desarr_clase.cpp",
         "focused": false,
-        "isOpen": false,
+        "isOpen": true,
         "left": 0,
+        "order": 6,
+        "top": 357
+    },
+    {
+        "caretX": 4,
+        "caretY": 20,
+        "filename": "C:/Users/estudiante/Downloads/projectos de codeblocks/TP2026_EDA2_GIT_CLONE/TP2026_EDA2/Ruta.h",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 4,
+        "top": 102
+    },
+    {
+        "caretX": 1,
+        "caretY": 42,
+        "filename": "C:/Users/estudiante/Downloads/projectos de codeblocks/TP2026_EDA2_GIT_CLONE/TP2026_EDA2/Ruta.cpp",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 3,
+        "top": 238
+    },
+    {
+        "caretX": 18,
+        "caretY": 30,
+        "filename": "C:/Users/estudiante/Downloads/projectos de codeblocks/TP2026_EDA2_GIT_CLONE/TP2026_EDA2/Grafo.h",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 2,
         "top": 0
+    },
+    {
+        "caretX": 1,
+        "caretY": 78,
+        "filename": "C:/Users/estudiante/Downloads/projectos de codeblocks/TP2026_EDA2_GIT_CLONE/TP2026_EDA2/Grafo.cpp",
+        "focused": true,
+        "isOpen": true,
+        "left": 0,
+        "order": 1,
+        "top": 255
+    },
+    {
+        "caretX": 1,
+        "caretY": 6,
+        "filename": "C:/Users/estudiante/Downloads/projectos de codeblocks/TP2026_EDA2_GIT_CLONE/TP2026_EDA2/main.cpp",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 0,
+        "top": 0
+    },
+    {
+        "caretX": 23,
+        "caretY": 23,
+        "filename": "C:/Users/estudiante/Downloads/projectos de codeblocks/TP2026_EDA2_GIT_CLONE/TP2026_EDA2/clase.h",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 5,
+        "top": 153
     }
 ]
-[Editor_2]
-CursorCol=2
-CursorRow=69
-TopLine=43
-LeftChar=1
