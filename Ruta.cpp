@@ -18,6 +18,17 @@ Ruta::Ruta(){
 	estado_de_ruta = 1;
 	ruta_existe = 1;
 }
+//METODOS GETTERS
+double Ruta::getdistancia(){
+	
+	return distancia;
+}
+
+bool Ruta::getruta_existe(){
+	
+	return ruta_existe;
+}
+
 //DESTRUCTOR
 Ruta::~Ruta(){
 }

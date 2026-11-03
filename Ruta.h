@@ -16,6 +16,10 @@ public:
 	Ruta(int, int, double, int, bool); //constructor
 	Ruta(); //contructor inicializado en 0
 	~Ruta(); //destructor	
+	
+	//metodos getters
+	double getdistancia();
+    bool getruta_existe();	
 };
 
 #endif // RUTA_H
