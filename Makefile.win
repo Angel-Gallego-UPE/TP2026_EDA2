@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = desarr_clase.o Grafo.o main.o Ruta.o
-LINKOBJ  = desarr_clase.o Grafo.o main.o Ruta.o
+OBJ      = desarr_clase.o Ruta.o main.o Grafo.o
+LINKOBJ  = desarr_clase.o Ruta.o main.o Grafo.o
 LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
 CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
@@ -27,11 +27,11 @@ $(BIN): $(OBJ)
 desarr_clase.o: desarr_clase.cpp
 	$(CPP) -c desarr_clase.cpp -o desarr_clase.o $(CXXFLAGS)
 
-Grafo.o: Grafo.cpp
-	$(CPP) -c Grafo.cpp -o Grafo.o $(CXXFLAGS)
+Ruta.o: Ruta.cpp
+	$(CPP) -c Ruta.cpp -o Ruta.o $(CXXFLAGS)
 
 main.o: main.cpp
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
 
-Ruta.o: Ruta.cpp
-	$(CPP) -c Ruta.cpp -o Ruta.o $(CXXFLAGS)
+Grafo.o: Grafo.cpp
+	$(CPP) -c Grafo.cpp -o Grafo.o $(CXXFLAGS)

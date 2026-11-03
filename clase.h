@@ -1,6 +1,7 @@
 #ifndef clase.h
 #define clase.h
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Ciudad{
@@ -28,6 +29,7 @@ class Ciudad{
 		void setNombre(string _nombre);
 		//metodos
 		void escribir();
-		void leer();
+		static vector<Ciudad> leerArchivo();
+		Ciudad intanciarObjeto();
 };
 #endif

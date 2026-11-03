@@ -1,7 +1,8 @@
-﻿#include "clase.h"
+#include "clase.h"
 #include <iostream>
 #include <fstream> //libreria de manejo de archivos
 #include <string> //libreria necesaria
+#include <vector>
 
 using namespace std;
 //CONSTRUCTOR (+ parametros)
@@ -11,6 +12,7 @@ Ciudad::Ciudad(int _id, int _x, int _y, string _nombre){
 	y=_y;
 	nombre=_nombre;
 }
+
 //CONSTRUCTOR (Iniciado en 0)
 Ciudad::Ciudad(){
 	id = 0; //atributo bandera
@@ -18,6 +20,7 @@ Ciudad::Ciudad(){
     y = 0;
     nombre = "";
 }
+
 //DESTRUCTOR
 Ciudad::~Ciudad(){
 }
@@ -48,47 +51,50 @@ void Ciudad::setNombre(string _nombre){
 	nombre= _nombre;
 }
 //METODO LEER
-void Ciudad::leer() {
+vector<Ciudad> Ciudad::leerArchivo(){
+	
+	//vector de objetos auxiliar
+    vector<Ciudad> vector_auxiliar;
     
-	ifstream archivo("archivo.bin", ios::binary);//abro archivo.bin + r
+	ifstream archivo("ciudades.bin", ios::binary);//abro archivo.bin + r
 	if(archivo){
 		
-    	int auxID; //variables aux
+		//variables aux
+    	int auxID; 		
 		int auxX;
 		int auxY;
-		string auxNombre;//string
-		int longitud; 	//saber la cantidad de caracteres
+		string auxNombre;	//string
+		int longitud; 		//saber la cantidad de caracteres
     
 		//copio lo del archivo a las variables aux (es lo que hace read)
-    	archivo.read((char*)&auxID, sizeof(auxID));
-    	archivo.read((char*)&auxX, sizeof(auxX));
-    	archivo.read((char*)&auxY, sizeof(auxY));
-    
-    	archivo.read((char*)&longitud, sizeof(longitud));//obtengo el tamaño nombre
-
-    	if (longitud > 0){//por si no hay nada
-    		//resize() prepara el string para recibir esa cantidad de caracteres
-			auxNombre.resize(longitud);
-        	archivo.read(&auxNombre[0], longitud);
-			//archivo.read(& obtiene la primera[0] direccion de memoria de la primera letra, tamaño);
-    	}
-
-		//Metodo SETTERS
-    	setID(auxID);
-    	setX(auxX);
-    	setY(auxY);
-    	setNombre(auxNombre);
-
+		//El bucle evalúa la lectura del ID. Si ya no hay datos(EOF) frena solo.
+        while(archivo.read((char*)&auxID, sizeof(auxID))){
+            archivo.read((char*)&auxX, sizeof(auxX));
+            archivo.read((char*)&auxY, sizeof(auxY));
+            archivo.read((char*)&longitud, sizeof(longitud));
+            
+            if(longitud > 0){
+                auxNombre.resize(longitud);//prepara para recibir ese tam
+                archivo.read(&auxNombre[0], longitud); //lee el string
+            }
+            
+            // Creamos el objeto auxiliar y lo instaciamos con sus parametros
+            Ciudad ciudad_aux(auxID, auxX, auxY, auxNombre);
+            //lo guardamos en el vector auxiliar de objetos
+            vector_auxiliar.push_back(ciudad_aux);
+        }
     	archivo.close();//cierro archivo
+    	return vector_auxiliar;
     }
     else{
     	cout<<"No se puedo abrir el archivo"<<endl;
+    	return vector_auxiliar;
 	}
 }
 //METODO ESCRIBIR 
 void Ciudad::escribir(){
 	
-	ofstream archivo("archivo.bin", ios::binary | ios::app);//abro archivo + outfile(write) + al final
+	ofstream archivo("ciudades.bin", ios::binary | ios::app);//abro archivo + outfile(write) + al final
 	
 	if(archivo){//abrio bien
 		
@@ -122,3 +128,43 @@ void Ciudad::escribir(){
 		cout<<"No se puedo abrir el archivo"<<endl;
 	}
 }
+
+Ciudad Ciudad::intanciarObjeto(){
+	
+	//objeto que devuelve
+	Ciudad obj;
+	
+	//variables aux
+	string nombre_aux;
+	int id_aux, x_aux, y_aux;
+
+	//validaciones para llenar su informacion
+	do{
+		cout<<"Ingrese NOMBRE: ";
+		getline(cin, nombre_aux);
+	}while(nombre_aux="");
+	do{
+		cout<<"Ingrese ID: ";
+		cin>>id_aux;
+	}while(id_aux<0);
+	do{
+		cout<<"Ingrese coordenada X: ";
+		cin>>x_aux;
+	}while(x_aux<0);
+	do{	
+		cout<<"Ingrese coordenada Y: ";
+		cin>>y_aux;
+	}while(y_aux<0);
+	
+	//setters
+	obj.setNombre(nombre_aux);
+	obj.setID(id_aux);
+	obj.setX(x_aux);
+	obj.setY(y_aux);
+	
+	//devuelvo el obj cargado...
+	return obj;
+}
+
+
+
