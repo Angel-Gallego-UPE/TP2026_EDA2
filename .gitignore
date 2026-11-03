@@ -5,6 +5,7 @@
 #Ejecutables
 *.exe
 *.out
+*.layout
 
 #Archivos generados por compilación
 *.a
@@ -12,3 +13,4 @@
 *.dll
 *.debug
 *.bookmarks
+*.win

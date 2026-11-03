@@ -142,7 +142,7 @@ Ciudad Ciudad::intanciarObjeto(){
 	do{
 		cout<<"Ingrese NOMBRE: ";
 		getline(cin, nombre_aux);
-	}while(nombre_aux="");
+	}while(nombre_aux == "");
 	do{
 		cout<<"Ingrese ID: ";
 		cin>>id_aux;
