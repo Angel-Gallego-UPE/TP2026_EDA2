@@ -58,6 +58,38 @@ void Grafo::mostrar_matriz() {
 	}
 }
 
+// SETTER: guarda o actualiza un objeto Ruta en coordenadas especificas [origen][destino]
+void Grafo::set_ruta(int ciudad_origen, int ciudad_destino, Ruta nueva_ruta) {
+	
+	// primero validamos que los indices de las ciudades esten dentro de los límites reales de la matriz
+	// las posiciones van desde 0 hasta (cantidad_de_ciudades - 1)
+	if (ciudad_origen >= 0 && ciudad_origen < cantidad_de_ciudades && ciudad_destino >= 0 && ciudad_destino < cantidad_de_ciudades){
+		
+		// si los indices son validos, guardamos el objeto Ruta en esa celda de la matriz
+		matriz[ciudad_origen][ciudad_destino] = nueva_ruta;
+		
+	} else {
+		// si intentan acceder a una ciudad que no existe, mostramos un aviso por consola
+		cout << "Error: intentaste asignar una ruta en ciudades fuera de rango.\n";
+	}
+}
+
+// GETTER: devuelve el objeto Ruta que se encuentra en la celda [origen][destino]
+Ruta Grafo::getRuta(int ciudad_origen, int ciudad_destino) {
+	
+	// validamos nuevamente que los índices sean correctos para evitar un desbordamiento o error de memoria
+	if (ciudad_origen >= 0 && ciudad_origen < cantidad_de_ciudades && ciudad_destino >= 0 && ciudad_destino < cantidad_de_ciudades){
+		
+		// Retornamos el objeto Ruta almacenado en esa posición de la matriz
+		return matriz[ciudad_origen][ciudad_destino];
+		
+	} else {
+		// si los índices no son válidos, devolvemos una Ruta por defecto (vacia o inicializada en 0)
+		cout << "Error: indices fuera de rango al intentar leer la ruta.\n";
+		return Ruta(); 
+	}
+}
+
 //destructor 
 Grafo::~Grafo(){
 	

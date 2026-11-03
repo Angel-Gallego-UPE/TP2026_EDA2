@@ -1,37 +1,42 @@
 # Project: Proyecto 1
-# Makefile created by Embarcadero Dev-C++ 6.3
+# Makefile created by Red Panda C++ 3.4.3279
 
-CPP      = g++.exe
-CC       = gcc.exe
-WINDRES  = windres.exe
-OBJ      = desarr_clase.o Ruta.o main.o Grafo.o
-LINKOBJ  = desarr_clase.o Ruta.o main.o Grafo.o
-LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
-INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
-CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
-BIN      = Proyecto_01.exe
+CXX      = "g++.exe"
+CC       = "gcc.exe"
+WINDRES  = "windres.exe"
+RM       = del /q /f
+CD       = cd /d
+LIBS     = "-static"
+INCS     = 
+CXXINCS  = 
 CXXFLAGS = $(CXXINCS) 
 CFLAGS   = $(INCS) 
-DEL      = C:\Program Files (x86)\Embarcadero\Dev-Cpp\devcpp.exe INTERNAL_DEL
+NASM_FLAGS   =  "-f" "elf64"
+WINDRESFLAGS = 
+OBJ      = main.o desarr_clase.o Ruta.o Grafo.o
+BIN      = Proyecto_01.exe
+LINKOBJ  = "main.o" "desarr_clase.o" "Ruta.o" "Grafo.o"
+CLEANOBJ = "main.o" "desarr_clase.o" "Ruta.o" "Grafo.o" "Proyecto_01.exe"
 
 .PHONY: all all-before all-after clean clean-custom
 
 all: all-before $(BIN) all-after
 
 clean: clean-custom
-	${DEL} $(OBJ) $(BIN)
+	-$(RM) $(CLEANOBJ) >NUL 2>&1
 
-$(BIN): $(OBJ)
-	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+Proyecto_01.exe: $(OBJ)
 
-desarr_clase.o: desarr_clase.cpp
-	$(CPP) -c desarr_clase.cpp -o desarr_clase.o $(CXXFLAGS)
+	$(CXX) $(LINKOBJ) -o "Proyecto_01.exe" $(LIBS)
 
-Ruta.o: Ruta.cpp
-	$(CPP) -c Ruta.cpp -o Ruta.o $(CXXFLAGS)
+main.o: main.cpp Ruta.h clase.h Grafo.h
+	$(CXX) -c "main.cpp" -o "main.o" $(CXXFLAGS)  -finput-charset=UTF-8 -fexec-charset=windows-1252
 
-main.o: main.cpp
-	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+desarr_clase.o: desarr_clase.cpp clase.h
+	$(CXX) -c "desarr_clase.cpp" -o "desarr_clase.o" $(CXXFLAGS)  -finput-charset=UTF-8 -fexec-charset=windows-1252
 
-Grafo.o: Grafo.cpp
-	$(CPP) -c Grafo.cpp -o Grafo.o $(CXXFLAGS)
+Ruta.o: Ruta.cpp Ruta.h
+	$(CXX) -c "Ruta.cpp" -o "Ruta.o" $(CXXFLAGS) 
+
+Grafo.o: Grafo.cpp Ruta.h Grafo.h
+	$(CXX) -c "Grafo.cpp" -o "Grafo.o" $(CXXFLAGS)  -finput-charset=UTF-8 -fexec-charset=windows-1252
