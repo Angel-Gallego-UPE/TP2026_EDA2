@@ -12,8 +12,8 @@ void menu();
 void menu(){
 	cout<<"------------------------\n";
 	cout<<"0- Salir\n";
-	cout<<"1- agregar objeto a archivo\n";
-	cout<<"2- cargar archivo archivo\n";
+	cout<<"1- agregar cuidad\n";
+	cout<<"2- ver contenido de vector(RAM)\n";
 	cout<<"3- Probamos la matriz\n";
 	cout<<"opc: ";
 
@@ -44,7 +44,7 @@ do{
 			
 			Ciudad obj;
 			
-			obj.intanciarObjeto();
+			obj = obj.intanciarObjeto();
 			
 			// Esto copia el objeto y lo coloca al final del vector dinámico de obj´s
     		vector_ciudades.push_back(obj);
@@ -59,9 +59,24 @@ do{
 			else{
 				vector_ciudades[cantidad].escribir();
 			}
-			
 			break;
 			}
+		case 2:
+			//mientras que el vector no este vacio
+			if(!vector_ciudades.empty()){
+				//i < cantidad de objetos en el vector
+				for(int i=0; i < vector_ciudades.size();i++){
+					cout<<"---indice ["<<i<<"]"<<endl;
+					cout<<"Nombre: "<<vector_ciudades[i].getNombre()<<endl;
+					cout<<"ID: "<<vector_ciudades[i].getID()<<endl;
+					cout<<"X: "<<vector_ciudades[i].getX()<<endl;
+					cout<<"Y: "<<vector_ciudades[i].getY()<<endl;
+				}
+			}
+			else{//vector vacio
+				cout<<"El archivo esta vacio...\n";
+			}
+			break;
 	    case 3:
 	    	// agregamos una ciudad a la matriz
 			// cada llamada aumenta la cantidad de filas y columnas en 1
