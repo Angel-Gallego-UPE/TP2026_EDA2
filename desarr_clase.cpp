@@ -166,6 +166,3 @@ Ciudad Ciudad::intanciarObjeto(){
 	//devuelvo el obj cargado...
 	return obj;
 }
-
-
-

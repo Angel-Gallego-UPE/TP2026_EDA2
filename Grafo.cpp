@@ -48,13 +48,63 @@ int Grafo::obtener_cantidad_de_ciudades() {
 	return cantidad_de_ciudades;
 }
 
+void Grafo::cargar_ruta(){
+			    
+    int ciudad_origen;
+	int ciudad_destino;
+	double distancia;
+	
+	cout << "Ingrese el indice de la ciudad origen: ";
+	cin >> ciudad_origen;
+	cout << "Ingrese el indice de la ciudad destino: ";
+	cin >> ciudad_destino;
+	cout << "Ingrese la distancia de la ruta: ";
+	cin >> distancia;
+	if(ciudad_origen == ciudad_destino){
+	
+		cout << "Operacion invalida el indice de ambas ciudades es el mismo\n";
+	return;
+		
+	
+	}else{
+			if(distancia <= 0){
+				cout << "Operacion invalida ingrese una distancia positiva mayor a 0\n ";
+ 	           
+				return;
+			}else{
+				
+	// Crea el objeto Ruta con los datos ingresados
+	// (origen, destino, distancia, estado_de_ruta=1, ruta_existe=true)
+    // Ruta de ida (origen -> destino)
+	Ruta ruta_ida(ciudad_origen, ciudad_destino, distancia, 1, true);
+	set_ruta(ciudad_origen, ciudad_destino, ruta_ida); // Guarda la ruta en la matriz del grafo usando el metodo set_ruta
+	
+    // Ruta de vuelta (destino -> origen)
+	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, distancia, 1, true);
+	set_ruta(ciudad_destino, ciudad_origen, ruta_vuelta);
+	cout << "Ruta cargada exitosamente\n";
+			    }
+			}
+}
+
+
 //funcion para probar que la matriz funciona correctamente
 void Grafo::mostrar_matriz() {
-	for (int i = 0; i < cantidad_de_ciudades; i++) {
-		for (int j = 0; j < cantidad_de_ciudades; j++) {
-			cout << "[ ] ";
+	cout << "\n--- MATRIZ DE RUTAS (Distancias) ---\n";
+	
+	if (cantidad_de_ciudades == 0) {
+		cout << "El grafo esta vacio.\n";
+	} else {
+		for (int i = 0; i < cantidad_de_ciudades; i++) {
+			for (int j = 0; j < cantidad_de_ciudades; j++) {
+				// llamamos al getter del grafo para obtener la ruta en la celda [i][j]
+				Ruta r = getRuta(i, j);
+				
+				// Imprimimos la distancia guardada en esa ruta
+				cout << "[" << r.getdistancia() << "] ";
+			}
+			cout << endl;
 		}
-		cout << endl;
 	}
 }
 
