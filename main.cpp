@@ -14,7 +14,8 @@ void menu(){
 	cout<<"0- Salir\n";
 	cout<<"1- agregar cuidad\n";
 	cout<<"2- ver contenido de vector(RAM)\n";
-	cout<<"3- Probamos la matriz\n";
+	cout<<"3- ver la matriz\n";
+	cout<<"4- cargar rutas en la matriz\n";
 	cout<<"opc: ";
 
 }
@@ -27,7 +28,12 @@ int main(){
 	//vector de objetos que guarda todo lo que hay en el archivo.bin
 	vector<Ciudad> vector_ciudades = Ciudad::leerArchivo();
 	
-	//variables
+	// sincronizamos el grafo con las ciudades que ya estaban cargadas en nuestro archivo antes de comenzar el programa
+	for (size_t i = 0; i < vector_ciudades.size(); i++) {
+		mi_grafo.agregar_ciudad();
+	}
+
+    //variables
 	int opc;
 //Ciclo principal
 do{
@@ -59,6 +65,9 @@ do{
 			else{
 				vector_ciudades[cantidad].escribir();
 			}
+			
+			mi_grafo.agregar_ciudad();
+			
 			break;
 			}
 		case 2:
@@ -78,27 +87,23 @@ do{
 			}
 			break;
 	    case 3:
-	    	// agregamos una ciudad a la matriz
-			// cada llamada aumenta la cantidad de filas y columnas en 1
-			mi_grafo.agregar_ciudad();
-			mi_grafo.agregar_ciudad();
-			mi_grafo.agregar_ciudad();
-		  
-		
+
 			// mostramos la cantidad actual de ciudades
-			// el resultado esperado es 3
-			cout << "Cantidad de ciudades: "
-			<< mi_grafo.obtener_cantidad_de_ciudades() << endl;
+			cout << "Cantidad de ciudades: "<< mi_grafo.obtener_cantidad_de_ciudades() << endl;
 		
 			// mostramos la matriz por pantalla
-			// debería verse una matriz de 3 filas y 3 columnas
 			mi_grafo.mostrar_matriz();
 		
 		    break;
+		
+		case 4: {
+					mi_grafo.cargar_ruta();
+					break;
+				}
 	    default:
 				cout<<"OPCION INCORRECTA";  //opcion DEFAULT
 			break;		
-	}
+        }
 }while(opc!=0);
 
 	return 0;
