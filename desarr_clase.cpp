@@ -111,21 +111,21 @@ void Ciudad::escribir(){
     	int auxID = getID(); //y las guardo en auxiliares
     	int auxX = getX();
     	int auxY = getY();
-    	string auxNombre = getNombre();
-        int longitud=auxNombre.size();
-   		
-   		    	
-    	//escribe las variables enteras al archivo
-    	archivo.write((char*)&auxID, sizeof(auxID));
-    	archivo.write((char*)&auxX, sizeof(auxX));
-    	archivo.write((char*)&auxY, sizeof(auxY));
-        archivo.write((char*)&longitud, sizeof(longitud));
+		string auxNombre = getNombre();
+		longitud = auxNombre.size();
+        
+        if(longitud > 0){
+            //escribimos en orden
+            archivo.write((char*)&auxID, sizeof(auxID));
+            archivo.write((char*)&auxX, sizeof(auxX));
+            archivo.write((char*)&auxY, sizeof(auxY));
+            
+            //despues guardamos el espacio a escribir
+            archivo.write((char*)&longitud, sizeof(longitud)); 
+            //despues escribimos el nombre
+            archivo.write(&auxNombre[0], longitud); 
+        }
 
-    
-		if(longitud>0)
-        {
-    	archivo.write(auxNombre.c_str(), longitud);
-		}
 		else{
 			cout<<"*Requerimiento incumplido para guardar"<<endl;
 		}
@@ -146,13 +146,12 @@ Ciudad Ciudad::intanciarObjeto(){
 	string nombre_aux;
 	int id_aux, x_aux, y_aux;
 
-    cin.ignore();
-
+	cin.ignore();
 	//validaciones para llenar su informacion
 	do{
 		cout<<"Ingrese NOMBRE: ";
 		getline(cin, nombre_aux);
-	}while(nombre_aux=="");
+	}while(nombre_aux == "");
 	do{
 		cout<<"Ingrese ID: ";
 		cin>>id_aux;
@@ -175,6 +174,3 @@ Ciudad Ciudad::intanciarObjeto(){
 	//devuelvo el obj cargado...
 	return obj;
 }
-
-
-
