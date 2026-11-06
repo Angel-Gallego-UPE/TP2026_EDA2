@@ -18,8 +18,9 @@ public:
 	~Grafo();//destructor
 	
 	void agregar_ciudad(); //funcion para agregar ciudades
+	void eliminar_ciudad(int indice);
 	int obtener_cantidad_de_ciudades(); //funcion para comprobar la cantidad de ciudades cargadas
-	void mostrar_matriz();// funcion para mostrar que la matriz funciona correctamente
+	void mostrar_matriz();//funcion para mostrar que la matriz funciona correctamente
 	void cargar_ruta();
 	
     //SETTERS

@@ -72,10 +72,10 @@ do{
 			break;
 	    case 3:
 
-			// mostramos la cantidad actual de ciudades
+			//mostramos la cantidad actual de ciudades
 			cout << "Cantidad de ciudades: "<< mi_grafo.obtener_cantidad_de_ciudades() << endl;
 		
-			// mostramos la matriz por pantalla
+			//mostramos la matriz por pantalla
 			mi_grafo.mostrar_matriz();
 		
 		    break;
@@ -107,12 +107,9 @@ do{
 			
 			Ciudad::reescribrir(vector_ciudades);
 			
-			/*cout<<"TAMAÑO: "<<vector_ciudades.size()<<endl;
-			// sincronizamos el grafo con las ciudades, despues de elimnar una ciudad
-			for (int i = 0; i < vector_ciudades.size(); i++) {
-				mi_grafo.agregar_ciudad();
-			}
-			*/
+		// sincronizamos el grafo con las ciudades, despues de elimnar una ciudad
+			mi_grafo.eliminar_ciudad(indice);
+			
 			break;
 		}
 		case 6:{//modificar elemento

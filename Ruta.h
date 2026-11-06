@@ -9,11 +9,11 @@ private:
 	int ciudad_destino;
 	
 	double distancia;
-	int estado_de_ruta;
+	bool estado_de_ruta;
 	bool ruta_existe;
 	
 public:
-	Ruta(int, int, double, int, bool); //constructor
+	Ruta(int, int, double, bool, bool); //constructor
 	Ruta(); //contructor inicializado en 0
 	~Ruta(); //destructor	
 	

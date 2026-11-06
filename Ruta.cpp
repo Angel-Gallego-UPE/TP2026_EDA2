@@ -3,7 +3,7 @@
 using namespace std;
 
 //CONSTRUCTOR (+ parametros)
-Ruta::Ruta(int _ciudad_origen, int _ciudad_destino, double _distancia, int _estado_de_ruta,bool _ruta_existe){
+Ruta::Ruta(int _ciudad_origen, int _ciudad_destino, double _distancia, bool _estado_de_ruta,bool _ruta_existe){
 	ciudad_origen = _ciudad_origen;
 	ciudad_destino = _ciudad_destino;
 	distancia = _distancia;
@@ -15,8 +15,8 @@ Ruta::Ruta(){
 	ciudad_origen = 0; //atributo bandera
 	ciudad_destino = 0;
 	distancia = 0;
-	estado_de_ruta = 1;
-	ruta_existe = 1;
+	estado_de_ruta = true;
+	ruta_existe = true;
 }
 //METODOS GETTERS
 double Ruta::getdistancia(){
