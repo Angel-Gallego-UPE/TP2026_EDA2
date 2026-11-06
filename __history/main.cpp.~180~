@@ -1,0 +1,94 @@
+﻿#include <iostream>
+#include <fstream> //archivos
+#include <vector>
+#include "clase.h" 
+#include "Grafo.h" 
+#include "Ruta.h" 
+
+using namespace std;
+//Declaraciones de funciones-------------------------------------------------------------------------
+void menu();
+//Func. Secundarias----------------------------------------------------------------------------------
+void menu(){
+	cout<<"------------------------\n";
+	cout<<"0- Salir\n";
+	cout<<"1- agregar objeto a archivo\n";
+	cout<<"2- cargar archivo\n";
+	cout<<"3- Probamos la matriz\n";
+	cout<<"opc: ";
+
+}
+//Func. Principal------------------------------------------------------------------------------------
+int main()
+{
+	//su matriz comienza vacía y la cantidad de ciudades es 0
+	Grafo mi_grafo;
+	
+	//cargo primero lo que hay en el archivo(.bin) en el vector_ciudades(RAM)
+	//vector de objetos que guarda todo lo que hay en el archivo.bin
+	vector<Ciudad> vector_ciudades = Ciudad::leerArchivo();
+	
+	//variables
+	int opc;
+//Ciclo principal
+do{
+	menu();
+	
+	cin>>opc; //Switch Case	
+	switch(opc){
+		case 0:	//salida del programa
+			cout<<"Gracias por elegirnos...";
+			break;
+		case 1: {
+                // Instanciamos y capturamos correctamente la nueva ciudad
+                Ciudad obj;
+                obj = obj.intanciarObjeto();
+
+                // Guardamos en el archivo binario ciudades.bin directamente
+                obj.escribir();
+
+                // Agregamos al vector en RAM
+                vector_ciudades.push_back(obj);
+
+                cout << "-> Ciudad '" << obj.getNombre() << "' guardada con exito.\n";
+                break;
+            }
+        case 2:
+        {
+            if(!vector_ciudades.empty())
+            {
+        		for(int i=0;vector_ciudades.getID()!=0;i++)
+            	{
+                    cout << "Ciudad NUM " << i << endl;
+                    cout << "ID: " << vector_ciudades[i].getID() << endl;
+                    cout << "Nombre: " << vector_ciudades[i].getNombre() << endl;
+                    cout << "Coordenada X: " << vector_ciudades[i].getX() << endl;
+                    cout << "Coordenada Y: " << vector_ciudades[i].getY() << endl;
+            	}
+            }
+
+        }
+
+	    case 3:
+
+            mi_grafo=Grafo();
+
+            for (size_t i =0; i<vector_ciudades.size(); i++)
+            {
+                mi_grafo.agregar_ciudad();
+            }
+            cout << "Cantidad de ciudades en la matriz: " << mi_grafo.obtener_cantidad_de_ciudades() << endl;
+
+            mi_grafo.mostrar_matriz();
+
+		    break;
+	    default:
+				cout<<"OPCION INCORRECTA";  //opcion DEFAULT
+			break;		
+	}
+}while(opc!=0);
+
+	return 0;
+
+    system("pause");
+}

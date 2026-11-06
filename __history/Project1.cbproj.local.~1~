@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2026/10/03 16:46:47.000.051,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/10/03 16:46:47.000.054,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2026/10/03 16:47:14.000.556,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\File1.cpp=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\File1.cpp</Transaction>
+    <Transaction>2026/10/03 16:49:08.000.230,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\File1.cpp=</Transaction>
+    <Transaction>2026/10/03 16:49:42.000.786,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1.cbproj=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1.cbproj</Transaction>
+    <Transaction>2026/10/03 16:49:42.000.781,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1PCH1.h</Transaction>
+    <Transaction>2026/10/03 16:49:46.000.889,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1.cbproj=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1.cbproj</Transaction>
+    <Transaction>2026/10/08 15:32:56.609,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\clase.h</Transaction>
+    <Transaction>2026/10/08 15:32:56.609,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\desarr_clase.cpp</Transaction>
+    <Transaction>2026/10/08 15:32:56.610,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\main.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

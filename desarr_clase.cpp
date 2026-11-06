@@ -1,4 +1,4 @@
-#include "clase.h"
+﻿#include "clase.h"
 #include <iostream>
 #include <fstream> //libreria de manejo de archivos
 #include <string> //libreria necesaria
@@ -63,25 +63,33 @@ vector<Ciudad> Ciudad::leerArchivo(){
     	int auxID; 		
 		int auxX;
 		int auxY;
-		string auxNombre;	//string
+		string auxNombre="";	//string
 		int longitud; 		//saber la cantidad de caracteres
     
 		//copio lo del archivo a las variables aux (es lo que hace read)
 		//El bucle evalúa la lectura del ID. Si ya no hay datos(EOF) frena solo.
-        while(archivo.read((char*)&auxID, sizeof(auxID))){
+        while(archivo.read((char*)&auxID, sizeof(auxID)))
+        {
             archivo.read((char*)&auxX, sizeof(auxX));
             archivo.read((char*)&auxY, sizeof(auxY));
             archivo.read((char*)&longitud, sizeof(longitud));
             
-            if(longitud > 0){
-                auxNombre.resize(longitud);//prepara para recibir ese tam
-                archivo.read(&auxNombre[0], longitud); //lee el string
+            if(longitud > 0 && longitud < 500)
+            {
+    		char* buffer = new char[longitud + 1];
+                archivo.read(buffer, longitud);
+                buffer[longitud] = '\0'; // Aseguramos el fin de texto
+
+                string auxNombre = buffer;
+                delete[] buffer;
+
+                vector_auxiliar.push_back(Ciudad(auxID, auxX, auxY, auxNombre));
             }
             
             // Creamos el objeto auxiliar y lo instaciamos con sus parametros
-            Ciudad ciudad_aux(auxID, auxX, auxY, auxNombre);
+
             //lo guardamos en el vector auxiliar de objetos
-            vector_auxiliar.push_back(ciudad_aux);
+
         }
     	archivo.close();//cierro archivo
     	return vector_auxiliar;
@@ -94,32 +102,32 @@ vector<Ciudad> Ciudad::leerArchivo(){
 //METODO ESCRIBIR 
 void Ciudad::escribir(){
 	
-	ofstream archivo("ciudades.bin", ios::binary | ios::app);//abro archivo + outfile(write) + al final
+	ofstream archivo("ciudades.bin", ios::binary | ios::app | ios::out) ;//abro archivo + outfile(write) + al final
 	
 	if(archivo){//abrio bien
 		
-		int longitud=0;//variable de caracteres
+		//variable de caracteres
 		//obtengo los nuevos datos del objeto(GET)
     	int auxID = getID(); //y las guardo en auxiliares
     	int auxX = getX();
     	int auxY = getY();
     	string auxNombre = getNombre();
+        int longitud=auxNombre.size();
    		
    		    	
     	//escribe las variables enteras al archivo
     	archivo.write((char*)&auxID, sizeof(auxID));
     	archivo.write((char*)&auxX, sizeof(auxX));
     	archivo.write((char*)&auxY, sizeof(auxY));
-   		
-		//longitud = 6 ejemplo
-    	longitud = auxNombre.size();//devuelve la cantidad de caracteres que contiene el string
+        archivo.write((char*)&longitud, sizeof(longitud));
+
     
-		if(longitud>0){
-    		archivo.write((char*)&longitud, sizeof(longitud)); //guarda espacio para la longitud
-    		archivo.write(&auxNombre[0], longitud); //escribe lo que hay dentro de auxNombre
+		if(longitud>0)
+        {
+    	archivo.write(auxNombre.c_str(), longitud);
 		}
 		else{
-			cout<<"*Requerimiento incumplido para guarda"<<endl;
+			cout<<"*Requerimiento incumplido para guardar"<<endl;
 		}
 		
 		archivo.close();//cierro archivo
@@ -138,11 +146,13 @@ Ciudad Ciudad::intanciarObjeto(){
 	string nombre_aux;
 	int id_aux, x_aux, y_aux;
 
+    cin.ignore();
+
 	//validaciones para llenar su informacion
 	do{
 		cout<<"Ingrese NOMBRE: ";
 		getline(cin, nombre_aux);
-	}while(nombre_aux="");
+	}while(nombre_aux=="");
 	do{
 		cout<<"Ingrese ID: ";
 		cin>>id_aux;

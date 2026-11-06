@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream> //archivos
 #include <vector>
 #include "clase.h" 
@@ -13,13 +13,14 @@ void menu(){
 	cout<<"------------------------\n";
 	cout<<"0- Salir\n";
 	cout<<"1- agregar objeto a archivo\n";
-	cout<<"2- cargar archivo archivo\n";
+	cout<<"2- cargar archivo\n";
 	cout<<"3- Probamos la matriz\n";
 	cout<<"opc: ";
 
 }
 //Func. Principal------------------------------------------------------------------------------------
-int main(){
+int main()
+{
 	//su matriz comienza vacía y la cantidad de ciudades es 0
 	Grafo mi_grafo;
 	
@@ -39,46 +40,48 @@ do{
 			cout<<"Gracias por elegirnos...";
 			break;
 		case 1: {
-			//variable que guarda la cantidad de objetos que hay en el vector
-			int cantidad;
-			
-			Ciudad obj;
-			
-			obj.intanciarObjeto();
-			
-			// Esto copia el objeto y lo coloca al final del vector dinámico de obj´s
-    		vector_ciudades.push_back(obj);
-			
-			//devuelve la cantidad de objetos que tiene el vector	
-    		cantidad=vector_ciudades.size();
-    		
-    		if(cantidad>0){
-			//escribo la nueva cuidad en el archivo
-				vector_ciudades[cantidad-1].escribir();
-			}
-			else{
-				vector_ciudades[cantidad].escribir();
-			}
-			
-			break;
-			}
+                // Instanciamos y capturamos correctamente la nueva ciudad
+                Ciudad obj;
+                obj = obj.intanciarObjeto();
+
+                // Guardamos en el archivo binario ciudades.bin directamente
+                obj.escribir();
+
+                // Agregamos al vector en RAM
+                vector_ciudades.push_back(obj);
+
+                cout << "-> Ciudad '" << obj.getNombre() << "' guardada con exito.\n";
+                break;
+            }
+        case 2:
+        {
+	        vector_ciudades = Ciudad::leerArchivo();
+            if(!vector_ciudades.empty())
+            {
+        		for(int i=0;i<vector_ciudades.size();i++)
+            	{
+                    cout << "Ciudad NUM " << i << endl;
+                    cout << "ID: " << vector_ciudades[i].getID() << endl;
+                    cout << "Nombre: " << vector_ciudades[i].getNombre() << endl;
+                    cout << "Coordenada X: " << vector_ciudades[i].getX() << endl;
+                    cout << "Coordenada Y: " << vector_ciudades[i].getY() << endl;
+            	}
+            }
+            break;
+        }
+
 	    case 3:
-	    	// agregamos una ciudad a la matriz
-			// cada llamada aumenta la cantidad de filas y columnas en 1
-			mi_grafo.agregar_ciudad();
-			mi_grafo.agregar_ciudad();
-			mi_grafo.agregar_ciudad();
-		  
-		
-			// mostramos la cantidad actual de ciudades
-			// el resultado esperado es 3
-			cout << "Cantidad de ciudades: "
-			<< mi_grafo.obtener_cantidad_de_ciudades() << endl;
-		
-			// mostramos la matriz por pantalla
-			// debería verse una matriz de 3 filas y 3 columnas
-			mi_grafo.mostrar_matriz();
-		
+
+            mi_grafo=Grafo();
+
+            for (size_t i =0; i<vector_ciudades.size(); i++)
+            {
+                mi_grafo.agregar_ciudad();
+            }
+            cout << "Cantidad de ciudades en la matriz: " << mi_grafo.obtener_cantidad_de_ciudades() << endl;
+
+            mi_grafo.mostrar_matriz();
+
 		    break;
 	    default:
 				cout<<"OPCION INCORRECTA";  //opcion DEFAULT
@@ -87,4 +90,6 @@ do{
 }while(opc!=0);
 
 	return 0;
+
+    system("pause");
 }

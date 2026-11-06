@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2026/11/05 14:17:36.919,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/11/05 14:17:36.995,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/11/05 14:18:02.652,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\FormPCH1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/11/05 14:18:02.655,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Form.cbproj=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2026/11/05 14:18:46.356,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Interfaz grafica\Unit1.cpp=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/11/05 14:18:46.356,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Interfaz grafica\Unit1.dfm=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2026/11/05 14:18:46.356,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Interfaz grafica\Unit1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2026/11/05 14:19:01.099,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Interfaz grafica\SistemaPCH1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\FormPCH1.h</Transaction>
+    <Transaction>2026/11/05 14:19:01.115,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Interfaz grafica\Sistema.cbproj=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Form.cbproj</Transaction>
+  </Transactions>
+</BorlandProject>
