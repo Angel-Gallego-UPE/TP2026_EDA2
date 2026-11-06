@@ -29,6 +29,7 @@ class Ciudad{
 		void setNombre(string _nombre);
 		//metodos
 		void escribir();
+		static void reescribrir(vector<Ciudad>& vector_ciudades);
 		static vector<Ciudad> leerArchivo();
 		Ciudad intanciarObjeto();
         static bool eliminarCiudad(int idBuscado);
