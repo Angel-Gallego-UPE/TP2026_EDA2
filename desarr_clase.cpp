@@ -129,6 +129,46 @@ void Ciudad::escribir(){
 	}
 }
 
+void Ciudad::reescribrir(vector<Ciudad>& vector_ciudades){ //RESCRIBIR TODO EL ARCHIVO
+	
+	ofstream archivo("ciudades.bin", ios::binary);//abro archivo + outfile(write)
+	if(archivo){//abrio bien
+		
+		for(int i=0;i<vector_ciudades.size();i++){
+			
+		int longitud=0;//variable para los caracteres
+		
+		//obtengo los nuevos datos del objeto(GET)
+		int auxID = vector_ciudades[i].getID(); //y las guardo en auxiliares
+		int auxX = vector_ciudades[i].getX();
+		int auxY = vector_ciudades[i].getY();
+		string auxNombre = vector_ciudades[i].getNombre();
+		
+		longitud = auxNombre.size();
+		
+		if(longitud > 0){
+			//escribimos en orden
+			archivo.write((char*)&auxID, sizeof(auxID));
+			archivo.write((char*)&auxX, sizeof(auxX));
+			archivo.write((char*)&auxY, sizeof(auxY));
+			
+			//despues guardamos el espacio a escribir
+			archivo.write((char*)&longitud, sizeof(longitud)); 
+			//despues escribimos el nombre
+			archivo.write(&auxNombre[0], longitud); 
+		}
+		else{
+			cout<<"*Requerimiento incumplido para guarda"<<endl;
+		}
+		}
+		archivo.close();//cierro archivo
+		cout<<"------FILE UPDATE------\n";
+	}
+	else{//no se pudo abrir
+		cout<<"No se puedo abrir el archivo"<<endl;
+	}
+}
+
 Ciudad Ciudad::intanciarObjeto(){
 	
 	//objeto que devuelve
