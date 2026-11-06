@@ -523,4 +523,31 @@
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__format\formatter_tuple.h \
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\print \
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__system_error\throw_system_error.h \
-  Ruta.h
+  Ruta.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\fstream \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\path.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__algorithm\replace.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__algorithm\replace_copy.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\iomanip \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\filesystem \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\copy_options.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\directory_entry.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\file_status.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\file_type.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\perms.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\file_time_type.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__chrono\file_clock.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\filesystem_error.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__memory\shared_ptr.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__functional\reference_wrapper.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__functional\weak_result_type.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__memory\allocation_guard.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__memory\allocator_destructor.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\operations.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\perm_options.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\space_info.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\directory_iterator.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\directory_options.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\path_iterator.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\recursive_directory_iterator.h \
+  c:\program\ files\ (x86)\embarcadero\studio\37.0\include\x86_64-w64-mingw32\c++\v1\__filesystem\u8path.h

@@ -26,6 +26,9 @@ public:
     void set_ruta(int ciudad_origen,int ciudad_destino, Ruta nueva_ruta);//guarda un objeto Ruta en la celda [ciudad_origen][ciudad_destino]	
 	//GETTERS
     Ruta getRuta(int ciudad_origen, int ciudad_destino);//devuelve el objeto Ruta de la celda [origen][destino]
+    //METODOS
+    void guardarRuta();
+    void leerRuta();
 };
 
 #endif // GRAFO_H

@@ -29,6 +29,17 @@ bool Ruta::getruta_existe(){
 	return ruta_existe;
 }
 
+int Ruta::getCiudad_origen()
+{
+    return ciudad_origen;
+}
+int Ruta::getCiudad_destino()
+{
+    return ciudad_destino;
+}
+
+
+
 //DESTRUCTOR
 Ruta::~Ruta(){
 }

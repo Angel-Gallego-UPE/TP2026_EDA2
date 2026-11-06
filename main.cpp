@@ -24,8 +24,10 @@ int main()
 		mi_grafo.agregar_ciudad();
 	}
 
+    mi_grafo.leerRuta();
     //variables
 	int opc;
+
 //Ciclo principal
 do{
 	menu();

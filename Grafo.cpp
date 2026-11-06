@@ -1,5 +1,6 @@
-#include "Grafo.h"
+﻿#include "Grafo.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 //constructor
@@ -83,6 +84,7 @@ void Grafo::cargar_ruta(){
 	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, distancia, 1, true);
 	set_ruta(ciudad_destino, ciudad_origen, ruta_vuelta);
 	cout << "Ruta cargada exitosamente\n";
+    guardarRuta();
 			    }
 			}
 }
@@ -129,15 +131,73 @@ Ruta Grafo::getRuta(int ciudad_origen, int ciudad_destino) {
 	
 	// validamos nuevamente que los índices sean correctos para evitar un desbordamiento o error de memoria
 	if (ciudad_origen >= 0 && ciudad_origen < cantidad_de_ciudades && ciudad_destino >= 0 && ciudad_destino < cantidad_de_ciudades){
-		
+
 		// Retornamos el objeto Ruta almacenado en esa posición de la matriz
 		return matriz[ciudad_origen][ciudad_destino];
-		
+
 	} else {
 		// si los índices no son válidos, devolvemos una Ruta por defecto (vacia o inicializada en 0)
 		cout << "Error: indices fuera de rango al intentar leer la ruta.\n";
-		return Ruta(); 
+		return Ruta();
 	}
+}
+
+void Grafo::guardarRuta()
+{
+    // Abrimos el archivo en modo binario y trunc para pisar los datos viejos
+    ofstream archivo("rutas.bin", ios::binary | ios::trunc);
+
+    if(archivo)
+    {
+        // 1. Guardamos cuántas ciudades tiene el grafo actualmente
+        archivo.write((char*)&cantidad_de_ciudades, sizeof(cantidad_de_ciudades));
+
+        // 2. Recorremos toda la matriz de adyacencia
+        for(int i = 0; i < cantidad_de_ciudades; i++)
+        {
+            for(int j = 0; j < cantidad_de_ciudades; j++)
+            {
+                Ruta r = matriz[i][j];
+                // Escribimos cada objeto Ruta celda por celda
+                archivo.write((char*)&r, sizeof(Ruta));
+            }
+        }
+        archivo.close();
+    }
+}
+void Grafo::leerRuta()
+{
+    // ¡OJO ACÁ! Solo ios::binary para leer. Si ponés ios::trunc borrás el archivo.
+    ifstream archivo("rutas.bin", ios::binary);
+
+    if(archivo)
+    {
+        int ciudades_guardadas = 0;
+
+        // 1. Leemos el tamaño con el que se guardó
+        if(archivo.read((char*)&ciudades_guardadas, sizeof(ciudades_guardadas)))
+        {
+            // 2. Reconstruimos el tamaño de la matriz en memoria si es menor
+            while(cantidad_de_ciudades < ciudades_guardadas)
+            {
+                agregar_ciudad();
+            }
+
+            // 3. Leemos cada celda y la reasignamos en su posición [i][j]
+            for(int i = 0; i < cantidad_de_ciudades; i++)
+            {
+                for(int j = 0; j < cantidad_de_ciudades; j++)
+                {
+                    Ruta r;
+                    if(archivo.read((char*)&r, sizeof(Ruta)))
+                    {
+                        matriz[i][j] = r;
+                    }
+                }
+            }
+        }
+        archivo.close();
+    }
 }
 
 //destructor 

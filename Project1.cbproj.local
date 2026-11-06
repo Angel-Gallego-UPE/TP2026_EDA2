@@ -3,23 +3,23 @@
 	<Transactions>
     <Transaction>2026/10/03 16:46:47.000.054,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\File1.cpp</Transaction>
     <Transaction>2026/10/03 16:46:47.000.051,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2026/10/03 16:47:14.000.556,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\File1.cpp=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\File1.cpp</Transaction>
+    <Transaction>2026/10/03 16:47:14.000.556,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\File1.cpp=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\File1.cpp</Transaction>
     <Transaction>2026/10/03 16:49:08.000.230,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\File1.cpp=</Transaction>
-    <Transaction>2026/10/03 16:49:42.000.781,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1PCH1.h</Transaction>
-    <Transaction>2026/10/03 16:49:42.000.786,C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1.cbproj=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1.cbproj</Transaction>
+    <Transaction>2026/10/03 16:49:42.000.781,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1PCH1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/10/03 16:49:42.000.786,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1.cbproj=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
     <Transaction>2026/10/03 16:49:46.000.889,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1.cbproj=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Project1.cbproj</Transaction>
-    <Transaction>2026/10/08 15:32:56.000.609,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\desarr_clase.cpp</Transaction>
     <Transaction>2026/10/08 15:32:56.000.610,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\main.cpp</Transaction>
+    <Transaction>2026/10/08 15:32:56.000.609,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\desarr_clase.cpp</Transaction>
     <Transaction>2026/10/08 15:32:56.000.609,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\clase.h</Transaction>
     <Transaction>2026/10/27 19:21:28.000.360,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\desarr_clase.cpp=</Transaction>
     <Transaction>2026/10/27 19:21:28.000.374,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\main.cpp=</Transaction>
     <Transaction>2026/10/27 19:21:28.000.324,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\clase.h=</Transaction>
+    <Transaction>2026/10/27 19:21:39.000.837,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\main.cpp</Transaction>
+    <Transaction>2026/10/27 19:21:39.000.832,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Grafo.h</Transaction>
+    <Transaction>2026/10/27 19:21:39.000.829,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Grafo.cpp</Transaction>
     <Transaction>2026/10/27 19:21:39.000.825,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\desarr_clase.cpp</Transaction>
     <Transaction>2026/10/27 19:21:39.000.821,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\clase.h</Transaction>
-    <Transaction>2026/10/27 19:21:39.000.832,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Grafo.h</Transaction>
-    <Transaction>2026/10/27 19:21:39.000.837,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\main.cpp</Transaction>
     <Transaction>2026/10/27 19:21:39.000.844,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Ruta.h</Transaction>
-    <Transaction>2026/10/27 19:21:39.000.829,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Grafo.cpp</Transaction>
     <Transaction>2026/10/27 19:21:39.000.840,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Ruta.cpp</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">

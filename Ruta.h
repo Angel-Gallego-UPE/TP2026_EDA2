@@ -19,7 +19,9 @@ public:
 	
 	//metodos getters
 	double getdistancia();
-    bool getruta_existe();	
+    bool getruta_existe();
+    int getCiudad_origen();
+    int getCiudad_destino();
 };
 
 #endif // RUTA_H
