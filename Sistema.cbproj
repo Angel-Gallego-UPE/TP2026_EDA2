@@ -177,6 +177,9 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
     </PropertyGroup>
     <ItemGroup>
+        <None Include="clase.h">
+            <BuildOrder>6</BuildOrder>
+        </None>
         <CppCompile Include="desarr_clase.cpp">
             <BuildOrder>3</BuildOrder>
         </CppCompile>

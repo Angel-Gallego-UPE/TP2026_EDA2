@@ -12,16 +12,10 @@ void menu();
 void menu(){
 	cout<<"------------------------\n";
 	cout<<"0- Salir\n";
-<<<<<<< HEAD
-	cout<<"1- agregar objeto a archivo\n";
-	cout<<"2- cargar archivo\n";
-	cout<<"3- Probamos la matriz\n";
-=======
 	cout<<"1- agregar cuidad\n";
 	cout<<"2- ver contenido de vector(RAM)\n";
 	cout<<"3- ver la matriz\n";
 	cout<<"4- cargar rutas en la matriz\n";
->>>>>>> origin/main
 	cout<<"opc: ";
 
 }

@@ -27,8 +27,14 @@ __published:	// IDE-managed Components
 	TEdit *editX;
 	TEdit *editY;
 	TButton *btnAgregar;
+	TButton *btnEliminar;
+	TButton *btnModificar;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall btnAgregarClick(TObject *Sender);
+	void __fastcall gridCiudadesSelectCell(TObject *Sender, System::LongInt ACol, System::LongInt ARow,
+          bool &CanSelect);
+	void __fastcall btnEliminarClick(TObject *Sender);
+	void __fastcall btnModificarClick(TObject *Sender);
 private:
 
     std::vector<Ciudad> vector_ciudades;

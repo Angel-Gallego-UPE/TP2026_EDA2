@@ -31,5 +31,7 @@ class Ciudad{
 		void escribir();
 		static vector<Ciudad> leerArchivo();
 		Ciudad intanciarObjeto();
+        static bool eliminarCiudad(int idBuscado);
+		static bool modificarCiudad(Ciudad CiudadModificar);
 };
 #endif

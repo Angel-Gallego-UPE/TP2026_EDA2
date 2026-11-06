@@ -15,8 +15,8 @@ object Form1: TForm1
   object ID: TLabel
     Left = 88
     Top = 168
-    Width = 17
-    Height = 17
+    Width = 11
+    Height = 15
     Caption = 'ID'
   end
   object Y: TLabel
@@ -49,6 +49,7 @@ object Form1: TForm1
     FixedCols = 0
     RowCount = 2
     TabOrder = 0
+    OnSelectCell = gridCiudadesSelectCell
   end
   object editID: TEdit
     Left = 40
@@ -83,12 +84,30 @@ object Form1: TForm1
     Text = 'editY'
   end
   object btnAgregar: TButton
-    Left = 224
-    Top = 264
+    Left = 24
+    Top = 272
     Width = 169
     Height = 73
     Caption = 'Agregar ciudad'
     TabOrder = 5
     OnClick = btnAgregarClick
+  end
+  object btnEliminar: TButton
+    Left = 439
+    Top = 272
+    Width = 169
+    Height = 73
+    Caption = 'Eliminar ciudad'
+    TabOrder = 6
+    OnClick = btnEliminarClick
+  end
+  object btnModificar: TButton
+    Left = 232
+    Top = 272
+    Width = 169
+    Height = 73
+    Caption = 'Modificar ciudad'
+    TabOrder = 7
+    OnClick = btnModificarClick
   end
 end

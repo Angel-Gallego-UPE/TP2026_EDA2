@@ -106,12 +106,13 @@ void Ciudad::escribir(){
 	
 	if(archivo){//abrio bien
 		
-		//variable de caracteres
+		int longitud =0;//variable de caracteres
 		//obtengo los nuevos datos del objeto(GET)
     	int auxID = getID(); //y las guardo en auxiliares
     	int auxX = getX();
     	int auxY = getY();
 		string auxNombre = getNombre();
+
 		longitud = auxNombre.size();
         
         if(longitud > 0){
@@ -173,4 +174,56 @@ Ciudad Ciudad::intanciarObjeto(){
 	
 	//devuelvo el obj cargado...
 	return obj;
+}
+bool Ciudad::eliminarCiudad(int idBuscado)
+{
+	vector<Ciudad> todasCiudades = leerArchivo();
+    bool encontrada = false;
+
+	//sobrescribimos el archivo vaciandolo (ios::trunc)
+	ofstream archivo("ciudades.bin", ios::binary | ios::trunc);
+	if (!archivo)
+	return false;
+
+	archivo.close();
+
+	//guardamos todas menos la que coincide con el ID buscado
+	for (int i = 0; i < todasCiudades.size(); i++)
+	{
+		if (todasCiudades[i].getID() == idBuscado)
+		{
+            encontrada = true;
+		}
+		else
+		{
+            todasCiudades[i].escribir();
+        }
+    }
+    return encontrada;
+}
+bool Ciudad::modificarCiudad(Ciudad CiudadModificar)
+{
+	vector<Ciudad> todasCiudades = leerArchivo();
+    bool encontrada = false;
+
+	//sobrescribimos el archivo vaciandolo (ios::trunc)
+	ofstream archivo("ciudades.bin", ios::binary | ios::trunc);
+	if (!archivo)
+	return false;
+
+	archivo.close();
+
+	for (int i = 0; i < todasCiudades.size(); i++)
+	{
+		if (todasCiudades[i].getID() == CiudadModificar.getID())
+		{
+	        CiudadModificar.escribir();
+            encontrada = true;
+		}
+		else
+		{
+            todasCiudades[i].escribir();
+		}
+    }
+    return encontrada;
 }

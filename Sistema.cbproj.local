@@ -1,18 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2026/11/05 14:27:08.589,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2026/11/05 14:27:08.620,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2026/11/05 14:27:30.121,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\SistemaPCH1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2026/11/05 14:27:30.134,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.cpp=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
-    <Transaction>2026/11/05 14:27:30.134,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.dfm=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2026/11/05 14:27:30.134,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
-    <Transaction>2026/11/05 14:27:30.147,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Sistema.cbproj=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
-    <Transaction>2026/11/05 14:27:34.861,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Form.h=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.h</Transaction>
-    <Transaction>2026/11/05 14:27:34.861,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Form.dfm=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.dfm</Transaction>
-    <Transaction>2026/11/05 14:27:34.861,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Form.cpp=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.cpp</Transaction>
-    <Transaction>2026/11/05 14:28:40.297,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\desarr_clase.cpp</Transaction>
-    <Transaction>2026/11/05 14:28:40.300,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Grafo.cpp</Transaction>
-    <Transaction>2026/11/05 14:28:40.303,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Ruta.cpp</Transaction>
+	<Transactions>
+    <Transaction>2026/11/05 14:27:08.000.620,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/11/05 14:27:08.000.589,=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/11/05 14:27:30.000.134,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.cpp=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/11/05 14:27:30.000.121,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\SistemaPCH1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/11/05 14:27:30.000.147,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Sistema.cbproj=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2026/11/05 14:27:30.000.134,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.dfm=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2026/11/05 14:27:30.000.134,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.h=C:\Users\Eliloq\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2026/11/05 14:27:34.000.861,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Form.h=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.h</Transaction>
+    <Transaction>2026/11/05 14:27:34.000.861,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Form.dfm=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.dfm</Transaction>
+    <Transaction>2026/11/05 14:27:34.000.861,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Form.cpp=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Unit1.cpp</Transaction>
+    <Transaction>2026/11/05 14:28:40.000.300,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Grafo.cpp</Transaction>
+    <Transaction>2026/11/05 14:28:40.000.297,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\desarr_clase.cpp</Transaction>
+    <Transaction>2026/11/05 14:28:40.000.303,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\Ruta.cpp</Transaction>
+    <Transaction>2026/11/06 01:51:15.000.083,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\main.cpp</Transaction>
+    <Transaction>2026/11/06 01:56:41.000.338,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\main.cpp=</Transaction>
+    <Transaction>2026/11/06 02:22:29.827,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP2026_EDA2\clase.h</Transaction>
   </Transactions>
 </BorlandProject>

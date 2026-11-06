@@ -84,3 +84,70 @@ void __fastcall TForm1::btnAgregarClick(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+void __fastcall TForm1::gridCiudadesSelectCell(TObject *Sender, System::LongInt ACol,
+          System::LongInt ARow, bool &CanSelect)
+{
+		// Si hacemos clic en la fila 0 (los titulos), no hacemos nada
+		if (ARow == 0)
+		return;
+
+        // Si la fila esta vacia (puede pasar al hacer clic en espacios en blanco), salimos
+	if (gridCiudades->Cells[0][ARow] == "")
+	{
+		// Limpiamos los edits por si habia algo escrito
+		editID->Text = "";
+		editNombre->Text = "";
+		editX->Text = "";
+		editY->Text = "";
+		return;
+	}
+
+	// Copiamos los datos de la fila seleccionada a las cajas de texto
+	editID->Text = gridCiudades->Cells[0][ARow];
+	editNombre->Text = gridCiudades->Cells[1][ARow];
+	editX->Text = gridCiudades->Cells[2][ARow];
+	editY->Text = gridCiudades->Cells[3][ARow];
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::btnEliminarClick(TObject *Sender)
+{
+	int id = editID->Text.ToIntDef(-1);
+
+	if (id!=-1 && Ciudad::eliminarCiudad(id))
+	{
+		ShowMessage("Ciudad eliminada.");
+		FormCreate(this);
+		//acá se llama a FormCreate recarga la grilla
+	}
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::btnModificarClick(TObject *Sender)
+{
+	int id = editID->Text.ToIntDef(-1);
+	int x = editX->Text.ToIntDef(0);
+	int y = editY->Text.ToIntDef(0);
+	//std::string nombre = AnsiString(editNombre->Text.c_str());
+	AnsiString ciudadNombre = editNombre->Text;
+	std::string nombre = ciudadNombre.c_str();
+
+	if (id != -1)
+	{
+		Ciudad ciudadModificada(id, x, y, nombre);
+		if (Ciudad::modificarCiudad(ciudadModificada))
+		{
+            ShowMessage("Ciudad modificada con exito.");
+            FormCreate(this); // Recargar grilla
+		}
+		else
+		{
+            ShowMessage("Error al modificar.");
+        }
+    }
+}
+//---------------------------------------------------------------------------
+
