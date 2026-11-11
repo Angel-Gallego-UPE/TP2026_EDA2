@@ -179,7 +179,13 @@ do{
 			}while(opc!=5);
 		}
 		break;
-		default:
+	case 7:
+		
+	    mi_grafo.dijkstra();
+		
+		break;
+	
+	    default:
 				cout<<"OPCION INCORRECTA";  //opcion DEFAULT
 			break;		
         }
@@ -198,5 +204,6 @@ void menu(){
 	cout<<"4- cargar rutas en la matriz\n";
 	cout<<"5- eliminar ciudad\n";
 	cout<<"6- modificar datos de una ciudad\n";
+    cout<<"7- buscar camino mas corto\n";
 	cout<<"opc: ";
 }

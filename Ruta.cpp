@@ -16,7 +16,7 @@ Ruta::Ruta(){
 	ciudad_destino = 0;
 	distancia = 0;
 	estado_de_ruta = true;
-	ruta_existe = true;
+	ruta_existe = false;
 }
 //METODOS GETTERS
 double Ruta::getdistancia(){
@@ -28,7 +28,10 @@ bool Ruta::getruta_existe(){
 	
 	return ruta_existe;
 }
-
+bool Ruta::getestado_de_ruta(){
+	
+	return estado_de_ruta;
+}
 //DESTRUCTOR
 Ruta::~Ruta(){
 }

@@ -65,11 +65,11 @@ SyncProduct = 1
 
 
 [Unit2]
-FileName = Grafo.h
-CompileCpp = 0
+FileName = Ruta.cpp
+CompileCpp = 1
 Folder = 
-Compile = 0
-Link = 0
+Compile = 1
+Link = 1
 Priority = 1000
 OverrideBuildCmd = 0
 BuildCmd = 
@@ -91,7 +91,7 @@ RealEncoding = UTF-8
 
 
 [Unit1]
-FileName = desarr_clase.cpp
+FileName = Grafo.cpp
 CompileCpp = 1
 Folder = 
 Compile = 1
@@ -104,7 +104,7 @@ RealEncoding = UTF-8
 
 
 [Unit4]
-FileName = Grafo.cpp
+FileName = desarr_clase.cpp
 CompileCpp = 1
 Folder = 
 Compile = 1
@@ -130,11 +130,11 @@ RealEncoding = UTF-8
 
 
 [Unit6]
-FileName = Ruta.cpp
-CompileCpp = 1
+FileName = Ruta.h
+CompileCpp = 0
 Folder = 
-Compile = 1
-Link = 1
+Compile = 0
+Link = 0
 Priority = 1000
 OverrideBuildCmd = 0
 BuildCmd = 
@@ -143,7 +143,7 @@ RealEncoding = ASCII
 
 
 [Unit7]
-FileName = Ruta.h
+FileName = Grafo.h
 CompileCpp = 0
 Folder = 
 Compile = 0

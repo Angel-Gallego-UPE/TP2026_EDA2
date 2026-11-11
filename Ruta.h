@@ -20,6 +20,7 @@ public:
 	//metodos getters
 	double getdistancia();
     bool getruta_existe();	
+	bool getestado_de_ruta();
 };
 
 #endif // RUTA_H

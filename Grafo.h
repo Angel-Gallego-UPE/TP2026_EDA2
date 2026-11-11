@@ -17,11 +17,12 @@ public:
 	Grafo(); //constructor
 	~Grafo();//destructor
 	
-	void agregar_ciudad(); //funcion para agregar ciudades
-	void eliminar_ciudad(int indice);
+	void agregar_ciudad(); //funcion para agregar ciudades a la matriz
+	void eliminar_ciudad(int indice);//funcion para eliminar ciudad de la matriz
 	int obtener_cantidad_de_ciudades(); //funcion para comprobar la cantidad de ciudades cargadas
 	void mostrar_matriz();//funcion para mostrar que la matriz funciona correctamente
 	void cargar_ruta();
+	void dijkstra();
 	
     //SETTERS
     void set_ruta(int ciudad_origen,int ciudad_destino, Ruta nueva_ruta);//guarda un objeto Ruta en la celda [ciudad_origen][ciudad_destino]	
