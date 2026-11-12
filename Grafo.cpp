@@ -1,5 +1,6 @@
-#include "Grafo.h"
+﻿#include "Grafo.h"
 #include <iostream>
+#include <fstream>
 #include <vector>
 using namespace std;
 
@@ -143,6 +144,52 @@ void Grafo::cargar_ruta(){
 			}
 	    }
 	}
+}
+
+void Grafo::leerRuta()
+{
+    ifstream archivo("rutas.bin", ios::binary);
+    if(archivo)
+    {
+        int ciudades_guardadas = 0;
+        if(archivo.read((char*)&ciudades_guardadas, sizeof(ciudades_guardadas)))
+        {
+            while(cantidad_de_ciudades < ciudades_guardadas)
+            {
+                agregar_ciudad();
+            }
+            for(int i = 0; i < cantidad_de_ciudades; i++)
+            {
+                for(int j = 0; j < cantidad_de_ciudades; j++)
+                {
+                    Ruta r;
+                    if(archivo.read((char*)&r, sizeof(Ruta)))
+                    {
+                        matriz[i][j] = r;
+                    }
+                }
+            }
+        }
+        archivo.close();
+    }
+}
+
+void Grafo::guardarRuta()
+{
+    ofstream archivo("rutas.bin", ios::binary | ios::trunc);
+    if(archivo)
+    {
+        archivo.write((char*)&cantidad_de_ciudades, sizeof(cantidad_de_ciudades));
+        for(int i = 0; i < cantidad_de_ciudades; i++)
+        {
+            for(int j = 0; j < cantidad_de_ciudades; j++)
+            {
+                Ruta r = matriz[i][j];
+                archivo.write((char*)&r, sizeof(Ruta));
+            }
+        }
+        archivo.close();
+    }
 }
 
 

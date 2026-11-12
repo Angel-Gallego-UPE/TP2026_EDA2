@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream> //archivos
 #include <vector>
 #include "clase.h" 
@@ -22,6 +22,8 @@ int main(){
 	for (int i = 0; i < vector_ciudades.size(); i++) {
 		mi_grafo.agregar_ciudad();
 	}
+
+    mi_grafo.leerRuta();
 
     //variables
 	int opc;
@@ -51,7 +53,8 @@ do{
 				vector_ciudades[cantidad-1].escribir();
 			}
 			
-			mi_grafo.agregar_ciudad();		
+			mi_grafo.agregar_ciudad();
+            mi_grafo.guardarRuta();
 			break;
 			}
 		case 2:
@@ -82,6 +85,7 @@ do{
 		
 		case 4: {
 					mi_grafo.cargar_ruta();
+                    mi_grafo.guardarRuta();
 					break;
 				}
 		case 5:{//Eliminar una ciudad
@@ -109,6 +113,7 @@ do{
 			
 		// sincronizamos el grafo con las ciudades, despues de elimnar una ciudad
 			mi_grafo.eliminar_ciudad(indice);
+			mi_grafo.guardarRuta();
 			
 			break;
 		}

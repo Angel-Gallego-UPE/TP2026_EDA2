@@ -22,6 +22,8 @@ public:
 	int obtener_cantidad_de_ciudades(); //funcion para comprobar la cantidad de ciudades cargadas
 	void mostrar_matriz();//funcion para mostrar que la matriz funciona correctamente
 	void cargar_ruta();
+    void leerRuta();
+    void guardarRuta();
 	void dijkstra();
 	
     //SETTERS
