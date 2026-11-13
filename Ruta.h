@@ -17,6 +17,12 @@ public:
 	Ruta(); //contructor inicializado en 0
 	~Ruta(); //destructor	
 	
+	
+	//metodos setters
+	void set_ciudad_origen(int origen);
+	void set_ciudad_destino(int destino);
+	void set_estado_de_ruta(bool estado_de_ruta);
+	
 	//metodos getters
 	double getdistancia();
     bool getruta_existe();	

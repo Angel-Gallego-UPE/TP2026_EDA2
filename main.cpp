@@ -184,7 +184,11 @@ do{
 	    mi_grafo.dijkstra();
 		
 		break;
-	
+	case 8:
+		
+		mi_grafo.cambiar_estado_de_ruta();
+		
+		break;
 	    default:
 				cout<<"OPCION INCORRECTA";  //opcion DEFAULT
 			break;		
@@ -198,12 +202,13 @@ do{
 void menu(){
 	cout<<"------------------------\n";
 	cout<<"0- Salir\n";
-	cout<<"1- agregar cuidad\n";
+	cout<<"1- agregar cuidad o desvio intermedio\n";
 	cout<<"2- ver contenido de vector(RAM)\n";
 	cout<<"3- ver la matriz\n";
 	cout<<"4- cargar rutas en la matriz\n";
 	cout<<"5- eliminar ciudad\n";
 	cout<<"6- modificar datos de una ciudad\n";
     cout<<"7- buscar camino mas corto\n";
+	cout<<"8- cambiar estado de una ruta\n";
 	cout<<"opc: ";
 }

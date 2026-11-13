@@ -18,6 +18,22 @@ Ruta::Ruta(){
 	estado_de_ruta = true;
 	ruta_existe = false;
 }
+
+
+//METODOS SETTERS
+void Ruta::set_ciudad_origen(int _ciudad_origen) {
+	ciudad_origen = _ciudad_origen;
+}
+
+void Ruta::set_ciudad_destino(int _ciudad_destino) {
+	ciudad_destino = _ciudad_destino;
+}
+
+void Ruta::set_estado_de_ruta(bool _estado_de_ruta){
+	
+	estado_de_ruta = _estado_de_ruta;
+}
+
 //METODOS GETTERS
 double Ruta::getdistancia(){
 	
@@ -35,17 +51,4 @@ bool Ruta::getestado_de_ruta(){
 //DESTRUCTOR
 Ruta::~Ruta(){
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
