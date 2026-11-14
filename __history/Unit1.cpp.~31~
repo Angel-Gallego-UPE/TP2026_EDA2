@@ -23,7 +23,6 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 {
 	//variable
 	vector_ciudades = Ciudad::leerArchivo();
-	int indiceModificar
 }
 //---------------------------------------------------------------------------
 
@@ -47,6 +46,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	//lo hacemos visible
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
+	TPanelConexiones->Visible = false;
 
 
 	//calculo lo ancho/width de cada campo/columna
@@ -69,6 +69,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
+	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelMenu->Visible=true;
 }
@@ -168,69 +169,62 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-//boton para guardar nueva ciudad
-void __fastcall TForm1::ButtonGuardarClick(TObject *Sender)
-{
-	//variables aux
-	string auxNombre;
-	int auxID, auxX, auxY;
-
-	//validacion de los cambos obligatorios
-	if( EditNombre->Text.Trim().IsEmpty() || Edit_ID->Text.Trim().IsEmpty() || Edit_X->Text.Trim().IsEmpty() || Edit_Y->Text.Trim().IsEmpty() ){
-	   ShowMessage("Todos los campos son obligatorios.");
-	}
-	else{
-		//copio lo ingresado
-		auxNombre= AnsiString(EditNombre->Text).c_str();
-		auxID= StrToInt(Edit_ID->Text);
-		auxX= StrToInt(Edit_X->Text);
-		auxY= StrToInt(Edit_Y->Text);
-
-		//lo valido
-		if(auxID<=0 || auxX<=0 || auxY<=0){
-		   ShowMessage("Valores no validas, Intentelo de nuevo");
-		}
-		else{
-			//creo el objeto con sus parametros
-			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
-			//hago un push al final de vector
-			vector_ciudades.push_back(nuevaCiudad);
-			//escribo al final de archivo la nueva ciudad
-			nuevaCiudad.escribir();
-			//oculto el panel
-
-			actualizarCuadro();
-
-			//limpio los Edit´s
-			EditNombre->Text="";
-			Edit_ID->Text="";
-			Edit_X->Text="";
-			Edit_Y->Text="";
-
-			PanelCarga->Visible=false;
-		}
-	}
-
-}
-//---------------------------------------------------------------------------
+//boton para guardar nueva ciudad}
+//----------------------------------------------------¬-----------------------
 
 void __fastcall TForm1::ButtonModiClick(TObject *Sender)
-{
-	int auxID,auxX,auxY;
+{   //varibles aux
+	int auxID=0,auxX=0,auxY=0;
 	string auxNombre;
 
-	((((ShowMessage("Ingrese 0 al que no quieras modificar");
+	//variables creadas = convierto los tipos de datos
+	auxNombre = AnsiString(Editname->Text).c_str();
+	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
+	if(!Edit_ID->Text.Trim().IsEmpty()) {
+		auxID = StrToInt(Edit_ID->Text);
+	}
+	if(!EditCoordX->Text.Trim().IsEmpty()) {
+		auxX = StrToInt(EditCoordX->Text);
+	}
+	if(!EditCoordY->Text.Trim().IsEmpty()) {
+		auxY = StrToInt(EditCoordY->Text);
+	}
 
-	auxNombre = AnsiString(Editname).c_str();
-	auxID = StrToInt(Edit_ID)
-	auxX = StrToInt(EditCoordX)
-	auxY = StrToInt(EditCoordY)
+	if(auxID<0 || auxX<0 || auxY<0){
+	   ShowMessage("No se aceptan numeros negativos");
+	   //limpio los Edit´s
+		EditNombre->Text="";
+		Edit_ID->Text="";
+		Edit_X->Text="";
+		Edit_Y->Text="";
+	}
+	else{
+		if(auxID != 0 ) { // Si es distinto de 0, lo modificamos
+			vector_ciudades[indiceModificar].setID(auxID);
+		}
+		if(auxX != 0){
+			vector_ciudades[indiceModificar].setX(auxX);
+		}
+		if(auxY != 0){
+			vector_ciudades[indiceModificar].setY(auxY);
+		}
+		//si NO esta vacio y si NO es "0"
+		if(!auxNombre.empty() && auxNombre != "0"){
+		vector_ciudades[indiceModificar].setNombre(auxNombre);
+		}
 
-    if8
+		//limpio los Edit´s
+		EditNombre->Text="";
+		Edit_ID->Text="";
+		Edit_X->Text="";
+		Edit_Y->Text="";
 
+		Ciudad::reescribir(vector_ciudades);
+		actualizarCuadro();
 
-	indiceModificar;
-
+		ShowMessage("¡Modificación exitosa!");
+		PanelModificar->Visible = false;
+	}
 
 	PanelModificar->Visible=false;
 }
@@ -283,6 +277,7 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 	if(encontrado==true){
 		PanelModificar->Visible=true;
 		PanelIdentificador->Visible=false;
+        ShowMessage("Ingrese 0 al que no quieras modificar");
 		EditBusca->Text="";
 	}
 	else{
@@ -293,4 +288,157 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
+
+
+void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
+{
+//variables aux
+	string auxNombre;
+	int auxID, auxX, auxY;
+
+	//validacion de los cambos obligatorios
+	if( EditNombre->Text.Trim().IsEmpty() || Edit_ID->Text.Trim().IsEmpty() || Edit_X->Text.Trim().IsEmpty() || Edit_Y->Text.Trim().IsEmpty() ){
+	   ShowMessage("Todos los campos son obligatorios.");
+
+	   //limpio los Edit´s
+	   EditNombre->Text="";
+	   Edit_ID->Text="";
+	   Edit_X->Text="";
+	   Edit_Y->Text="";
+	}
+
+	else{
+		//copio lo ingresado
+		auxNombre= AnsiString(EditNombre->Text).c_str();
+		auxID= StrToInt(Edit_ID->Text);
+		auxX= StrToInt(Edit_X->Text);
+		auxY= StrToInt(Edit_Y->Text);
+
+		//lo valido
+		if(auxID<=0 || auxX<=0 || auxY<=0){
+		   ShowMessage("Valores no validas, Intentelo de nuevo");
+
+			//limpio los Edit´s
+			EditNombre->Text="";
+			Edit_ID->Text="";
+			Edit_X->Text="";
+			Edit_Y->Text="";
+		}
+		else{
+			//creo el objeto con sus parametros
+			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
+			//hago un push al final de vector
+			vector_ciudades.push_back(nuevaCiudad);
+			//escribo al final de archivo la nueva ciudad
+			nuevaCiudad.escribir();
+			//oculto el panel
+
+			actualizarCuadro();
+
+			//limpio los Edit´s
+			EditNombre->Text="";
+			Edit_ID->Text="";
+			Edit_X->Text="";
+			Edit_Y->Text="";
+
+			PanelCarga->Visible=false;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
+{
+	TPanelMenu->Visible=false;
+	PanelCiudades->Visible=false;
+	TPanelConexiones->Visible=true;
+
+    ActualizarGridRutas();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ActualizarGridRutas()
+{
+	cmbOrigen->Items->Clear();
+	cmbDestino->Items->Clear();
+
+	int n = vector_ciudades.size();
+
+	if (n == 0)
+	{
+		gridRutas->RowCount = 2;
+		gridRutas->ColCount = 2;
+		gridRutas->Cells[0][0] = "";
+		gridRutas->Cells[1][0] = "";
+		gridRutas->Cells[0][1] = "";
+		gridRutas->Cells[1][1] = "";
+		return;
+	}
+
+	gridRutas->ColCount = n + 1;
+	gridRutas->RowCount = n + 1;
+	gridRutas->Cells[0][0] = "Origen \\ Destino";
+
+	// Encabezados de filas y columnas con los nombres de las ciudades
+	for (int i = 0; i < n; i++)
+	{
+		String nombre = String(vector_ciudades[i].getNombre().c_str());
+		gridRutas->Cells[i + 1][0] = nombre; // Columna
+		gridRutas->Cells[0][i + 1] = nombre; // Fila
+	}
+
+	// Llenar distancias desde la matriz de mi_grafo
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			Ruta r = mi_grafo.getRuta(i, j);
+			if (i == j)
+				gridRutas->Cells[j + 1][i + 1] = "-";
+			else if (r.getruta_existe())
+				gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km";
+			else
+				gridRutas->Cells[j + 1][i + 1] = "0";
+		}
+	}
+}
+
+void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex;
+	int destino = cmbDestino->ItemIndex;
+	double distancia = StrToFloatDef(editDistancia->Text, -1);
+
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+	if (distancia <= 0)
+	{
+		ShowMessage("Distancia invalida");
+		return;
+	}
+
+	//creamos ruta
+	Ruta ruta_ida(origen, destino, distancia, true, true);
+	mi_grafo.set_ruta(origen, destino, ruta_ida);
+
+	Ruta ruta_vuelta(destino, origen, distancia, true, true);
+	mi_grafo.set_ruta(destino, origen, ruta_vuelta);
+
+	//guardamos en rutas.bin y reescribimos la matriz
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	editDistancia->Text = "";
+	ShowMessage("Ruta cargada exitosamente.");
+}
+//---------------------------------------------------------------------------
 

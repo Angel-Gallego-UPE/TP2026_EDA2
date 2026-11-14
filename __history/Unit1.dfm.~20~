@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 619
-  ClientWidth = 909
+  ClientHeight = 892
+  ClientWidth = 1318
   Color = clBackground
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -115,6 +115,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 3
+      OnClick = ButtonConexionesClick
     end
   end
   object TPanelMenu: TPanel
@@ -407,8 +408,8 @@ object Form1: TForm1
       OnClick = ButtonModificarClick
     end
     object PanelCarga: TPanel
-      Left = 10
-      Top = 331
+      Left = 83
+      Top = 289
       Width = 225
       Height = 167
       Color = clMedGray
@@ -495,19 +496,27 @@ object Form1: TForm1
         ParentFont = False
         TabOrder = 3
       end
-      object ButtonGuardar: TButton
-        Left = 136
-        Top = 128
+      object desaparecido: TButton
+        Left = -440
+        Top = 288
         Width = 75
         Height = 25
         Caption = 'Guardar'
         TabOrder = 4
-        OnClick = ButtonGuardarClick
+      end
+      object ButtonCargar: TButton
+        Left = 136
+        Top = 128
+        Width = 75
+        Height = 25
+        Caption = 'Cargar'
+        TabOrder = 5
+        OnClick = ButtonCargarClick
       end
     end
     object PanelEliminar: TPanel
-      Left = 376
-      Top = 395
+      Left = 361
+      Top = 320
       Width = 259
       Height = 97
       Color = clMedGray
@@ -520,58 +529,29 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 5
       Visible = False
-      object LabelID: TLabel
-        Left = 144
-        Top = 24
-        Width = 11
-        Height = 15
-        Caption = 'ID'
-        Color = clMedGray
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clCream
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentColor = False
-        ParentFont = False
-      end
-      object LabelNombre: TLabel
-        Left = 47
-        Top = 40
-        Width = 44
-        Height = 15
-        Caption = 'Nombre'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clCream
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentFont = False
-      end
       object Label5: TLabel
-        Left = 8
+        Left = 16
         Top = 10
         Width = 67
         Height = 15
         Caption = 'Identificador'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -12
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
       end
-      object EditID: TEdit
-        Left = 167
-        Top = 21
-        Width = 81
+      object EditBuscador: TEdit
+        Left = 111
+        Top = 29
+        Width = 130
         Height = 23
         TabOrder = 0
       end
-      object Edit_Nombre: TEdit
-        Left = 7
-        Top = 61
-        Width = 130
-        Height = 23
-        TabOrder = 1
-      end
       object Button_Eliminar_identificador: TButton
-        Left = 168
-        Top = 64
+        Left = 145
+        Top = 58
         Width = 75
         Height = 17
         Caption = 'Eliminar'
@@ -581,13 +561,31 @@ object Form1: TForm1
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 1
         OnClick = Button_Eliminar_identificadorClick
+      end
+      object RadioButtonName: TRadioButton
+        Left = 8
+        Top = 31
+        Width = 81
+        Height = 17
+        Caption = 'Nombre'
+        Checked = True
+        TabOrder = 2
+        TabStop = True
+      end
+      object RadioButtonID: TRadioButton
+        Left = 8
+        Top = 58
+        Width = 81
+        Height = 17
+        Caption = 'ID'
+        TabOrder = 3
       end
     end
     object PanelModificar: TPanel
-      Left = 10
-      Top = 12
+      Left = 83
+      Top = 285
       Width = 225
       Height = 167
       Color = clMedGray
@@ -685,10 +683,10 @@ object Form1: TForm1
       end
     end
     object PanelIdentificador: TPanel
-      Left = 178
-      Top = 209
-      Width = 257
-      Height = 96
+      Left = 402
+      Top = 299
+      Width = 185
+      Height = 139
       Color = clMedGray
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
@@ -699,70 +697,62 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 7
       Visible = False
-      object Label6: TLabel
-        Left = 144
-        Top = 24
-        Width = 11
-        Height = 15
-        Caption = 'ID'
-        Color = clMedGray
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clCream
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentColor = False
-        ParentFont = False
-      end
-      object Label7: TLabel
-        Left = 47
-        Top = 40
-        Width = 44
-        Height = 15
-        Caption = 'Nombre'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clCream
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentFont = False
-      end
-      object Label8: TLabel
+      object LabelIdentificador: TLabel
         Left = 8
         Top = 10
         Width = 67
         Height = 15
         Caption = 'Identificador'
-      end
-      object Edit1: TEdit
-        Left = 167
-        Top = 21
-        Width = 81
-        Height = 23
-        TabOrder = 0
-      end
-      object Edit2: TEdit
-        Left = 7
-        Top = 61
-        Width = 130
-        Height = 23
-        TabOrder = 1
-      end
-      object ButtonElegir: TButton
-        Left = 168
-        Top = 64
-        Width = 75
-        Height = 17
-        Caption = 'Elegir'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clRed
+        Font.Color = clWhite
         Font.Height = -12
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+      end
+      object EditBusca: TEdit
+        Left = 28
+        Top = 55
+        Width = 130
+        Height = 23
+        TabOrder = 0
+      end
+      object RadioButtonNombre: TRadioButton
+        Left = 32
+        Top = 31
+        Width = 81
+        Height = 18
+        Caption = 'Nombre'
+        Checked = True
+        TabOrder = 1
+        TabStop = True
+      end
+      object RadioButton_ID: TRadioButton
+        Left = 119
+        Top = 31
+        Width = 58
+        Height = 17
+        Caption = 'ID'
         TabOrder = 2
-        OnClick = Button_Eliminar_identificadorClick
+      end
+      object ButtonBuscar: TButton
+        Left = 61
+        Top = 84
+        Width = 75
+        Height = 25
+        Caption = 'Buscar'
+        TabOrder = 3
+        OnClick = ButtonBuscarClick
       end
     end
+  end
+  object TPanelConexiones: TPanel
+    Left = 263
+    Top = 116
+    Width = 645
+    Height = 513
+    Caption = 'TPanelConexiones'
+    TabOrder = 4
+    Visible = False
   end
 end

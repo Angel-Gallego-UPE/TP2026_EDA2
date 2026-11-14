@@ -46,6 +46,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	//lo hacemos visible
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
+	TPanelConexiones->Visible = false;
 
 
 	//calculo lo ancho/width de cada campo/columna
@@ -68,6 +69,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
+	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelMenu->Visible=true;
 }
@@ -101,18 +103,10 @@ void __fastcall TForm1::ButtonModificarClick(TObject *Sender)
 
 void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 {
-	int flag=0;
+	bool flag=false;
 	int indiceEliminar;
 	bool encontrado=false;
 
-	//Valido si selecciono(Nombre o ID)
-	if(!RadioButtonNombre->Checked && !RadioButtonID->Checked)
-	{
-		ShowMessage("Por favor, ingrese un valor para buscar");
-	}
-	else{
-		flag++;
-	}
 
 	//Valido si escribio algo en el buscador
 	if(EditBuscador->Text.Trim().IsEmpty())
@@ -120,12 +114,11 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 		ShowMessage("No buscaste nada");
 	}
 	else{
-		flag++;
+		flag=true;
 	}
 
-	if(flag==2){
-		//eliminar por nombre
-		if(RadioButtonNombre->Checked){
+	if(flag==true){
+		if(RadioButtonName->Checked){//Eliminar por nombre
 
 		   //variable aux
 		   string nombreBuscado = AnsiString(EditBuscador->Text).c_str();
@@ -138,21 +131,8 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 				}
 			}
 
-			if(encontrado==false){
-			   ShowMessage("Ciudad no encontrada");
-			}
-			else{
-				ShowMessage("Ciudad encontrada,Eliminando...");
-				//elimino con el indice
-				vector_ciudades.erase(vector_ciudades.begin()+indiceEliminar);
-				//rescribo el archivo con la ciudad eliminada
-				Ciudad::reescribir(vector_ciudades);
-				actualizarCuadro();
-				//vacio el buscador
-				EditBuscador->Text="";
-			}
 		}
-		else if(RadioButtonID->Checked){
+		else if(RadioButtonID->Checked){//Eliminar por ID
 			//variable aux
 			int IDBuscado = StrToInt(EditBuscador->Text);
 
@@ -164,10 +144,13 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 				}
 			}
 
-			if(encontrado==false){
-			   ShowMessage("Ciudad no encontrada");
-			}
-			else{
+		}
+
+		//Fue encontrada??
+		if(encontrado==false){
+			   ShowMessage("Ciudad NO encontrada");
+		}
+		else{
 				ShowMessage("Ciudad encontrada,Eliminando...");
 				//elimino con el indice
 				vector_ciudades.erase(vector_ciudades.begin()+indiceEliminar);
@@ -176,29 +159,154 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 				actualizarCuadro();
 				//vacio el buscador
 				EditBuscador->Text="";
-			}
+				PanelEliminar->Visible=false;
 		}
 	}
 	else{
-		ShowMessage("No cumpliste con los 2 requerimientos");
+		ShowMessage("Requerimiento incumplido. Saliendo...");
 		PanelEliminar->Visible=false;
 	}
-
-	PanelEliminar->Visible=false;
 }
 //---------------------------------------------------------------------------
 
-//boton para guardar nueva ciudad
-void __fastcall TForm1::ButtonGuardarClick(TObject *Sender)
+//boton para guardar nueva ciudad}
+//----------------------------------------------------¬-----------------------
+
+void __fastcall TForm1::ButtonModiClick(TObject *Sender)
+{   //varibles aux
+	int auxID=0,auxX=0,auxY=0;
+	string auxNombre;
+
+	//variables creadas = convierto los tipos de datos
+	auxNombre = AnsiString(Editname->Text).c_str();
+	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
+	if(!Edit_ID->Text.Trim().IsEmpty()) {
+		auxID = StrToInt(Edit_ID->Text);
+	}
+	if(!EditCoordX->Text.Trim().IsEmpty()) {
+		auxX = StrToInt(EditCoordX->Text);
+	}
+	if(!EditCoordY->Text.Trim().IsEmpty()) {
+		auxY = StrToInt(EditCoordY->Text);
+	}
+
+	if(auxID<0 || auxX<0 || auxY<0){
+	   ShowMessage("No se aceptan numeros negativos");
+	   //limpio los Edit´s
+		EditNombre->Text="";
+		Edit_ID->Text="";
+		Edit_X->Text="";
+		Edit_Y->Text="";
+	}
+	else{
+		if(auxID != 0 ) { // Si es distinto de 0, lo modificamos
+			vector_ciudades[indiceModificar].setID(auxID);
+		}
+		if(auxX != 0){
+			vector_ciudades[indiceModificar].setX(auxX);
+		}
+		if(auxY != 0){
+			vector_ciudades[indiceModificar].setY(auxY);
+		}
+		//si NO esta vacio y si NO es "0"
+		if(!auxNombre.empty() && auxNombre != "0"){
+		vector_ciudades[indiceModificar].setNombre(auxNombre);
+		}
+
+		//limpio los Edit´s
+		EditNombre->Text="";
+		Edit_ID->Text="";
+		Edit_X->Text="";
+		Edit_Y->Text="";
+
+		Ciudad::reescribir(vector_ciudades);
+		actualizarCuadro();
+
+		ShowMessage("¡Modificación exitosa!");
+		PanelModificar->Visible = false;
+	}
+
+	PanelModificar->Visible=false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 {
-	//variables aux
+
+	bool flag=false; //si no hay nada escrito en el buscador
+	bool encontrado=false;
+
+
+	//Valido si escribio algo en el buscador
+	if(EditBusca->Text.Trim().IsEmpty())
+	{
+		ShowMessage("No buscaste nada");
+	}
+	else{
+		flag=true;
+	}
+
+	if(flag==true){
+		if(RadioButtonNombre->Checked){//Busca por nombre
+
+		   //variable aux
+		   string nombreBuscado = AnsiString(EditBusca->Text).c_str();
+
+			for(int i=0; i<vector_ciudades.size(); i++){
+
+				if(nombreBuscado == vector_ciudades[i].getNombre()){
+				   encontrado=true;
+				   indiceModificar = i; //indice a eliminar
+				}
+			}
+
+		}
+		else if(RadioButton_ID->Checked){//Eliminar por ID
+			//variable aux
+			int IDBuscado = StrToInt(EditBusca->Text);
+
+			for(int i=0; i<vector_ciudades.size(); i++){
+				if(IDBuscado == vector_ciudades[i].getID())
+				{
+					encontrado=true;
+					indiceModificar=i;
+				}
+			}
+		}
+	}
+
+	if(encontrado==true){
+		PanelModificar->Visible=true;
+		PanelIdentificador->Visible=false;
+        ShowMessage("Ingrese 0 al que no quieras modificar");
+		EditBusca->Text="";
+	}
+	else{
+		ShowMessage("Ciudad NO encontrada");
+	}
+
+}
+//---------------------------------------------------------------------------
+
+
+
+
+void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
+{
+//variables aux
 	string auxNombre;
 	int auxID, auxX, auxY;
 
 	//validacion de los cambos obligatorios
 	if( EditNombre->Text.Trim().IsEmpty() || Edit_ID->Text.Trim().IsEmpty() || Edit_X->Text.Trim().IsEmpty() || Edit_Y->Text.Trim().IsEmpty() ){
 	   ShowMessage("Todos los campos son obligatorios.");
+
+	   //limpio los Edit´s
+	   EditNombre->Text="";
+	   Edit_ID->Text="";
+	   Edit_X->Text="";
+	   Edit_Y->Text="";
 	}
+
 	else{
 		//copio lo ingresado
 		auxNombre= AnsiString(EditNombre->Text).c_str();
@@ -209,6 +317,12 @@ void __fastcall TForm1::ButtonGuardarClick(TObject *Sender)
 		//lo valido
 		if(auxID<=0 || auxX<=0 || auxY<=0){
 		   ShowMessage("Valores no validas, Intentelo de nuevo");
+
+			//limpio los Edit´s
+			EditNombre->Text="";
+			Edit_ID->Text="";
+			Edit_X->Text="";
+			Edit_Y->Text="";
 		}
 		else{
 			//creo el objeto con sus parametros
@@ -230,21 +344,18 @@ void __fastcall TForm1::ButtonGuardarClick(TObject *Sender)
 			PanelCarga->Visible=false;
 		}
 	}
-
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::ButtonModiClick(TObject *Sender)
+
+
+void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
 {
+	TPanelMenu->Visible=false;
+	PanelCiudades->Visible=false;
+	TPanelConexiones->Visible=true;
 
-	PanelModificar->Visible=false;
+    ActualizarGridRutas();
 }
 //---------------------------------------------------------------------------
-void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
-{
-	PanelModificar->Visible=true;
-	PanelIdentificador->Visible=false;
-}
-//---------------------------------------------------------------------------
-
 

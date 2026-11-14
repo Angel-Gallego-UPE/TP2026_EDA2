@@ -46,6 +46,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	//lo hacemos visible
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
+	TPanelConexiones->Visible = false;
 
 
 	//calculo lo ancho/width de cada campo/columna
@@ -68,6 +69,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
+	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelMenu->Visible=true;
 }
@@ -345,4 +347,53 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+
+void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
+{
+	TPanelMenu->Visible=false;
+	PanelCiudades->Visible=false;
+	TPanelConexiones->Visible=true;
+
+    ActualizarGridRutas();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex;
+	int destino = cmbDestino->ItemIndex;
+	double distancia = StrToFloatDef(editDistancia->Text, -1);
+
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+	if (distancia <= 0)
+	{
+		ShowMessage("Distancia invalida");
+		return;
+	}
+
+	//creamos ruta
+	Ruta ruta_ida(origen, destino, distancia, true, true);
+	mi_grafo.set_ruta(origen, destino, ruta_ida);
+
+	Ruta ruta_vuelta(destino, origen, distancia, true, true);
+	mi_grafo.set_ruta(destino, origen, ruta_vuelta);
+
+	//guardamos en rutas.bin y reescribimos la matriz
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	editDistancia->Text = "";
+	ShowMessage("Ruta cargada exitosamente.");
+}
+//---------------------------------------------------------------------------
 

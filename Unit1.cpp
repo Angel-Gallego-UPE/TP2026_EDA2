@@ -23,6 +23,12 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 {
 	//variable
 	vector_ciudades = Ciudad::leerArchivo();
+
+    for (size_t i = 0; i < vector_ciudades.size(); i++)
+	{
+		mi_grafo.agregar_ciudad();
+	}
+	mi_grafo.leerRuta();
 }
 //---------------------------------------------------------------------------
 
@@ -46,6 +52,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	//lo hacemos visible
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
+	TPanelConexiones->Visible = false;
 
 
 	//calculo lo ancho/width de cada campo/columna
@@ -68,6 +75,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
+	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelMenu->Visible=true;
 }
@@ -154,6 +162,8 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 				vector_ciudades.erase(vector_ciudades.begin()+indiceEliminar);
 				//rescribo el archivo con la ciudad eliminada
 				Ciudad::reescribir(vector_ciudades);
+                mi_grafo.eliminar_ciudad(indiceEliminar);
+				mi_grafo.guardarRuta();
 				actualizarCuadro();
 				//vacio el buscador
 				EditBuscador->Text="";
@@ -330,6 +340,8 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			//escribo al final de archivo la nueva ciudad
 			nuevaCiudad.escribir();
 			//oculto el panel
+            mi_grafo.agregar_ciudad();
+			mi_grafo.guardarRuta();
 
 			actualizarCuadro();
 
@@ -346,4 +358,99 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
+
+void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
+{
+	TPanelMenu->Visible=false;
+	PanelCiudades->Visible=false;
+	TPanelConexiones->Visible=true;
+
+    ActualizarGridRutas();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ActualizarGridRutas()
+{
+	cmbOrigen->Items->Clear();
+	cmbDestino->Items->Clear();
+
+	int n = vector_ciudades.size();
+
+	if (n == 0)
+	{
+		gridRutas->RowCount = 2;
+		gridRutas->ColCount = 2;
+		gridRutas->Cells[0][0] = "";
+		gridRutas->Cells[1][0] = "";
+		gridRutas->Cells[0][1] = "";
+		gridRutas->Cells[1][1] = "";
+		return;
+	}
+
+	gridRutas->ColCount = n + 1;
+	gridRutas->RowCount = n + 1;
+	gridRutas->Cells[0][0] = "Origen \\ Destino";
+
+	for (int i = 0; i < n; i++)
+	{
+		String nombre = String(vector_ciudades[i].getNombre().c_str());
+		gridRutas->Cells[i + 1][0] = nombre; //columna
+		gridRutas->Cells[0][i + 1] = nombre; //fila
+
+		cmbOrigen->Items->Add(nombre);
+		cmbDestino->Items->Add(nombre);
+	}
+
+	//llenar distancias desde la matriz de mi_grafo
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			Ruta r = mi_grafo.getRuta(i, j);
+			if (i == j)
+				gridRutas->Cells[j + 1][i + 1] = "-";
+			else if (r.getruta_existe())
+				gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km";
+			else
+				gridRutas->Cells[j + 1][i + 1] = "0";
+		}
+	}
+}
+
+void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex;
+	int destino = cmbDestino->ItemIndex;
+	double distancia = StrToFloatDef(editDistancia->Text, -1);
+
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+	if (distancia <= 0)
+	{
+		ShowMessage("Distancia invalida");
+		return;
+	}
+
+	//creamos ruta
+	Ruta ruta_ida(origen, destino, distancia, true, true);
+	mi_grafo.set_ruta(origen, destino, ruta_ida);
+
+	Ruta ruta_vuelta(destino, origen, distancia, true, true);
+	mi_grafo.set_ruta(destino, origen, ruta_vuelta);
+
+	//guardamos en rutas.bin y reescribimos la matriz
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	editDistancia->Text = "";
+	ShowMessage("Ruta cargada exitosamente.");
+}
+//---------------------------------------------------------------------------
 

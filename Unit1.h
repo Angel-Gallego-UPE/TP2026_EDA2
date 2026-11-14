@@ -10,6 +10,8 @@
 #include <Vcl.Imaging.pngimage.hpp>
 #include <Vcl.Grids.hpp>
 #include "clase.h"
+#include "Grafo.h"
+#include "Ruta.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -65,6 +67,12 @@ __published:	// IDE-managed Components
 	TRadioButton *RadioButtonName;
 	TRadioButton *RadioButtonID;
 	TButton *ButtonCargar;
+	TPanel *TPanelConexiones;
+	TButton *btnCargarRuta;
+	TComboBox *cmbDestino;
+	TComboBox *cmbOrigen;
+	TEdit *editDistancia;
+	TStringGrid *gridRutas;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);
@@ -74,10 +82,14 @@ __published:	// IDE-managed Components
 	void __fastcall ButtonModiClick(TObject *Sender);
 	void __fastcall ButtonBuscarClick(TObject *Sender);
 	void __fastcall ButtonCargarClick(TObject *Sender);
+	void __fastcall ButtonConexionesClick(TObject *Sender);
+	void __fastcall btnCargarRutaClick(TObject *Sender);
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
 	int indiceModificar;
+    Grafo mi_grafo;
+    void __fastcall ActualizarGridRutas();
 
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);

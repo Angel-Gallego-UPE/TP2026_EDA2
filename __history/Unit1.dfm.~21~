@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 619
-  ClientWidth = 909
+  ClientHeight = 892
+  ClientWidth = 1318
   Color = clBackground
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -115,6 +115,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 3
+      OnClick = ButtonConexionesClick
     end
   end
   object TPanelMenu: TPanel
@@ -407,7 +408,7 @@ object Form1: TForm1
       OnClick = ButtonModificarClick
     end
     object PanelCarga: TPanel
-      Left = 82
+      Left = 83
       Top = 289
       Width = 225
       Height = 167
@@ -495,19 +496,27 @@ object Form1: TForm1
         ParentFont = False
         TabOrder = 3
       end
-      object ButtonGuardar: TButton
-        Left = 136
-        Top = 128
+      object desaparecido: TButton
+        Left = -440
+        Top = 288
         Width = 75
         Height = 25
         Caption = 'Guardar'
         TabOrder = 4
-        OnClick = ButtonGuardarClick
+      end
+      object ButtonCargar: TButton
+        Left = 136
+        Top = 128
+        Width = 75
+        Height = 25
+        Caption = 'Cargar'
+        TabOrder = 5
+        OnClick = ButtonCargarClick
       end
     end
     object PanelEliminar: TPanel
-      Left = 383
-      Top = 298
+      Left = 361
+      Top = 320
       Width = 259
       Height = 97
       Color = clMedGray
@@ -561,7 +570,9 @@ object Form1: TForm1
         Width = 81
         Height = 17
         Caption = 'Nombre'
+        Checked = True
         TabOrder = 2
+        TabStop = True
       end
       object RadioButtonID: TRadioButton
         Left = 8
@@ -573,8 +584,8 @@ object Form1: TForm1
       end
     end
     object PanelModificar: TPanel
-      Left = 82
-      Top = 298
+      Left = 83
+      Top = 285
       Width = 225
       Height = 167
       Color = clMedGray
@@ -672,8 +683,8 @@ object Form1: TForm1
       end
     end
     object PanelIdentificador: TPanel
-      Left = 432
-      Top = 277
+      Left = 402
+      Top = 299
       Width = 185
       Height = 139
       Color = clMedGray
@@ -712,7 +723,9 @@ object Form1: TForm1
         Width = 81
         Height = 18
         Caption = 'Nombre'
+        Checked = True
         TabOrder = 1
+        TabStop = True
       end
       object RadioButton_ID: TRadioButton
         Left = 119
@@ -732,5 +745,14 @@ object Form1: TForm1
         OnClick = ButtonBuscarClick
       end
     end
+  end
+  object TPanelConexiones: TPanel
+    Left = 263
+    Top = 116
+    Width = 645
+    Height = 513
+    Caption = 'TPanelConexiones'
+    TabOrder = 4
+    Visible = False
   end
 end

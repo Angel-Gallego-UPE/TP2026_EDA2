@@ -115,6 +115,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 3
+      OnClick = ButtonConexionesClick
     end
   end
   object TPanelMenu: TPanel
@@ -743,6 +744,54 @@ object Form1: TForm1
         TabOrder = 3
         OnClick = ButtonBuscarClick
       end
+    end
+  end
+  object TPanelConexiones: TPanel
+    Left = 263
+    Top = 116
+    Width = 645
+    Height = 513
+    Caption = 'TPanelConexiones'
+    TabOrder = 4
+    Visible = False
+    object btnCargarRuta: TButton
+      Left = 434
+      Top = 201
+      Width = 123
+      Height = 25
+      Caption = 'Cargar ruta'
+      TabOrder = 0
+      OnClick = btnCargarRutaClick
+    end
+    object cmbDestino: TComboBox
+      Left = 428
+      Top = 88
+      Width = 145
+      Height = 23
+      TabOrder = 1
+      Text = 'Ciudad destino'
+    end
+    object cmbOrigen: TComboBox
+      Left = 428
+      Top = 47
+      Width = 145
+      Height = 23
+      TabOrder = 2
+      Text = 'Ciudad origen'
+    end
+    object editDistancia: TEdit
+      Left = 434
+      Top = 132
+      Width = 121
+      Height = 23
+      TabOrder = 3
+    end
+    object gridRutas: TStringGrid
+      Left = 43
+      Top = 26
+      Width = 385
+      Height = 413
+      TabOrder = 4
     end
   end
 end
