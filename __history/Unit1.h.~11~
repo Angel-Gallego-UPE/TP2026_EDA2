@@ -1,0 +1,86 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit1H
+#define Unit1H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Imaging.pngimage.hpp>
+#include <Vcl.Grids.hpp>
+//---------------------------------------------------------------------------
+class TForm1 : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *TPanelTitulo;
+	TPanel *TPanelOpciones;
+	TPanel *TPanelMenu;
+	TLabel *LabelTitulo;
+	TLabel *LabelVersion;
+	TButton *ButtonMenu;
+	TButton *ButtonCiudades;
+	TButton *ButtonViaje;
+	TButton *ButtonConexiones;
+	TLabel *LabelPresentacion;
+	TImage *ImageUPE;
+	TPanel *PanelCiudades;
+	TStringGrid *GridCiudades;
+	TLabel *LabelTituloCuadro;
+	TButton *ButtonNuevo;
+	TButton *ButtonEliminar;
+	TButton *ButtonModificar;
+	TLabel *LabelOPC;
+	TPanel *PanelCarga;
+	TLabel *Label1;
+	TLabel *Label2;
+	TLabel *Label3;
+	TLabel *Label4;
+	TEdit *EditNombre;
+	TEdit *Edit_ID;
+	TEdit *Edit_X;
+	TEdit *Edit_Y;
+	TButton *ButtonGuardar;
+	TPanel *PanelEliminar;
+	TEdit *EditBuscador;
+	TButton *Button_Eliminar_identificador;
+	TPanel *PanelModificar;
+	TLabel *LabelName;
+	TLabel *idLabel;
+	TLabel *LabelX;
+	TLabel *LabelY;
+	TEdit *Editname;
+	TEdit *Edit__ID;
+	TEdit *EditCoordX;
+	TEdit *EditCoordY;
+	TButton *ButtonModi;
+	TLabel *Label5;
+	TPanel *PanelIdentificador;
+	TLabel *LabelIdentificador;
+	TEdit *EditBusca;
+	TRadioButton *RadioButtonNombre;
+	TRadioButton *RadioButton_ID;
+	TButton *ButtonBuscar;
+	TRadioButton *RadioButtonName;
+	TRadioButton *RadioButtonID;
+	void __fastcall ButtonCiudadesClick(TObject *Sender);
+	void __fastcall ButtonMenuClick(TObject *Sender);
+	void __fastcall ButtonNuevoClick(TObject *Sender);
+	void __fastcall ButtonEliminarClick(TObject *Sender);
+	void __fastcall ButtonModificarClick(TObject *Sender);
+	void __fastcall Button_Eliminar_identificadorClick(TObject *Sender);
+	void __fastcall ButtonGuardarClick(TObject *Sender);
+	void __fastcall ButtonModiClick(TObject *Sender);
+	void __fastcall ButtonBuscarClick(TObject *Sender);
+private:	// User declarations
+	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
+
+public:		// User declarations
+	__fastcall TForm1(TComponent* Owner);
+
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm1 *Form1;
+//---------------------------------------------------------------------------
+#endif
