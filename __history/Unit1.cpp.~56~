@@ -52,6 +52,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	//lo hacemos visible
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
+	TPanelViaje->Visible=false;
 	TPanelConexiones->Visible = false;
 
 
@@ -77,6 +78,7 @@ void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
 	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
+	TPanelViaje->Visible=false;
 	TPanelMenu->Visible=true;
 }
 //---------------------------------------------------------------------------
@@ -163,7 +165,7 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 				//rescribo el archivo con la ciudad eliminada
 				Ciudad::reescribir(vector_ciudades);
                 mi_grafo.eliminar_ciudad(indiceEliminar);
-mi_grafo.guardarRuta();
+				mi_grafo.guardarRuta();
 				actualizarCuadro();
 				//vacio el buscador
 				EditBuscador->Text="";
@@ -363,6 +365,7 @@ void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
 {
 	TPanelMenu->Visible=false;
 	PanelCiudades->Visible=false;
+    TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=true;
 
     ActualizarGridRutas();
@@ -453,4 +456,133 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 	ShowMessage("Ruta cargada exitosamente.");
 }
 //---------------------------------------------------------------------------
+bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal)
+{
+	int n = mi_grafo.obtener_cantidad_de_ciudades();
+	camino.clear();
+
+	if (origen < 0 || origen >= n || destino < 0 || destino >= n || origen == destino)
+		return false;
+
+	const double INF = 1.7976931348623158e308;
+	std::vector<double> dist(n, INF);
+	std::vector<bool> visitado(n, false);
+	std::vector<int> anterior(n, -1);
+
+	dist[origen] = 0;
+
+	for (int count = 0; count < n; count++)
+	{
+		int u = -1;
+		double minDist = INF;
+
+		for (int i = 0; i < n; i++)
+		{
+			if (!visitado[i] && dist[i] < minDist)
+			{
+				minDist = dist[i];
+				u = i;
+			}
+		}
+
+		if (u == -1 || u == destino)
+			break;
+
+		visitado[u] = true;
+
+		for (int v = 0; v < n; v++)
+		{
+			if (!visitado[v])
+			{
+				Ruta r = mi_grafo.getRuta(u, v);
+				if (r.getruta_existe() && r.getestado_de_ruta())
+				{
+					double nuevaDist = dist[u] + r.getdistancia();
+					if (nuevaDist < dist[v])
+					{
+						dist[v] = nuevaDist;
+						anterior[v] = u;
+					}
+				}
+			}
+		}
+	}
+
+	if (dist[destino] == INF)
+		return false; // No hay camino posible
+
+	distanciaTotal = dist[destino];
+
+	// Reconstruir el camino desde destino hasta origen y luego invertirlo
+	for (int actual = destino; actual != -1; actual = anterior[actual])
+	{
+		camino.push_back(actual);
+	}
+	std::reverse(camino.begin(), camino.end());
+
+	return true;
+}
+
+void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
+{
+
+	int origen = cmbViajeOrigen->ItemIndex;
+	int destino = cmbViajeDestino->ItemIndex;
+
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona origen y destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("Ya estás en la ciudad de destino.");
+		return;
+	}
+
+	std::vector<int> camino;
+	double kmTotales = 0;
+
+	if (CalcularDijkstra(origen, destino, camino, kmTotales))
+	{
+		String recorrido = "";
+		for (size_t i = 0; i < camino.size(); i++)
+		{
+			int idx = camino[i];
+			recorrido += String(vector_ciudades[idx].getNombre().c_str());
+			if (i < camino.size() - 1)
+				recorrido += " -> ";
+		}
+
+		lblResultadoViaje->Caption = "Distancia mínima: " + FloatToStr(kmTotales) + " km\nRecorrido: " + recorrido;
+	}
+	else
+	{
+		lblResultadoViaje->Caption = "No existe un camino conectado entre esas ciudades.";
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
+{
+	PanelCarga->Visible=false;  //true
+	PanelEliminar->Visible=false;
+	PanelModificar->Visible=false;
+	PanelIdentificador->Visible=false;
+	TPanelViaje->Visible=true;
+
+	cmbViajeOrigen->Items->Clear();
+	cmbViajeDestino->Items->Clear();
+
+    for (int i = 0; i < vector_ciudades.size(); i++)
+	{
+		String nombre = String(vector_ciudades[i].getNombre().c_str());
+		cmbViajeOrigen->Items->Add(nombre);
+		cmbViajeDestino->Items->Add(nombre);
+	}
+
+}
+//---------------------------------------------------------------------------
+
+
 

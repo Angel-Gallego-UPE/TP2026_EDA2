@@ -10,6 +10,8 @@
 #include <Vcl.Imaging.pngimage.hpp>
 #include <Vcl.Grids.hpp>
 #include "clase.h"
+#include "Grafo.h"
+#include "Ruta.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -66,6 +68,16 @@ __published:	// IDE-managed Components
 	TRadioButton *RadioButtonID;
 	TButton *ButtonCargar;
 	TPanel *TPanelConexiones;
+	TButton *btnCargarRuta;
+	TComboBox *cmbDestino;
+	TComboBox *cmbOrigen;
+	TEdit *editDistancia;
+	TStringGrid *gridRutas;
+	TPanel *TPanelViaje;
+	TComboBox *cmbViajeOrigen;
+	TComboBox *cmbViajeDestino;
+	TButton *btnCalcularViaje;
+	TLabel *lblResultadoViaje;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);
@@ -76,10 +88,16 @@ __published:	// IDE-managed Components
 	void __fastcall ButtonBuscarClick(TObject *Sender);
 	void __fastcall ButtonCargarClick(TObject *Sender);
 	void __fastcall ButtonConexionesClick(TObject *Sender);
+	void __fastcall btnCargarRutaClick(TObject *Sender);
+	void __fastcall btnCalcularViajeClick(TObject *Sender);
+	void __fastcall ButtonViajeClick(TObject *Sender);
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
 	int indiceModificar;
+    Grafo mi_grafo;
+	void __fastcall ActualizarGridRutas();
+    bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
 
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);

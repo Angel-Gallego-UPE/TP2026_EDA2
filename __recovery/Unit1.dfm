@@ -60,7 +60,7 @@ object Form1: TForm1
     TabOrder = 1
     object ButtonMenu: TButton
       Left = 16
-      Top = 24
+      Top = 19
       Width = 209
       Height = 65
       Caption = 'MENU'
@@ -75,7 +75,7 @@ object Form1: TForm1
     end
     object ButtonCiudades: TButton
       Left = 16
-      Top = 104
+      Top = 112
       Width = 209
       Height = 65
       Caption = 'CIUDADES'
@@ -90,7 +90,7 @@ object Form1: TForm1
     end
     object ButtonViaje: TButton
       Left = 16
-      Top = 184
+      Top = 203
       Width = 209
       Height = 65
       Caption = 'VIAJE'
@@ -101,10 +101,11 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      OnClick = ButtonViajeClick
     end
     object ButtonConexiones: TButton
       Left = 16
-      Top = 264
+      Top = 294
       Width = 209
       Height = 65
       Caption = 'CONEXIONES'
@@ -752,7 +753,91 @@ object Form1: TForm1
     Width = 645
     Height = 513
     Caption = 'TPanelConexiones'
+    Color = clMediumslateblue
+    ParentBackground = False
     TabOrder = 4
     Visible = False
+    object btnCargarRuta: TButton
+      Left = 434
+      Top = 201
+      Width = 123
+      Height = 25
+      Caption = 'Cargar ruta'
+      TabOrder = 0
+      OnClick = btnCargarRutaClick
+    end
+    object cmbDestino: TComboBox
+      Left = 428
+      Top = 88
+      Width = 145
+      Height = 23
+      TabOrder = 1
+      Text = 'Ciudad destino'
+    end
+    object cmbOrigen: TComboBox
+      Left = 428
+      Top = 47
+      Width = 145
+      Height = 23
+      TabOrder = 2
+      Text = 'Ciudad origen'
+    end
+    object editDistancia: TEdit
+      Left = 434
+      Top = 132
+      Width = 121
+      Height = 23
+      TabOrder = 3
+    end
+    object gridRutas: TStringGrid
+      Left = 43
+      Top = 26
+      Width = 385
+      Height = 413
+      TabOrder = 4
+    end
+  end
+  object TPanelViaje: TPanel
+    Left = 263
+    Top = 116
+    Width = 645
+    Height = 513
+    Caption = 'TPanelViaje'
+    Color = clMediumslateblue
+    ParentBackground = False
+    TabOrder = 5
+    Visible = False
+    object lblResultadoViaje: TLabel
+      Left = 289
+      Top = 205
+      Width = 52
+      Height = 15
+      Caption = 'Resultado'
+    end
+    object cmbViajeOrigen: TComboBox
+      Left = 43
+      Top = 42
+      Width = 145
+      Height = 23
+      TabOrder = 0
+      Text = 'Ciudad origen'
+    end
+    object cmbViajeDestino: TComboBox
+      Left = 464
+      Top = 42
+      Width = 145
+      Height = 23
+      TabOrder = 1
+      Text = 'Ciudad destino'
+    end
+    object btnCalcularViaje: TButton
+      Left = 280
+      Top = 128
+      Width = 75
+      Height = 25
+      Caption = 'Calcular'
+      TabOrder = 2
+      OnClick = btnCalcularViajeClick
+    end
   end
 end
