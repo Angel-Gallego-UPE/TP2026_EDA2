@@ -78,6 +78,8 @@ __published:	// IDE-managed Components
 	TComboBox *cmbViajeDestino;
 	TButton *btnCalcularViaje;
 	TLabel *lblResultadoViaje;
+	TPaintBox *pbMapa;
+	TImage *Image1;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);
@@ -91,13 +93,15 @@ __published:	// IDE-managed Components
 	void __fastcall btnCargarRutaClick(TObject *Sender);
 	void __fastcall btnCalcularViajeClick(TObject *Sender);
 	void __fastcall ButtonViajeClick(TObject *Sender);
+	void __fastcall pbMapaPaint(TObject *Sender);
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
 	int indiceModificar;
     Grafo mi_grafo;
 	void __fastcall ActualizarGridRutas();
-    bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
+	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
+    std::vector<int> camino_actual;
 
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);

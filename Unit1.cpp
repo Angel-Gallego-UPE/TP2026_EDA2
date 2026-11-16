@@ -24,6 +24,10 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 	//variable
 	vector_ciudades = Ciudad::leerArchivo();
 
+	if (FileExists("stgo.png"))
+	Image1->Picture->LoadFromFile("stgo.png");
+
+
     for (int i = 0; i < vector_ciudades.size(); i++)
 	{
 		mi_grafo.agregar_ciudad();
@@ -553,11 +557,14 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 			if (i < camino.size() - 1)
 				recorrido += " -> ";
 		}
-
+		camino_actual = camino;
+        pbMapa->Invalidate();
 		lblResultadoViaje->Caption = "Distancia mínima: " + FloatToStr(kmTotales) + " km\nRecorrido: " + recorrido;
 	}
 	else
 	{
+		camino_actual.clear();
+        pbMapa->Invalidate();
 		lblResultadoViaje->Caption = "No existe un camino conectado entre esas ciudades.";
 	}
 }
@@ -565,10 +572,10 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 {
-	PanelCarga->Visible=false;  //true
-	PanelEliminar->Visible=false;
-	PanelModificar->Visible=false;
 	TPanelViaje->Visible=true;
+    TPanelConexiones->Visible = false;
+	TPanelMenu->Visible = false;
+	PanelCiudades->Visible = false;
 
 	cmbViajeOrigen->Items->Clear();
 	cmbViajeDestino->Items->Clear();
@@ -580,8 +587,119 @@ void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 		cmbViajeDestino->Items->Add(nombre);
 	}
 
+    camino_actual.clear();
+	lblResultadoViaje->Caption = "";
+	pbMapa->Invalidate();
+
 }
 //---------------------------------------------------------------------------
 
+
+
+void __fastcall TForm1::pbMapaPaint(TObject *Sender)
+{
+TCanvas *c = pbMapa->Canvas;
+	int w = pbMapa->Width;
+	int h = pbMapa->Height;
+
+	// 1. Fondo blanco con borde gris
+	c->Brush->Color = clWhite;
+	c->Pen->Color = clGray;
+	c->Pen->Width = 1;
+	c->Rectangle(0, 0, w, h);
+
+	int n = vector_ciudades.size();
+	if (n == 0) return;
+
+	// 2. Calcular límites X e Y para escalar cualquier coordenada al tamaño del recuadro
+	int minX = vector_ciudades[0].getX(), maxX = minX;
+	int minY = vector_ciudades[0].getY(), maxY = minY;
+	for (int i = 1; i < n; i++)
+	{
+		if (vector_ciudades[i].getX() < minX) minX = vector_ciudades[i].getX();
+		if (vector_ciudades[i].getX() > maxX) maxX = vector_ciudades[i].getX();
+		if (vector_ciudades[i].getY() < minY) minY = vector_ciudades[i].getY();
+		if (vector_ciudades[i].getY() > maxY) maxY = vector_ciudades[i].getY();
+	}
+
+	int margen = 50;
+	int rangoX = (maxX - minX == 0) ? 1 : (maxX - minX);
+	int rangoY = (maxY - minY == 0) ? 1 : (maxY - minY);
+
+	// Convertimos cada ciudad a coordenadas en píxeles dentro de pbMapa
+	std::vector<TPoint> pos(n);
+	for (int i = 0; i < n; i++)
+	{
+		int px = margen + ((vector_ciudades[i].getX() - minX) * (w - 2 * margen)) / rangoX;
+		int py = margen + ((vector_ciudades[i].getY() - minY) * (h - 2 * margen)) / rangoY;
+		pos[i] = Point(px, py);
+	}
+
+	// 3. Dibujar TODAS las conexiones existentes en gris claro
+	c->Pen->Color = clSilver;
+	c->Pen->Width = 2;
+	c->Font->Color = clGray;
+	c->Font->Size = 8;
+
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = i + 1; j < n; j++)
+		{
+			Ruta r = mi_grafo.getRuta(i, j);
+			if (r.getruta_existe() && r.getestado_de_ruta())
+			{
+				c->MoveTo(pos[i].x, pos[i].y);
+				c->LineTo(pos[j].x, pos[j].y);
+
+				// Mostrar kilómetros en el punto medio de la línea
+				int midX = (pos[i].x + pos[j].x) / 2;
+				int midY = (pos[i].y + pos[j].y) / 2;
+				c->TextOut(midX, midY, FloatToStr(r.getdistancia()) + " km");
+			}
+		}
+	}
+
+	// 4. Resaltar en azul/rojo grueso el camino más corto de Dijkstra
+	if (camino_actual.size() > 1)
+	{
+		c->Pen->Color = clRed;
+		c->Pen->Width = 4;
+		for (size_t k = 0; k < camino_actual.size() - 1; k++)
+		{
+			int u = camino_actual[k];
+			int v = camino_actual[k + 1];
+			c->MoveTo(pos[u].x, pos[u].y);
+			c->LineTo(pos[v].x, pos[v].y);
+		}
+	}
+
+	// 5. Dibujar los nodos (círculos) y los nombres de cada ciudad
+	c->Font->Color = clBlack;
+	c->Font->Style = TFontStyles() << fsBold;
+	c->Font->Size = 9;
+	c->Pen->Width = 2;
+
+	for (int i = 0; i < n; i++)
+	{
+		// Verificar si la ciudad forma parte del camino ganador
+		bool enCamino = false;
+		for (size_t k = 0; k < camino_actual.size(); k++)
+		{
+			if (camino_actual[k] == i) { enCamino = true; break; }
+		}
+
+		c->Brush->Color = enCamino ? clYellow : clSkyBlue;
+		c->Pen->Color = enCamino ? clRed : clNavy;
+
+		int radio = 10;
+		c->Ellipse(pos[i].x - radio, pos[i].y - radio, pos[i].x + radio, pos[i].y + radio);
+
+		String nombre = String(vector_ciudades[i].getNombre().c_str());
+		c->Brush->Style = bsClear; // Texto sin fondo tapando líneas
+		c->TextOut(pos[i].x - 20, pos[i].y - 26, nombre);
+		c->Brush->Style = bsSolid;
+	}
+}
+//---------------------------------------------------------------------------
 
 
