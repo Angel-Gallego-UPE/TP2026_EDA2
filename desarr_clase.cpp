@@ -169,15 +169,15 @@ void Ciudad::reescribir(vector<Ciudad>& vector_ciudades){ //RESCRIBIR TODO EL AR
 	}
 }
 
-Ciudad Ciudad::intanciarObjeto(){
-	
+/*Ciudad Ciudad::intanciarObjeto(){
+
 	//objeto que devuelve
 	Ciudad obj;
-	
+
 	//variables aux
 	string nombre_aux;
 	int id_aux, x_aux, y_aux;
-	
+
 	cin.ignore();
 	//validaciones para llenar su informacion
 	do{
@@ -192,17 +192,17 @@ Ciudad Ciudad::intanciarObjeto(){
 		cout<<"Ingrese coordenada X: ";
 		cin>>x_aux;
 	}while(x_aux<0);
-	do{	
+	do{
 		cout<<"Ingrese coordenada Y: ";
 		cin>>y_aux;
 	}while(y_aux<0);
-	
+
 	//setters
 	obj.setNombre(nombre_aux);
 	obj.setID(id_aux);
 	obj.setX(x_aux);
 	obj.setY(y_aux);
-	
+
 	//devuelvo el obj cargado...
 	return obj;
-}
+} */

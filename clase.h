@@ -30,5 +30,5 @@ class Ciudad{
 		void escribir();
 		static void reescribir(vector<Ciudad>& vector_ciudades);
 		static vector<Ciudad> leerArchivo();
-		Ciudad intanciarObjeto();
+		//Ciudad intanciarObjeto();
 };
