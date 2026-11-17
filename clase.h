@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -27,7 +28,7 @@ class Ciudad{
 		void setNombre(string _nombre);
 		//metodos
 		void escribir();
-		static void reescribrir(vector<Ciudad>& vector_ciudades);
+		static void reescribir(vector<Ciudad>& vector_ciudades);
 		static vector<Ciudad> leerArchivo();
 		Ciudad intanciarObjeto();
 };

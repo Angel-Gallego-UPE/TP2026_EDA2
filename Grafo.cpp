@@ -1,5 +1,6 @@
-#include "Grafo.h"
+﻿#include "Grafo.h"
 #include <iostream>
+#include <fstream>
 #include <vector>
 using namespace std;
 
@@ -44,7 +45,7 @@ void Grafo::agregar_ciudad(){ //funcion para agregar ciudades
 }
 
 void Grafo::eliminar_ciudad(int indice){
-	
+
 	
 	//comprobamos que la matriz no este vacia
 	if (cantidad_de_ciudades == 0) {
@@ -57,7 +58,8 @@ void Grafo::eliminar_ciudad(int indice){
 		cout << "indice invalido\n";
 		return;
 	}
-	
+
+
 	int nueva_cantidad = cantidad_de_ciudades -1;
 	
 		//reservamos memoria para las nuevas filas.
@@ -87,8 +89,8 @@ void Grafo::eliminar_ciudad(int indice){
 		                      
 				}
 			//evitamos copiar los elementos de la fila y columna eliminadas
-			    if(i != indice && j != indice){
-			   	   
+				if(i != indice && j != indice){
+
 					//copia el objeto ruta de la matriz original en una variable auxiliar
 					Ruta r = matriz[i][j];
 					
@@ -100,6 +102,7 @@ void Grafo::eliminar_ciudad(int indice){
 					
                     //guarda la ruta con sus indices actualizados en la nueva posicion de la matriz
 					nueva_matriz[fila_destino][columna_destino] = r;
+
 				}
 	    }
 	}
@@ -147,10 +150,10 @@ void Grafo::cargar_ruta(){
 				cout << "Operacion invalida ingrese una distancia positiva mayor a 0\n ";
  	           
 			}else{
-				
+
 	//crea el objeto Ruta con los datos ingresados
 	//(origen, destino, distancia, estado_de_ruta=1, ruta_existe=true)
-    //Ruta de ida (origen -> destino)
+	//Ruta de ida (origen -> destino)
 	Ruta ruta_ida(ciudad_origen, ciudad_destino, distancia, 1, true);
 	set_ruta(ciudad_origen, ciudad_destino, ruta_ida); //guarda la ruta en la matriz del grafo usando el metodo set_ruta
 	
@@ -160,9 +163,55 @@ void Grafo::cargar_ruta(){
 	cout << "Ruta cargada exitosamente\n";
 			 
 				continuar = 1; //si se cargan los datos correctamente salimos del bucle
-			
+
 			}
-	    }
+		}
+	}
+}
+
+void Grafo::leerRuta()
+{
+	ifstream archivo("rutas.bin", ios::binary);
+	if(archivo)
+    {
+        int ciudades_guardadas = 0;
+        if(archivo.read((char*)&ciudades_guardadas, sizeof(ciudades_guardadas)))
+        {
+			while(cantidad_de_ciudades < ciudades_guardadas)
+            {
+                agregar_ciudad();
+            }
+            for(int i = 0; i < cantidad_de_ciudades; i++)
+			{
+                for(int j = 0; j < cantidad_de_ciudades; j++)
+                {
+                    Ruta r;
+                    if(archivo.read((char*)&r, sizeof(Ruta)))
+					{
+                        matriz[i][j] = r;
+                    }
+                }
+            }
+		}
+        archivo.close();
+    }
+}
+
+void Grafo::guardarRuta()
+{
+	ofstream archivo("rutas.bin", ios::binary | ios::trunc);
+	if(archivo)
+	{
+		archivo.write((char*)&cantidad_de_ciudades, sizeof(cantidad_de_ciudades));
+		for(int i = 0; i < cantidad_de_ciudades; i++)
+		{
+			for(int j = 0; j < cantidad_de_ciudades; j++)
+			{
+				Ruta r = matriz[i][j];
+				archivo.write((char*)&r, sizeof(Ruta));
+			}
+		}
+		archivo.close();
 	}
 }
 
@@ -187,8 +236,6 @@ void Grafo::mostrar_matriz() {
 	}
 }
 
-
-
 void Grafo::dijkstra(){
 	
 	//variables para guardar el indice de la ciudad desde donde comienza el recorrido y hacia donde queremos llegar
@@ -203,14 +250,14 @@ void Grafo::dijkstra(){
 	cout << "ingrese el indice de la ciudad de destino: ";
 	cin >> ciudad_destino;
 	
-	
+
 	//compruebo el indice ingresado
 	if(ciudad_origen < 0 || ciudad_origen >= cantidad_de_ciudades || ciudad_destino < 0 || ciudad_destino >= cantidad_de_ciudades){
-		
-		cout<<"el indice ingresado no coresponde a ninguna ciudad";	
-		return;		
+
+		cout<<"el indice ingresado no coresponde a ninguna ciudad";
+		return;
 	}
-	
+
 	//compruebo que la ciudad origen y la ciudad destino no sean la misma
 	if(ciudad_origen == ciudad_destino){
 		
@@ -269,14 +316,12 @@ void Grafo::dijkstra(){
 				}	
 			}	
 		}
-		
-		//comprueba si no encontramos ninguna ciudad que tenga un camino disponible desde el origen 	
+
+		//comprueba si no encontramos ninguna ciudad que tenga un camino disponible desde el origen
 		if(distancia_minima == 1.7976931348623158e308){
-			
 			cout << "no existe un camino hacia la ciudad destino\n";
 			return;
-			
-		}		
+		}
 		
 		//comprobamos si la ciudad con menor distancia encontrada es la ciudad destino	
 		if(ciudad_actual == ciudad_destino){
@@ -354,23 +399,24 @@ void Grafo::dijkstra(){
 
 
 
+
 void Grafo::cambiar_estado_de_ruta(){
-	
-    int ciudad_origen;
+
+	int ciudad_origen;
 	int ciudad_destino;
 	short continuar = 0;
 	short opcion;
-	
+
 	while(continuar == 0){
 	//le pedimos al usuario el indice de la primer ciudad
 	cout << "ingrese el indice de la ciudad de origen: ";
 	cin >> ciudad_origen;
-	
+
 	//le pedimos al usuario el indice de la segunda ciudad
 	cout << "ingrese el indice de la ciudad de destino: ";
 	cin >> ciudad_destino;
-	
-	
+
+
 	//compruebo el indice ingresado
 	if(ciudad_origen < 0 || ciudad_origen >= cantidad_de_ciudades || ciudad_destino < 0 || ciudad_destino >= cantidad_de_ciudades){
 		
@@ -384,7 +430,7 @@ void Grafo::cambiar_estado_de_ruta(){
 		cout<<"ciudad origen y ciudad destino son la misma";	
 		continuar = 1;	
 	}
-	
+
 	if(matriz[ciudad_origen][ciudad_destino].getruta_existe() == false){
 		
 		cout<<"no existe ninguna ruta entre estas dos ciudades\n";
@@ -420,28 +466,28 @@ void Grafo::cambiar_estado_de_ruta(){
 		cout<<"ruta cortada\n";
 		break;
 	case 3:
-		
+
 		continuar_2 = 1;
 		
 		break;
 	default:
-		cout<<"OPCION INVALIDA"; 
+		cout<<"OPCION INVALIDA";
 		break;
 	    }	
 		continuar_2 = 1;
 	   }
 	
 		continuar = 1;
-	}	
-}
+		}
+	}
 }
 // SETTER: guarda o actualiza un objeto Ruta en coordenadas especificas [origen][destino]
 void Grafo::set_ruta(int ciudad_origen, int ciudad_destino, Ruta nueva_ruta) {
-	
+
 	//primero validamos que los indices de las ciudades esten dentro de los límites reales de la matriz
 	//las posiciones van desde 0 hasta (cantidad_de_ciudades - 1)
 	if (ciudad_origen >= 0 && ciudad_origen < cantidad_de_ciudades && ciudad_destino >= 0 && ciudad_destino < cantidad_de_ciudades){
-		
+
 		// si los indices son validos, guardamos el objeto Ruta en esa celda de la matriz
 		matriz[ciudad_origen][ciudad_destino] = nueva_ruta;
 		

@@ -1,4 +1,4 @@
-#include "clase.h"
+﻿#include "clase.h"
 #include <iostream>
 #include <fstream> //libreria de manejo de archivos
 #include <string> //libreria necesaria
@@ -129,7 +129,7 @@ void Ciudad::escribir(){
 	}
 }
 
-void Ciudad::reescribrir(vector<Ciudad>& vector_ciudades){ //RESCRIBIR TODO EL ARCHIVO
+void Ciudad::reescribir(vector<Ciudad>& vector_ciudades){ //RESCRIBIR TODO EL ARCHIVO
 	
 	ofstream archivo("ciudades.bin", ios::binary);//abro archivo + outfile(write)
 	if(archivo){//abrio bien
