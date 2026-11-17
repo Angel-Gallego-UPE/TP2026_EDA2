@@ -174,9 +174,12 @@ void Grafo::leerRuta()
 	ifstream archivo("rutas.bin", ios::binary);
 	if(archivo)
     {
-        int ciudades_guardadas = 0;
+		int ciudades_guardadas = 0;
+
+		//lee el archivo y lo guarda en ciudades guardadas
         if(archivo.read((char*)&ciudades_guardadas, sizeof(ciudades_guardadas)))
-        {
+		{
+
 			while(cantidad_de_ciudades < ciudades_guardadas)
             {
                 agregar_ciudad();

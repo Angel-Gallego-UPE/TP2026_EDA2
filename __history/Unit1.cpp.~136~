@@ -21,17 +21,19 @@ TForm1 *Form1;
 __fastcall TForm1::TForm1(TComponent* Owner)
 	: TForm(Owner)
 {
-	//variable
+	//cargo las ciudades
 	vector_ciudades = Ciudad::leerArchivo();
 
+	//cargo la imagen de fondo
 	if (FileExists("stgo.png"))
 	Image1->Picture->LoadFromFile("stgo.png");
 
-
-    for (int i = 0; i < vector_ciudades.size(); i++)
+	//cargo la matriz
+	for (int i = 0; i < vector_ciudades.size(); i++)
 	{
 		mi_grafo.agregar_ciudad();
 	}
+	//relleno la matriz
 	mi_grafo.leerRuta();
 }
 //---------------------------------------------------------------------------
@@ -53,7 +55,7 @@ void TForm1::actualizarCuadro()
   //---------------------------------------------------------------------------
 void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 {
-	//lo hacemos visible
+	//muestro solo las opciones para ciudades
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
 	TPanelViaje->Visible=false;
@@ -68,7 +70,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	GridCiudades->ColWidths[2] = ancho * 22 / 100;
 	GridCiudades->ColWidths[3] = ancho * 22 / 100;
 
-	//Ingreso los nombres de cada campo
+	//ingreso los nombres de cada campo (en la primera fila)
 	GridCiudades->Cells[0][0] = "Ciudad";
 	GridCiudades->Cells[1][0] = "ID";
 	GridCiudades->Cells[2][0] = "Coord. X";
@@ -80,6 +82,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
+	//muestro solo el menú
 	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
@@ -89,7 +92,7 @@ void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 {
-	PanelCarga->Visible=true;  //true
+	PanelCarga->Visible=true;
 	PanelEliminar->Visible=false;
 	PanelModificar->Visible=false;
 	PanelIdentificador->Visible=false;
@@ -98,7 +101,7 @@ void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 {
-	PanelEliminar->Visible=true; //true
+	PanelEliminar->Visible=true;
 	PanelCarga->Visible=false;
 	PanelModificar->Visible=false;
 	PanelIdentificador->Visible=false;
@@ -107,7 +110,7 @@ void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonModificarClick(TObject *Sender)
 {
-	PanelIdentificador->Visible=true; //true
+	PanelIdentificador->Visible=true;
 	PanelEliminar->Visible=false;
 	PanelCarga->Visible=false;
 }
@@ -168,7 +171,7 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 				vector_ciudades.erase(vector_ciudades.begin()+indiceEliminar);
 				//rescribo el archivo con la ciudad eliminada
 				Ciudad::reescribir(vector_ciudades);
-                mi_grafo.eliminar_ciudad(indiceEliminar);
+				mi_grafo.eliminar_ciudad(indiceEliminar);
 				mi_grafo.guardarRuta();
 				actualizarCuadro();
 				//vacio el buscador
@@ -306,7 +309,7 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 {
-//variables aux
+	//variables aux
 	string auxNombre;
 	int auxID, auxX, auxY;
 
@@ -346,7 +349,7 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			//escribo al final de archivo la nueva ciudad
 			nuevaCiudad.escribir();
 			//oculto el panel
-            mi_grafo.agregar_ciudad();
+			mi_grafo.agregar_ciudad();
 			mi_grafo.guardarRuta();
 
 			actualizarCuadro();
@@ -367,21 +370,26 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
 {
+	//muestro solo la matriz con las rutas
 	TPanelMenu->Visible=false;
 	PanelCiudades->Visible=false;
     TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=true;
 
-    ActualizarGridRutas();
+	//las actualizo
+	ActualizarGridRutas();
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ActualizarGridRutas()
 {
+	//limpio los desplegables
 	cmbOrigen->Items->Clear();
 	cmbDestino->Items->Clear();
 
+	//guardo la cantidad de ciudades en el vector
 	int n = vector_ciudades.size();
 
+	//si no hay ciudades dejo la tabla vacia
 	if (n == 0)
 	{
 		gridRutas->RowCount = 2;
@@ -393,93 +401,106 @@ void __fastcall TForm1::ActualizarGridRutas()
 		return;
 	}
 
+	//guardo espacio para la matriz
 	gridRutas->ColCount = n + 1;
 	gridRutas->RowCount = n + 1;
 	gridRutas->Cells[0][0] = "Origen \\ Destino";
 
-	for (int i = 0; i < n; i++)
-	{
-		String nombre = String(vector_ciudades[i].getNombre().c_str());
-		gridRutas->Cells[i + 1][0] = nombre; //columna
-		gridRutas->Cells[0][i + 1] = nombre; //fila
 
+	for (int i = 0; i < n; i++)//recorro el vector
+	{
+		//almaceno el nombre de la ciudad buscada en el vector
+		String nombre = String(vector_ciudades[i].getNombre().c_str());
+		gridRutas->Cells[i + 1][0] = nombre; //nombre de la ciudad en el lugar correspondiente de la primera fila
+		gridRutas->Cells[0][i + 1] = nombre; //nombre de la ciudad en el lugar correspondiente de la primera columna
+
+		//añado los nombres de las ciudades en los desplegables uno por uno
 		cmbOrigen->Items->Add(nombre);
 		cmbDestino->Items->Add(nombre);
 	}
 
-	//llenar distancias desde la matriz de mi_grafo
+	//lleno las distancias con la info de la matriz "mi_grafo"
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
 		{
-			Ruta r = mi_grafo.getRuta(i, j);
+			//tomo el objeto Ruta que se encuentra en la matriz
+			Ruta r = mi_grafo.getRuta(i, j);//[origen][destino]
 			if (i == j)
-				gridRutas->Cells[j + 1][i + 1] = "-";
-			else if (r.getruta_existe())
-				gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km";
+			gridRutas->Cells[j + 1][i + 1] = "-"; //al ser la misma ciudad queda en -
+			else if (r.getruta_existe()) //si existe conexion cargada entre ambas ciudades
+			gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km"; //muestro la distancia en la celda
 			else
-				gridRutas->Cells[j + 1][i + 1] = "0";
+			//si no existe, es 0
+			gridRutas->Cells[j + 1][i + 1] = "0";
 		}
 	}
 }
 
 void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 {
-	int origen = cmbOrigen->ItemIndex;
-	int destino = cmbDestino->ItemIndex;
-	double distancia = StrToFloatDef(editDistancia->Text, -1);
+	int origen = cmbOrigen->ItemIndex; //tomo la ciudad origen
+	int destino = cmbDestino->ItemIndex; //tomo la ciudad destino
+	double distancia = StrToFloatDef(editDistancia->Text, -1);//tomo la distancia y lo convierto el texto a double;
+															  //si está vacío o tiene letras, devuelve -1
+	//si el valor de distancia es incorrecto o no selecciono origen/destino, el valor es -1 según la variable
 
-	if (origen == -1 || destino == -1)
+	if (origen == -1 || destino == -1) //si no se seleccionó alguno de las dos ciudades
 	{
 		ShowMessage("Selecciona una ciudad de origen y una de destino.");
 		return;
 	}
-	if (origen == destino)
+	if (origen == destino) //si son la misma
 	{
 		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
 		return;
 	}
-	if (distancia <= 0)
+	if (distancia <= 0) //si la distancia es negativa/cero
 	{
 		ShowMessage("Distancia invalida");
 		return;
 	}
 
-	//creamos ruta
-	Ruta ruta_ida(origen, destino, distancia, true, true);
-	mi_grafo.set_ruta(origen, destino, ruta_ida);
+	//si está todo ok:
+	//creamos ruta de ida (origen, destino, distancia, estado_activa = true, ruta_existe = true)
+	Ruta ruta_ida(origen, destino, distancia, true, true); //pasamos los datos de la ruta para la ida
+	mi_grafo.set_ruta(origen, destino, ruta_ida); //guardamos el objeto Ruta en [origen][destino]
 
-	Ruta ruta_vuelta(destino, origen, distancia, true, true);
-	mi_grafo.set_ruta(destino, origen, ruta_vuelta);
+	Ruta ruta_vuelta(destino, origen, distancia, true, true); //creamos la ruta simétrica
+	mi_grafo.set_ruta(destino, origen, ruta_vuelta); ////guardamos el objeto Ruta en [destino][origen]
 
 	//guardamos en rutas.bin y reescribimos la matriz
 	mi_grafo.guardarRuta();
+	//actualizamos la tabla
 	ActualizarGridRutas();
 
+    //limpiamos el recuadro de la distancia
 	editDistancia->Text = "";
 	ShowMessage("Ruta cargada exitosamente.");
 }
 //---------------------------------------------------------------------------
 bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal)
 {
-	int n = mi_grafo.obtener_cantidad_de_ciudades();
-	camino.clear();
+	int n = mi_grafo.obtener_cantidad_de_ciudades(); //obtengo la cantidad ciudades del grafo
+	camino.clear(); //limpio el vector por si traía datos de una búsqueda anterior
 
 	if (origen < 0 || origen >= n || destino < 0 || destino >= n || origen == destino)
 		return false;
 
-	const double INF = 1.7976931348623158e308;
-	std::vector<double> dist(n, INF);
-	std::vector<bool> visitado(n, false);
-	std::vector<int> anterior(n, -1);
+	const double INF = 1.7976931348623158e308; //valor máximo de double
+	std::vector<double> dist(n, INF); //guarda la menor distancia acumulada desde el origen hacia cada ciudad
+	std::vector<bool> visitado(n, false); //se guardan las ciudades que ya tienen su distancia mínima
+	std::vector<int> anterior(n, -1);  //guarda el índice de la ciudad anterior
+    bool terminado=false;
+	dist[origen] = 0; //al ser la misma ciudad la distancia es 0 (o '-')
 
-	dist[origen] = 0;
-
+	//se fija el camino mínimo hacia una ciudad nueva en cada vuelta
 	for (int count = 0; count < n; count++)
 	{
-		int u = -1;
+		int u = -1; //guardará el índice de la ciudad no visitada más cercana
 		double minDist = INF;
 
+        //busco entre las ciudades no visitadas cuál tiene la menor distancia acumulada
 		for (int i = 0; i < n; i++)
 		{
 			if (!visitado[i] && dist[i] < minDist)
@@ -488,24 +509,31 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 				u = i;
 			}
 		}
-
+		//si no quedan ciudades alcanzables o ya estamos en destino, entonces está terminado
 		if (u == -1 || u == destino)
-			break;
-
-		visitado[u] = true;
-
-		for (int v = 0; v < n; v++)
 		{
-			if (!visitado[v])
+			terminado = true;
+		}
+		else
+		{
+			visitado[u] = true; //marco la ciudad actual como visitada
+
+			//reviso todas las ciudades vecinas 'v' conectadas desde 'u'
+			for (int v = 0; v < n; v++)
 			{
-				Ruta r = mi_grafo.getRuta(u, v);
-				if (r.getruta_existe() && r.getestado_de_ruta())
+				if (!visitado[v])
 				{
-					double nuevaDist = dist[u] + r.getdistancia();
-					if (nuevaDist < dist[v])
+					Ruta r = mi_grafo.getRuta(u, v); //obtengo la ruta directa entre u y v
+					//solo evalúo la ruta si existe y si no está cortada (estado_de_ruta == true)
+					if (r.getruta_existe() && r.getestado_de_ruta())
 					{
-						dist[v] = nuevaDist;
-						anterior[v] = u;
+						double nuevaDist = dist[u] + r.getdistancia(); //calculo distancia pasando por u
+						//si pasar por 'u' acorta el camino conocido hacia 'v', actualizo los datos
+						if (nuevaDist < dist[v])
+						{
+							dist[v] = nuevaDist;
+							anterior[v] = u; //registro que para llegar más rápido a 'v' conviene venir desde 'u'
+						}
 					}
 				}
 			}
@@ -513,11 +541,11 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 	}
 
 	if (dist[destino] == INF)
-		return false; // No hay camino posible
+		return false;
 
 	distanciaTotal = dist[destino];
 
-	// Reconstruir el camino desde destino hasta origen y luego invertirlo
+	//se reconstruye el camino desde destino hasta origen y luego se invierte
 	for (int actual = destino; actual != -1; actual = anterior[actual])
 	{
 		camino.push_back(actual);
@@ -529,7 +557,7 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 
 void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 {
-
+	//guardo del desplegable
 	int origen = cmbViajeOrigen->ItemIndex;
 	int destino = cmbViajeDestino->ItemIndex;
 
@@ -544,9 +572,10 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		return;
 	}
 
-	std::vector<int> camino;
-	double kmTotales = 0;
+	std::vector<int> camino; //vector que recibirá los índices de las ciudades del recorrido óptimo hecho por Djikstra
+	double kmTotales = 0; //variable que guarda la suma total de kilómetros
 
+    //se ejecuto Dijkstra; si encuentra un camino válido, armo el texto y actualizo el mapa
 	if (CalcularDijkstra(origen, destino, camino, kmTotales))
 	{
 		String recorrido = "";
@@ -572,14 +601,17 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 {
+	//muestro solo las rutas para los viajes
 	TPanelViaje->Visible=true;
-    TPanelConexiones->Visible = false;
+	TPanelConexiones->Visible = false;
 	TPanelMenu->Visible = false;
 	PanelCiudades->Visible = false;
 
+	//limpio el desplegable
 	cmbViajeOrigen->Items->Clear();
 	cmbViajeDestino->Items->Clear();
 
+	//
     for (int i = 0; i < vector_ciudades.size(); i++)
 	{
 		String nombre = String(vector_ciudades[i].getNombre().c_str());
@@ -724,3 +756,4 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
+
