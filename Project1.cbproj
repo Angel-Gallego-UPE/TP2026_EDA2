@@ -185,6 +185,12 @@
         <CppCompile Include="desarr_clase.cpp">
             <BuildOrder>3</BuildOrder>
         </CppCompile>
+        <CppCompile Include="Grafo.cpp">
+            <BuildOrder>5</BuildOrder>
+        </CppCompile>
+        <None Include="Grafo.h">
+            <BuildOrder>6</BuildOrder>
+        </None>
         <CppCompile Include="Project1.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>
@@ -192,6 +198,12 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
+        <CppCompile Include="Ruta.cpp">
+            <BuildOrder>7</BuildOrder>
+        </CppCompile>
+        <None Include="Ruta.h">
+            <BuildOrder>8</BuildOrder>
+        </None>
         <CppCompile Include="Unit1.cpp">
             <Form>Form1</Form>
             <FormType>dfm</FormType>

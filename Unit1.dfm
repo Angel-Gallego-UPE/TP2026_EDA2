@@ -4313,7 +4313,7 @@ object Form1: TForm1
       Left = 464
       Top = 140
       Width = 153
-      Height = 29
+      Height = 23
       TabOrder = 3
     end
     object gridRutas: TStringGrid

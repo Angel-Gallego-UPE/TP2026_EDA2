@@ -24,6 +24,10 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 	//variable
 	vector_ciudades = Ciudad::leerArchivo();
 
+	if (FileExists("stgo.png"))
+	Image1->Picture->LoadFromFile("stgo.png");
+
+
     for (int i = 0; i < vector_ciudades.size(); i++)
 	{
 		mi_grafo.agregar_ciudad();
@@ -598,7 +602,6 @@ TCanvas *c = pbMapa->Canvas;
 	int w = pbMapa->Width;
 	int h = pbMapa->Height;
 
-	// 1. Fondo blanco con borde gris
 	c->Brush->Color = clWhite;
 	c->Pen->Color = clGray;
 	c->Pen->Width = 1;
@@ -607,22 +610,29 @@ TCanvas *c = pbMapa->Canvas;
 	int n = vector_ciudades.size();
 	if (n == 0) return;
 
-	// 2. Calcular límites X e Y para escalar cualquier coordenada al tamaño del recuadro
+	//se calculan límites X e Y para escalar cualquier coordenada al tamaño del mapa
 	int minX = vector_ciudades[0].getX(), maxX = minX;
 	int minY = vector_ciudades[0].getY(), maxY = minY;
 	for (int i = 1; i < n; i++)
 	{
-		if (vector_ciudades[i].getX() < minX) minX = vector_ciudades[i].getX();
-		if (vector_ciudades[i].getX() > maxX) maxX = vector_ciudades[i].getX();
-		if (vector_ciudades[i].getY() < minY) minY = vector_ciudades[i].getY();
-		if (vector_ciudades[i].getY() > maxY) maxY = vector_ciudades[i].getY();
+		if (vector_ciudades[i].getX() < minX)
+		minX = vector_ciudades[i].getX();
+
+		if (vector_ciudades[i].getX() > maxX)
+		maxX = vector_ciudades[i].getX();
+
+		if (vector_ciudades[i].getY() < minY)
+		minY = vector_ciudades[i].getY();
+
+		if (vector_ciudades[i].getY() > maxY)
+		maxY = vector_ciudades[i].getY();
 	}
 
 	int margen = 50;
 	int rangoX = (maxX - minX == 0) ? 1 : (maxX - minX);
 	int rangoY = (maxY - minY == 0) ? 1 : (maxY - minY);
 
-	// Convertimos cada ciudad a coordenadas en píxeles dentro de pbMapa
+	//convertimos cada ciudad a coordenadas en píxeles dentro de pbMapa
 	std::vector<TPoint> pos(n);
 	for (int i = 0; i < n; i++)
 	{
@@ -631,7 +641,7 @@ TCanvas *c = pbMapa->Canvas;
 		pos[i] = Point(px, py);
 	}
 
-	// 3. Dibujar TODAS las conexiones existentes en gris claro
+	//se dibujan TODAS las conexiones existentes en gris claro
 	c->Pen->Color = clSilver;
 	c->Pen->Width = 2;
 	c->Font->Color = clGray;
@@ -647,7 +657,7 @@ TCanvas *c = pbMapa->Canvas;
 				c->MoveTo(pos[i].x, pos[i].y);
 				c->LineTo(pos[j].x, pos[j].y);
 
-				// Mostrar kilómetros en el punto medio de la línea
+				//se muestran kilómetros en el punto medio de la línea
 				int midX = (pos[i].x + pos[j].x) / 2;
 				int midY = (pos[i].y + pos[j].y) / 2;
 				c->TextOut(midX, midY, FloatToStr(r.getdistancia()) + " km");
@@ -655,12 +665,12 @@ TCanvas *c = pbMapa->Canvas;
 		}
 	}
 
-	// 4. Resaltar en azul/rojo grueso el camino más corto de Dijkstra
+	//se resaltan en azul/rojo el camino más corto según Dijkstra
 	if (camino_actual.size() > 1)
 	{
 		c->Pen->Color = clRed;
 		c->Pen->Width = 4;
-		for (size_t k = 0; k < camino_actual.size() - 1; k++)
+		for (int k = 0; k < camino_actual.size() - 1; k++)
 		{
 			int u = camino_actual[k];
 			int v = camino_actual[k + 1];
@@ -669,7 +679,7 @@ TCanvas *c = pbMapa->Canvas;
 		}
 	}
 
-	// 5. Dibujar los nodos (círculos) y los nombres de cada ciudad
+	//se dibujan los nodos y los nombres de cada ciudad
 	c->Font->Color = clBlack;
 	c->Font->Style = TFontStyles() << fsBold;
 	c->Font->Size = 9;
@@ -677,11 +687,14 @@ TCanvas *c = pbMapa->Canvas;
 
 	for (int i = 0; i < n; i++)
 	{
-		// Verificar si la ciudad forma parte del camino ganador
+		//se verificar si la ciudad forma parte del camino más rápido
 		bool enCamino = false;
-		for (size_t k = 0; k < camino_actual.size(); k++)
+		for (int k = 0; k < camino_actual.size() && !enCamino; k++)
 		{
-			if (camino_actual[k] == i) { enCamino = true; break; }
+			if (camino_actual[k] == i)
+			{
+			enCamino = true;
+			}
 		}
 
 		c->Brush->Color = enCamino ? clYellow : clSkyBlue;
