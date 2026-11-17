@@ -21,17 +21,19 @@ TForm1 *Form1;
 __fastcall TForm1::TForm1(TComponent* Owner)
 	: TForm(Owner)
 {
-	//variable
+	//cargo las ciudades
 	vector_ciudades = Ciudad::leerArchivo();
 
+	//cargo la imagen de fondo
 	if (FileExists("stgo.png"))
 	Image1->Picture->LoadFromFile("stgo.png");
 
-
-    for (int i = 0; i < vector_ciudades.size(); i++)
+	//cargo la matriz
+	for (int i = 0; i < vector_ciudades.size(); i++)
 	{
 		mi_grafo.agregar_ciudad();
 	}
+	//relleno la matriz
 	mi_grafo.leerRuta();
 }
 //---------------------------------------------------------------------------
@@ -53,7 +55,7 @@ void TForm1::actualizarCuadro()
   //---------------------------------------------------------------------------
 void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 {
-	//lo hacemos visible
+	//muestro solo las opciones para ciudades
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
 	TPanelViaje->Visible=false;
@@ -68,7 +70,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	GridCiudades->ColWidths[2] = ancho * 22 / 100;
 	GridCiudades->ColWidths[3] = ancho * 22 / 100;
 
-	//Ingreso los nombres de cada campo
+	//ingreso los nombres de cada campo (en la primera fila)
 	GridCiudades->Cells[0][0] = "Ciudad";
 	GridCiudades->Cells[1][0] = "ID";
 	GridCiudades->Cells[2][0] = "Coord. X";
@@ -80,6 +82,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
+	//muestro solo el menú
 	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
@@ -89,7 +92,7 @@ void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 {
-	PanelCarga->Visible=true;  //true
+	PanelCarga->Visible=true;
 	PanelEliminar->Visible=false;
 	PanelModificar->Visible=false;
 	PanelIdentificador->Visible=false;
@@ -98,7 +101,7 @@ void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 {
-	PanelEliminar->Visible=true; //true
+	PanelEliminar->Visible=true;
 	PanelCarga->Visible=false;
 	PanelModificar->Visible=false;
 	PanelIdentificador->Visible=false;
@@ -107,7 +110,7 @@ void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonModificarClick(TObject *Sender)
 {
-	PanelIdentificador->Visible=true; //true
+	PanelIdentificador->Visible=true;
 	PanelEliminar->Visible=false;
 	PanelCarga->Visible=false;
 }
@@ -306,7 +309,7 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 {
-//variables aux
+	//variables aux
 	string auxNombre;
 	int auxID, auxX, auxY;
 
@@ -346,7 +349,7 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			//escribo al final de archivo la nueva ciudad
 			nuevaCiudad.escribir();
 			//oculto el panel
-            mi_grafo.agregar_ciudad();
+			mi_grafo.agregar_ciudad();
 			mi_grafo.guardarRuta();
 
 			actualizarCuadro();
@@ -367,16 +370,19 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
 {
+	//muestro solo la matriz con las rutas
 	TPanelMenu->Visible=false;
 	PanelCiudades->Visible=false;
     TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=true;
 
-    ActualizarGridRutas();
+	//las actualizo
+	ActualizarGridRutas();
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ActualizarGridRutas()
 {
+	//limpio los desplegables
 	cmbOrigen->Items->Clear();
 	cmbDestino->Items->Clear();
 
@@ -403,22 +409,23 @@ void __fastcall TForm1::ActualizarGridRutas()
 		gridRutas->Cells[i + 1][0] = nombre; //columna
 		gridRutas->Cells[0][i + 1] = nombre; //fila
 
+		//añado los nombres de las ciudades en los desplegables uno por uno
 		cmbOrigen->Items->Add(nombre);
 		cmbDestino->Items->Add(nombre);
 	}
 
-	//llenar distancias desde la matriz de mi_grafo
+	//lleno las distancias con la info de la matriz "mi_grafo"
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
 		{
 			Ruta r = mi_grafo.getRuta(i, j);
 			if (i == j)
-				gridRutas->Cells[j + 1][i + 1] = "-";
+			gridRutas->Cells[j + 1][i + 1] = "-"; //al ser la misma ciudad queda en -
 			else if (r.getruta_existe())
-				gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km";
+			gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km";
 			else
-				gridRutas->Cells[j + 1][i + 1] = "0";
+			gridRutas->Cells[j + 1][i + 1] = "0";
 		}
 	}
 }
@@ -572,6 +579,7 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 {
+	//muestro solo las rutas para los viajes
 	TPanelViaje->Visible=true;
     TPanelConexiones->Visible = false;
 	TPanelMenu->Visible = false;
@@ -594,21 +602,20 @@ void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
 void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 {
-TCanvas *c = pbMapa->Canvas;
+	TCanvas *c = pbMapa->Canvas;
 	int w = pbMapa->Width;
 	int h = pbMapa->Height;
 
 	c->Brush->Color = clWhite;
 	c->Pen->Color = clGray;
-	c->Pen->Width = 1;
+	c->Pen->Width = 5;
 	c->Rectangle(0, 0, w, h);
 
 	int n = vector_ciudades.size();
-	if (n == 0) return;
+	if (n == 0)
+	return;
 
 	//se calculan límites X e Y para escalar cualquier coordenada al tamaño del mapa
 	int minX = vector_ciudades[0].getX(), maxX = minX;
@@ -725,5 +732,3 @@ TCanvas *c = pbMapa->Canvas;
 	}
 }
 //---------------------------------------------------------------------------
-
-

@@ -598,17 +598,18 @@ void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 
 void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 {
-TCanvas *c = pbMapa->Canvas;
+	TCanvas *c = pbMapa->Canvas;
 	int w = pbMapa->Width;
 	int h = pbMapa->Height;
 
 	c->Brush->Color = clWhite;
 	c->Pen->Color = clGray;
-	c->Pen->Width = 1;
+	c->Pen->Width = 5;
 	c->Rectangle(0, 0, w, h);
 
 	int n = vector_ciudades.size();
-	if (n == 0) return;
+	if (n == 0)
+	return;
 
 	//se calculan límites X e Y para escalar cualquier coordenada al tamaño del mapa
 	int minX = vector_ciudades[0].getX(), maxX = minX;
@@ -719,11 +720,10 @@ TCanvas *c = pbMapa->Canvas;
 		c->Ellipse(pos[i].x - radio, pos[i].y - radio, pos[i].x + radio, pos[i].y + radio);
 
 		String nombre = String(vector_ciudades[i].getNombre().c_str());
-		c->Brush->Style = bsClear; // Texto sin fondo tapando líneas
+		c->Brush->Style = bsClear; //texto sin fondo tapando líneas
 		c->TextOut(pos[i].x - 20, pos[i].y - 26, nombre);
 		c->Brush->Style = bsSolid;
 	}
 }
 //---------------------------------------------------------------------------
-
 

@@ -21,7 +21,7 @@ TForm1 *Form1;
 __fastcall TForm1::TForm1(TComponent* Owner)
 	: TForm(Owner)
 {
-	//variable
+	//cargo las ciudades
 	vector_ciudades = Ciudad::leerArchivo();
 
 	if (FileExists("stgo.png"))
@@ -53,7 +53,7 @@ void TForm1::actualizarCuadro()
   //---------------------------------------------------------------------------
 void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 {
-	//lo hacemos visible
+	//muestro solo las opciones para ciudades
 	PanelCiudades->Visible=true;
 	TPanelMenu->Visible=false;
 	TPanelViaje->Visible=false;
@@ -68,7 +68,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	GridCiudades->ColWidths[2] = ancho * 22 / 100;
 	GridCiudades->ColWidths[3] = ancho * 22 / 100;
 
-	//Ingreso los nombres de cada campo
+	//ingreso los nombres de cada campo (en la primera fila)
 	GridCiudades->Cells[0][0] = "Ciudad";
 	GridCiudades->Cells[1][0] = "ID";
 	GridCiudades->Cells[2][0] = "Coord. X";
@@ -80,6 +80,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
+	//muestro solo el menú
 	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
@@ -89,7 +90,7 @@ void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 {
-	PanelCarga->Visible=true;  //true
+	PanelCarga->Visible=true;
 	PanelEliminar->Visible=false;
 	PanelModificar->Visible=false;
 	PanelIdentificador->Visible=false;
@@ -98,7 +99,7 @@ void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 {
-	PanelEliminar->Visible=true; //true
+	PanelEliminar->Visible=true;
 	PanelCarga->Visible=false;
 	PanelModificar->Visible=false;
 	PanelIdentificador->Visible=false;
@@ -107,7 +108,7 @@ void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonModificarClick(TObject *Sender)
 {
-	PanelIdentificador->Visible=true; //true
+	PanelIdentificador->Visible=true
 	PanelEliminar->Visible=false;
 	PanelCarga->Visible=false;
 }
@@ -572,6 +573,7 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 {
+	//muestro solo las rutas para los viajes
 	TPanelViaje->Visible=true;
     TPanelConexiones->Visible = false;
 	TPanelMenu->Visible = false;
@@ -594,21 +596,20 @@ void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
 void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 {
-TCanvas *c = pbMapa->Canvas;
+	TCanvas *c = pbMapa->Canvas;
 	int w = pbMapa->Width;
 	int h = pbMapa->Height;
 
 	c->Brush->Color = clWhite;
 	c->Pen->Color = clGray;
-	c->Pen->Width = 1;
+	c->Pen->Width = 5;
 	c->Rectangle(0, 0, w, h);
 
 	int n = vector_ciudades.size();
-	if (n == 0) return;
+	if (n == 0)
+	return;
 
 	//se calculan límites X e Y para escalar cualquier coordenada al tamaño del mapa
 	int minX = vector_ciudades[0].getX(), maxX = minX;
@@ -629,17 +630,15 @@ TCanvas *c = pbMapa->Canvas;
 	}
 
 	int margen = 50;
+
 	int rangoX = maxX - minX;
 	if (rangoX == 0)
-	{
-		rangoX = 1;
-	}
+	rangoX = 1;
 
 	int rangoY = maxY - minY;
 	if (rangoY == 0)
-	{
-		rangoY = 1;
-	}
+	rangoY = 1;
+
 
 	//convertimos cada ciudad a coordenadas en píxeles dentro de pbMapa
 	std::vector<TPoint> pos(n);
@@ -721,11 +720,9 @@ TCanvas *c = pbMapa->Canvas;
 		c->Ellipse(pos[i].x - radio, pos[i].y - radio, pos[i].x + radio, pos[i].y + radio);
 
 		String nombre = String(vector_ciudades[i].getNombre().c_str());
-		c->Brush->Style = bsClear; // Texto sin fondo tapando líneas
+		c->Brush->Style = bsClear; //texto sin fondo tapando líneas
 		c->TextOut(pos[i].x - 20, pos[i].y - 26, nombre);
 		c->Brush->Style = bsSolid;
 	}
 }
 //---------------------------------------------------------------------------
-
-

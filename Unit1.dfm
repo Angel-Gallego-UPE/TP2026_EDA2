@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Sistema de rutas de Santiago del Estero'
   ClientHeight = 892
   ClientWidth = 1318
   Color = clMediumslateblue
@@ -3597,7 +3597,7 @@ object Form1: TForm1
     end
     object ButtonViaje: TButton
       Left = 16
-      Top = 203
+      Top = 210
       Width = 209
       Height = 65
       Caption = 'VIAJE'
@@ -4254,76 +4254,6 @@ object Form1: TForm1
       end
     end
   end
-  object TPanelConexiones: TPanel
-    Left = 263
-    Top = 116
-    Width = 645
-    Height = 513
-    Caption = 'TPanelConexiones'
-    Color = clMediumslateblue
-    ParentBackground = False
-    TabOrder = 4
-    Visible = False
-    object btnCargarRuta: TButton
-      Left = 472
-      Top = 205
-      Width = 137
-      Height = 36
-      Caption = 'Cargar ruta'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -18
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 0
-      OnClick = btnCargarRutaClick
-    end
-    object cmbDestino: TComboBox
-      Left = 468
-      Top = 88
-      Width = 145
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      ParentShowHint = False
-      ShowHint = False
-      TabOrder = 1
-      Text = 'Ciudad destino'
-    end
-    object cmbOrigen: TComboBox
-      Left = 468
-      Top = 31
-      Width = 145
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 2
-      Text = 'Ciudad origen'
-    end
-    object editDistancia: TEdit
-      Left = 464
-      Top = 140
-      Width = 153
-      Height = 23
-      TabOrder = 3
-    end
-    object gridRutas: TStringGrid
-      Left = 43
-      Top = 26
-      Width = 381
-      Height = 413
-      TabOrder = 4
-    end
-  end
   object TPanelViaje: TPanel
     Left = 263
     Top = 116
@@ -4397,6 +4327,76 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 2
       OnClick = btnCalcularViajeClick
+    end
+  end
+  object TPanelConexiones: TPanel
+    Left = 263
+    Top = 116
+    Width = 645
+    Height = 513
+    Caption = 'TPanelConexiones'
+    Color = clMediumslateblue
+    ParentBackground = False
+    TabOrder = 4
+    Visible = False
+    object btnCargarRuta: TButton
+      Left = 472
+      Top = 205
+      Width = 137
+      Height = 36
+      Caption = 'Cargar ruta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -18
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnCargarRutaClick
+    end
+    object cmbDestino: TComboBox
+      Left = 468
+      Top = 88
+      Width = 145
+      Height = 29
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 1
+      Text = 'Ciudad destino'
+    end
+    object cmbOrigen: TComboBox
+      Left = 468
+      Top = 31
+      Width = 145
+      Height = 29
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 2
+      Text = 'Ciudad origen'
+    end
+    object editDistancia: TEdit
+      Left = 464
+      Top = 140
+      Width = 153
+      Height = 23
+      TabOrder = 3
+    end
+    object gridRutas: TStringGrid
+      Left = 43
+      Top = 26
+      Width = 381
+      Height = 413
+      TabOrder = 4
     end
   end
 end
