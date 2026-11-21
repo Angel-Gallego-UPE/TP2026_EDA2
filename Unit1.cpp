@@ -439,6 +439,23 @@ void __fastcall TForm1::ActualizarGridRutas()
 			gridRutas->Cells[j + 1][i + 1] = "0";
 		}
 	}
+    //aumento un poco la altura de las filas para que no queden tan apretadas
+	gridRutas->DefaultRowHeight = 28;
+
+	//ajusto el ancho de cada columna según el texto más largo que contenga
+	for (int col = 0; col < gridRutas->ColCount; col++)
+	{
+		int anchoMax = 95; //ancho mínimo base
+		for (int fila = 0; fila < gridRutas->RowCount; fila++)
+		{
+			int anchoTexto = gridRutas->Canvas->TextWidth(gridRutas->Cells[col][fila]) + 20;
+			if (anchoTexto > anchoMax)
+			{
+				anchoMax = anchoTexto;
+			}
+		}
+		gridRutas->ColWidths[col] = anchoMax;
+	}
 }
 
 void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)

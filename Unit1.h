@@ -84,6 +84,7 @@ __published:	// IDE-managed Components
 	TEdit *editNombreRuta;
 	TLabel *Label6;
 	TLabel *Label7;
+	TLabel *Label8;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);

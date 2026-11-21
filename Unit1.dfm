@@ -4347,8 +4347,8 @@ object Form1: TForm1
       Caption = 'Label6'
     end
     object Label7: TLabel
-      Left = 477
-      Top = 177
+      Left = 246
+      Top = 404
       Width = 111
       Height = 21
       Caption = 'Nombre de ruta'
@@ -4359,9 +4359,22 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
     end
+    object Label8: TLabel
+      Left = 265
+      Top = 346
+      Width = 75
+      Height = 21
+      Caption = 'Kilometros'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenuBar
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
     object btnCargarRuta: TButton
-      Left = 464
-      Top = 237
+      Left = 448
+      Top = 354
       Width = 137
       Height = 36
       Caption = 'Cargar ruta'
@@ -4375,8 +4388,8 @@ object Form1: TForm1
       OnClick = btnCargarRutaClick
     end
     object cmbDestino: TComboBox
-      Left = 460
-      Top = 89
+      Left = 43
+      Top = 411
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4391,8 +4404,8 @@ object Form1: TForm1
       Text = 'Ciudad destino'
     end
     object cmbOrigen: TComboBox
-      Left = 460
-      Top = 42
+      Left = 43
+      Top = 357
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4405,22 +4418,22 @@ object Form1: TForm1
       Text = 'Ciudad origen'
     end
     object editDistancia: TEdit
-      Left = 456
-      Top = 140
+      Left = 226
+      Top = 364
       Width = 153
       Height = 23
       TabOrder = 3
     end
     object gridRutas: TStringGrid
-      Left = 43
-      Top = 26
-      Width = 381
-      Height = 413
+      Left = 32
+      Top = 22
+      Width = 585
+      Height = 298
       TabOrder = 4
     end
     object btnCortarRuta: TButton
-      Left = 464
-      Top = 287
+      Left = 448
+      Top = 414
       Width = 137
       Height = 37
       Caption = 'Cortar ruta'
@@ -4434,8 +4447,8 @@ object Form1: TForm1
       OnClick = btnCortarRutaClick
     end
     object editNombreRuta: TEdit
-      Left = 456
-      Top = 197
+      Left = 226
+      Top = 423
       Width = 153
       Height = 23
       TabOrder = 6
