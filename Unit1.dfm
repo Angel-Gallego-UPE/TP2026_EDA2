@@ -3597,7 +3597,7 @@ object Form1: TForm1
     end
     object ButtonViaje: TButton
       Left = 16
-      Top = 210
+      Top = 207
       Width = 209
       Height = 65
       Caption = 'VIAJE'
@@ -4339,9 +4339,29 @@ object Form1: TForm1
     ParentBackground = False
     TabOrder = 4
     Visible = False
+    object Label6: TLabel
+      Left = 544
+      Top = 192
+      Width = 1
+      Height = 17
+      Caption = 'Label6'
+    end
+    object Label7: TLabel
+      Left = 477
+      Top = 177
+      Width = 111
+      Height = 21
+      Caption = 'Nombre de ruta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindow
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
     object btnCargarRuta: TButton
-      Left = 472
-      Top = 205
+      Left = 464
+      Top = 237
       Width = 137
       Height = 36
       Caption = 'Cargar ruta'
@@ -4355,8 +4375,8 @@ object Form1: TForm1
       OnClick = btnCargarRutaClick
     end
     object cmbDestino: TComboBox
-      Left = 468
-      Top = 88
+      Left = 460
+      Top = 89
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4371,8 +4391,8 @@ object Form1: TForm1
       Text = 'Ciudad destino'
     end
     object cmbOrigen: TComboBox
-      Left = 468
-      Top = 31
+      Left = 460
+      Top = 42
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4385,7 +4405,7 @@ object Form1: TForm1
       Text = 'Ciudad origen'
     end
     object editDistancia: TEdit
-      Left = 464
+      Left = 456
       Top = 140
       Width = 153
       Height = 23
@@ -4397,6 +4417,28 @@ object Form1: TForm1
       Width = 381
       Height = 413
       TabOrder = 4
+    end
+    object btnCortarRuta: TButton
+      Left = 464
+      Top = 287
+      Width = 137
+      Height = 37
+      Caption = 'Cortar ruta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -18
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 5
+      OnClick = btnCortarRutaClick
+    end
+    object editNombreRuta: TEdit
+      Left = 456
+      Top = 197
+      Width = 153
+      Height = 23
+      TabOrder = 6
     end
   end
 end

@@ -198,7 +198,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	auxNombre = AnsiString(Editname->Text).c_str();
 	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
 	if(!Edit_ID->Text.Trim().IsEmpty()) {
-		auxID = StrToInt(Edit_ID->Text);
+		auxID = StrToInt(Edit__ID->Text);
 	}
 	if(!EditCoordX->Text.Trim().IsEmpty()) {
 		auxX = StrToInt(EditCoordX->Text);
@@ -444,6 +444,7 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 	double distancia = StrToFloatDef(editDistancia->Text, -1);//tomo la distancia y lo convierto el texto a double;
 															  //si está vacío o tiene letras, devuelve -1
 	//si el valor de distancia es incorrecto o no selecciono origen/destino, el valor es -1 según la variable
+	string nombreRuta = AnsiString(editNombreRuta->Text.Trim()).c_str(); //tomo el nombre de la ruta
 
 	if (origen == -1 || destino == -1) //si no se seleccionó alguno de las dos ciudades
 	{
@@ -461,12 +462,18 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 		return;
 	}
 
+	if (nombreRuta.empty()) //valido si no está vacío
+	{
+		ShowMessage("Ingresa un nombre para la ruta o calle.");
+		return;
+	}
+
 	//si está todo ok:
 	//creamos ruta de ida (origen, destino, distancia, estado_activa = true, ruta_existe = true)
-	Ruta ruta_ida(origen, destino, distancia, true, true); //pasamos los datos de la ruta para la ida
+	Ruta ruta_ida(origen, destino, nombreRuta, distancia, true, true); //pasamos los datos de la ruta para la ida
 	mi_grafo.set_ruta(origen, destino, ruta_ida); //guardamos el objeto Ruta en [origen][destino]
 
-	Ruta ruta_vuelta(destino, origen, distancia, true, true); //creamos la ruta simétrica
+	Ruta ruta_vuelta(destino, origen, nombreRuta, distancia, true, true); //creamos la ruta simétrica
 	mi_grafo.set_ruta(destino, origen, ruta_vuelta); ////guardamos el objeto Ruta en [destino][origen]
 
 	//guardamos en rutas.bin y reescribimos la matriz
@@ -476,6 +483,7 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 
     //limpiamos el recuadro de la distancia
 	editDistancia->Text = "";
+    editNombreRuta->Text = "";
 	ShowMessage("Ruta cargada exitosamente.");
 }
 //---------------------------------------------------------------------------
@@ -541,11 +549,11 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 	}
 
 	if (dist[destino] == INF)
-		return false; // No hay camino posible
+		return false;
 
 	distanciaTotal = dist[destino];
 
-	// Reconstruir el camino desde destino hasta origen y luego invertirlo
+	//se reconstruye el camino desde destino hasta origen y luego se invierte
 	for (int actual = destino; actual != -1; actual = anterior[actual])
 	{
 		camino.push_back(actual);
@@ -572,9 +580,10 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		return;
 	}
 
-	std::vector<int> camino;
-	double kmTotales = 0;
+	std::vector<int> camino; //vector que recibirá los índices de las ciudades del recorrido óptimo hecho por Djikstra
+	double kmTotales = 0; //variable que guarda la suma total de kilómetros
 
+    //se ejecuto Dijkstra; si encuentra un camino válido, armo el texto y actualizo el mapa
 	if (CalcularDijkstra(origen, destino, camino, kmTotales))
 	{
 		String recorrido = "";
@@ -582,15 +591,16 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		{
 			int idx = camino[i];
 			recorrido += String(vector_ciudades[idx].getNombre().c_str());
-			if (i < camino.size() - 1)
+			if (i < camino.size() - 1)  //agrego la flecha (solo si no es la última ciudad)
 				recorrido += " -> ";
 		}
-		camino_actual = camino;
-        pbMapa->Invalidate();
+		camino_actual = camino;   //guardo el camino más rápido, pbMapaPaint lo pinta en rojo
+		pbMapa->Invalidate();    //fuerzo el redibujado del mapa con la ruta
 		lblResultadoViaje->Caption = "Distancia mínima: " + FloatToStr(kmTotales) + " km\nRecorrido: " + recorrido;
 	}
 	else
 	{
+	//si no hay conexión posible entre las ciudades, limpio el mapa y aviso en pantalla
 		camino_actual.clear();
         pbMapa->Invalidate();
 		lblResultadoViaje->Caption = "No existe un camino conectado entre esas ciudades.";

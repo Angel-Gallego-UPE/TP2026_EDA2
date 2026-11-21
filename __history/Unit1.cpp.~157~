@@ -122,7 +122,6 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 	int indiceEliminar;
 	bool encontrado=false;
 
-
 	//Valido si escribio algo en el buscador
 	if(EditBuscador->Text.Trim().IsEmpty())
 	{
@@ -198,7 +197,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	auxNombre = AnsiString(Editname->Text).c_str();
 	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
 	if(!Edit_ID->Text.Trim().IsEmpty()) {
-		auxID = StrToInt(Edit_ID->Text);
+		auxID = StrToInt(Edit__ID->Text);
 	}
 	if(!EditCoordX->Text.Trim().IsEmpty()) {
 		auxX = StrToInt(EditCoordX->Text);
@@ -429,7 +428,12 @@ void __fastcall TForm1::ActualizarGridRutas()
 			if (i == j)
 			gridRutas->Cells[j + 1][i + 1] = "-"; //al ser la misma ciudad queda en -
 			else if (r.getruta_existe()) //si existe conexion cargada entre ambas ciudades
-			gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km"; //muestro la distancia en la celda
+			{
+				String textoCelda = String(r.getNombre().c_str()) + " (" + FloatToStr(r.getdistancia()) + " km)";
+				if (!r.getestado_de_ruta()) //si la ruta está cortada, lo indico en la celda
+				textoCelda += " [CORTADA]";
+				gridRutas->Cells[j + 1][i + 1] = textoCelda; //muestro la distancia en la celda
+			}
 			else
 			//si no existe, es 0
 			gridRutas->Cells[j + 1][i + 1] = "0";
@@ -444,6 +448,7 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 	double distancia = StrToFloatDef(editDistancia->Text, -1);//tomo la distancia y lo convierto el texto a double;
 															  //si está vacío o tiene letras, devuelve -1
 	//si el valor de distancia es incorrecto o no selecciono origen/destino, el valor es -1 según la variable
+	string nombreRuta = AnsiString(editNombreRuta->Text.Trim()).c_str(); //tomo el nombre de la ruta
 
 	if (origen == -1 || destino == -1) //si no se seleccionó alguno de las dos ciudades
 	{
@@ -461,12 +466,18 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 		return;
 	}
 
+	if (nombreRuta.empty()) //valido si no está vacío
+	{
+		ShowMessage("Ingresa un nombre para la ruta o calle.");
+		return;
+	}
+
 	//si está todo ok:
 	//creamos ruta de ida (origen, destino, distancia, estado_activa = true, ruta_existe = true)
-	Ruta ruta_ida(origen, destino, distancia, true, true); //pasamos los datos de la ruta para la ida
+	Ruta ruta_ida(origen, destino, nombreRuta, distancia, true, true); //pasamos los datos de la ruta para la ida
 	mi_grafo.set_ruta(origen, destino, ruta_ida); //guardamos el objeto Ruta en [origen][destino]
 
-	Ruta ruta_vuelta(destino, origen, distancia, true, true); //creamos la ruta simétrica
+	Ruta ruta_vuelta(destino, origen, nombreRuta, distancia, true, true); //creamos la ruta simétrica
 	mi_grafo.set_ruta(destino, origen, ruta_vuelta); ////guardamos el objeto Ruta en [destino][origen]
 
 	//guardamos en rutas.bin y reescribimos la matriz
@@ -476,6 +487,7 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 
     //limpiamos el recuadro de la distancia
 	editDistancia->Text = "";
+    editNombreRuta->Text = "";
 	ShowMessage("Ruta cargada exitosamente.");
 }
 //---------------------------------------------------------------------------
@@ -575,6 +587,7 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 	std::vector<int> camino; //vector que recibirá los índices de las ciudades del recorrido óptimo hecho por Djikstra
 	double kmTotales = 0; //variable que guarda la suma total de kilómetros
 
+    //se ejecuto Dijkstra; si encuentra un camino válido, armo el texto y actualizo el mapa
 	if (CalcularDijkstra(origen, destino, camino, kmTotales))
 	{
 		String recorrido = "";
@@ -582,15 +595,16 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		{
 			int idx = camino[i];
 			recorrido += String(vector_ciudades[idx].getNombre().c_str());
-			if (i < camino.size() - 1)
+			if (i < camino.size() - 1)  //agrego la flecha (solo si no es la última ciudad)
 				recorrido += " -> ";
 		}
-		camino_actual = camino;
-        pbMapa->Invalidate();
+		camino_actual = camino;   //guardo el camino más rápido, pbMapaPaint lo pinta en rojo
+		pbMapa->Invalidate();    //fuerzo el redibujado del mapa con la ruta
 		lblResultadoViaje->Caption = "Distancia mínima: " + FloatToStr(kmTotales) + " km\nRecorrido: " + recorrido;
 	}
 	else
 	{
+	//si no hay conexión posible entre las ciudades, limpio el mapa y aviso en pantalla
 		camino_actual.clear();
         pbMapa->Invalidate();
 		lblResultadoViaje->Caption = "No existe un camino conectado entre esas ciudades.";
@@ -691,13 +705,19 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 			Ruta r = mi_grafo.getRuta(i, j);
 			if (r.getruta_existe() && r.getestado_de_ruta())
 			{
+				c->Pen->Style = psSolid; //línea continua
+				c->Pen->Color = clSilver;
+				c->Pen->Width = 2;
 				c->MoveTo(pos[i].x, pos[i].y);
 				c->LineTo(pos[j].x, pos[j].y);
 
 				//se muestran kilómetros en el punto medio de la línea
 				int midX = (pos[i].x + pos[j].x) / 2;
 				int midY = (pos[i].y + pos[j].y) / 2;
-				c->TextOut(midX, midY, FloatToStr(r.getdistancia()) + " km");
+				String etiquetaRuta = String(r.getNombre().c_str()) + " (" + FloatToStr(r.getdistancia()) + " km)";
+				c->Brush->Style = bsClear; //para que el fondo del texto no tape la línea
+				c->TextOut(midX, midY, etiquetaRuta);
+				c->Brush->Style = bsSolid;
 			}
 		}
 	}
@@ -753,6 +773,56 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 		c->TextOut(pos[i].x - 20, pos[i].y - 26, nombre);
 		c->Brush->Style = bsSolid;
 	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::btnCortarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex; //tomo la ciudad origen
+	int destino = cmbDestino->ItemIndex; //tomo la ciudad destino
+
+	//validaciones
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+
+	//obtengo la ruta actual desde la matriz
+	Ruta r = mi_grafo.getRuta(origen, destino);
+
+	//verifico que exista una ruta cargada entre ambas ciudades
+	if (!r.getruta_existe())
+	{
+		ShowMessage("No existe una ruta cargada entre estas dos ciudades.");
+		return;
+	}
+
+	//invierto el estado: si estaba activa (true) pasa a cortada (false) y viceversa
+	bool nuevoEstado = !r.getestado_de_ruta();
+	string nombreRuta = r.getNombre(); //conservo el nombre de la ruta/calle
+	double dist = r.getdistancia(); //conservo los kilómetros
+
+	//actualizo ida y vuelta manteniendo nombre y distancia
+	Ruta ruta_ida(origen, destino, nombreRuta, dist, nuevoEstado, true);
+	mi_grafo.set_ruta(origen, destino, ruta_ida);
+
+	Ruta ruta_vuelta(destino, origen, nombreRuta, dist, nuevoEstado, true);
+	mi_grafo.set_ruta(destino, origen, ruta_vuelta);
+
+	//guardo los cambios en rutas.bin y actualizo la tabla
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	if (nuevoEstado)
+		ShowMessage("Ruta HABILITADA nuevamente.");
+	else
+		ShowMessage("Ruta CORTADA temporalmente.");
 }
 //---------------------------------------------------------------------------
 

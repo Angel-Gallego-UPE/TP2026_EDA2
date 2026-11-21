@@ -3,9 +3,11 @@
 using namespace std;
 
 //CONSTRUCTOR (+ parametros)
-Ruta::Ruta(int _ciudad_origen, int _ciudad_destino, double _distancia, bool _estado_de_ruta,bool _ruta_existe){
+Ruta::Ruta(int _ciudad_origen, int _ciudad_destino, string _nombre, double _distancia, bool _estado_de_ruta,bool _ruta_existe){
 	ciudad_origen = _ciudad_origen;
 	ciudad_destino = _ciudad_destino;
+    strncpy(nombre, _nombre.c_str(), 49);
+	nombre[49] = '\0'; //asegura el fin de cadena
 	distancia = _distancia;
 	estado_de_ruta = _estado_de_ruta;
 	ruta_existe = _ruta_existe;
@@ -14,6 +16,7 @@ Ruta::Ruta(int _ciudad_origen, int _ciudad_destino, double _distancia, bool _est
 Ruta::Ruta(){
 	ciudad_origen = 0; //atributo bandera
 	ciudad_destino = 0;
+    strcpy(nombre, "");
 	distancia = 0;
 	estado_de_ruta = true;
 	ruta_existe = false;
@@ -35,6 +38,10 @@ void Ruta::set_estado_de_ruta(bool _estado_de_ruta){
 }
 
 //METODOS GETTERS
+string Ruta::getNombre(){
+	return string(nombre);
+}
+
 double Ruta::getdistancia(){
 	
 	return distancia;

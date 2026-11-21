@@ -80,6 +80,10 @@ __published:	// IDE-managed Components
 	TLabel *lblResultadoViaje;
 	TPaintBox *pbMapa;
 	TImage *Image1;
+	TButton *btnCortarRuta;
+	TEdit *editNombreRuta;
+	TLabel *Label6;
+	TLabel *Label7;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);
@@ -94,6 +98,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnCalcularViajeClick(TObject *Sender);
 	void __fastcall ButtonViajeClick(TObject *Sender);
 	void __fastcall pbMapaPaint(TObject *Sender);
+	void __fastcall btnCortarRutaClick(TObject *Sender);
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro

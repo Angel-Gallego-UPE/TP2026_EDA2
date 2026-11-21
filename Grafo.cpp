@@ -154,11 +154,11 @@ void Grafo::cargar_ruta(){
 	//crea el objeto Ruta con los datos ingresados
 	//(origen, destino, distancia, estado_de_ruta=1, ruta_existe=true)
 	//Ruta de ida (origen -> destino)
-	Ruta ruta_ida(ciudad_origen, ciudad_destino, distancia, 1, true);
+	Ruta ruta_ida(ciudad_origen, ciudad_destino, "", distancia, 1, true);
 	set_ruta(ciudad_origen, ciudad_destino, ruta_ida); //guarda la ruta en la matriz del grafo usando el metodo set_ruta
-	
-    //Ruta de vuelta (destino -> origen)
-	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, distancia, 1, true);
+
+	//Ruta de vuelta (destino -> origen)
+	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, "", distancia, 1, true);
 	set_ruta(ciudad_destino, ciudad_origen, ruta_vuelta);
 	cout << "Ruta cargada exitosamente\n";
 			 
