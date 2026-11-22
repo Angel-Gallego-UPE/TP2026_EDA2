@@ -198,7 +198,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	//variables creadas = convierto los tipos de datos
 	auxNombre = AnsiString(Editname->Text).c_str();
 	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
-	if(!Edit_ID->Text.Trim().IsEmpty()) {
+    if(!Edit__ID->Text.Trim().IsEmpty()) {
 		auxID = StrToInt(Edit__ID->Text);
 	}
 	if(!EditCoordX->Text.Trim().IsEmpty()) {
@@ -212,7 +212,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	   ShowMessage("No se aceptan numeros negativos");
 	   //limpio los Edit´s
 		EditNombre->Text="";
-		Edit_ID->Text="";
+		Edit__ID->Text="";
 		Edit_X->Text="";
 		Edit_Y->Text="";
 	}
@@ -343,6 +343,14 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			Edit_Y->Text="";
 		}
 		else{
+			for (int i = 0; i < vector_ciudades.size(); i++)
+			{
+				if (vector_ciudades[i].getID() == auxID)
+				{
+					ShowMessage("Ya existe una ciudad con ese ID. Ingresa un ID único.");
+					return;
+				}
+			}
 			//creo el objeto con sus parametros
 			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
 			//hago un push al final de vector
@@ -879,7 +887,7 @@ void __fastcall TForm1::btnCortarRutaClick(TObject *Sender)
 void __fastcall TForm1::btnHistorialClick(TObject *Sender)
 {
 	TPanelHistorial->Visible=true;
-    TPanelMenu->Visible=false;
+	TPanelMenu->Visible=false;
 	PanelCiudades->Visible=false;
     TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=false;
@@ -887,7 +895,7 @@ void __fastcall TForm1::btnHistorialClick(TObject *Sender)
     ActualizarGridHistorial();
 }
 //---------------------------------------------------------------------------
-void ActualizarGridHistorial()
+void __fastcall TForm1::ActualizarGridHistorial()
 {
 	vector<Historial> lista = Historial::leerTodo(); //leo todos los viajes de historial.bin
 
@@ -922,7 +930,7 @@ void ActualizarGridHistorial()
 		gridHistorial->Cells[4][fila] = FloatToStr(lista[i].getDistanciaTotal()) + " km";
 		fila++;
 	}
-}   //ajusto altura de filas y ancho de columnas de manera automatica para que no se corte ningún texto
+   //ajusto altura de filas y ancho de columnas de manera automatica para que no se corte ningún texto
 	gridHistorial->DefaultRowHeight = 28;
 
     for (int col = 0; col < gridHistorial->ColCount; col++)
@@ -938,10 +946,50 @@ void ActualizarGridHistorial()
 
 	}
 
+}
+
 void __fastcall TForm1::btnLimpiarHistorialClick(TObject *Sender)
 {
 	remove("historial.bin");
 	ActualizarGridHistorial();
 }
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::btnEliminarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex;   //tomo la ciudad origen
+	int destino = cmbDestino->ItemIndex; //tomo la ciudad destino
+
+	//validaciones
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+
+	//obtengo la ruta actual desde la matriz
+	Ruta r = mi_grafo.getRuta(origen, destino);
+
+	//verifico que exista una ruta cargada entre ambas ciudades
+	if (!r.getruta_existe())
+	{
+		ShowMessage("No existe una ruta cargada entre estas dos ciudades.");
+		return;
+	}
+
+	//elimino la ruta en ida y vuelta usando los índices seleccionados en los ComboBox
+	mi_grafo.eliminar_ruta(origen, destino);
+
+	//guardo los cambios en rutas.bin y actualizo la tabla
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	ShowMessage("Ruta eliminada correctamente.");
+};
 //---------------------------------------------------------------------------
 

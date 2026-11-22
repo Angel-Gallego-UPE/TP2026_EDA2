@@ -37,6 +37,13 @@ void Ruta::set_estado_de_ruta(bool _estado_de_ruta){
 	estado_de_ruta = _estado_de_ruta;
 }
 
+
+void Ruta::set_ruta_existe(bool _ruta_existe){
+
+	ruta_existe = _ruta_existe;
+}
+
+
 //METODOS GETTERS
 string Ruta::getNombre(){
 	return string(nombre);

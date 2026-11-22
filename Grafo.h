@@ -26,7 +26,7 @@ public:
     void guardarRuta();
 	void dijkstra();//algoritmo de busqueda de camino mas corto
 	void cambiar_estado_de_ruta();
-
+	void eliminar_ruta(int ciudad_origen, int ciudad_destino);
 	
     //SETTERS
     void set_ruta(int ciudad_origen,int ciudad_destino, Ruta nueva_ruta);//guarda un objeto Ruta en la celda [ciudad_origen][ciudad_destino]	

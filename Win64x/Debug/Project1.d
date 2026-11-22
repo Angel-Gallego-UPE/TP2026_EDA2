@@ -1,5 +1,5 @@
 .\Win64x\Debug\Project1.o: \
-  C:\Users\Eliloq\Documents\UPE\EDA2\TP\ EDA2\TP\ Interfaz\TP2026_EDA2\Project1PCH1.h \
+  C:\Users\estudiante\Downloads\projectos\ de\ codeblocks\TP2026_EDA2_GIT_CLONE\TP2026_EDA2\Project1PCH1.h \
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\windows\vcl\vcl.h \
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\windows\vcl\basepch0.h \
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\windows\rtl\System.hpp \
