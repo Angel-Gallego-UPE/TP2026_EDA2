@@ -1,0 +1,12 @@
+#ifndef HISTORIAL_H
+#define HISTORIAL_H
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <cstring>
+#include <string>
+
+
+
+#endif

@@ -60,6 +60,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	TPanelMenu->Visible=false;
 	TPanelViaje->Visible=false;
 	TPanelConexiones->Visible = false;
+    TPanelHistorial->Visible = false;
 
 
 	//calculo lo ancho/width de cada campo/columna
@@ -83,10 +84,11 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
 	//muestro solo el menú
-	TPanelConexiones->Visible = false;
+	TPanelConexiones->Visible=false;
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
 	TPanelMenu->Visible=true;
+    TPanelHistorial->Visible = false;
 }
 //---------------------------------------------------------------------------
 
@@ -196,7 +198,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	//variables creadas = convierto los tipos de datos
 	auxNombre = AnsiString(Editname->Text).c_str();
 	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
-	if(!Edit_ID->Text.Trim().IsEmpty()) {
+    if(!Edit__ID->Text.Trim().IsEmpty()) {
 		auxID = StrToInt(Edit__ID->Text);
 	}
 	if(!EditCoordX->Text.Trim().IsEmpty()) {
@@ -210,7 +212,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	   ShowMessage("No se aceptan numeros negativos");
 	   //limpio los Edit´s
 		EditNombre->Text="";
-		Edit_ID->Text="";
+		Edit__ID->Text="";
 		Edit_X->Text="";
 		Edit_Y->Text="";
 	}
@@ -341,6 +343,14 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			Edit_Y->Text="";
 		}
 		else{
+			for (int i = 0; i < vector_ciudades.size(); i++)
+			{
+				if (vector_ciudades[i].getID() == auxID)
+				{
+					ShowMessage("Ya existe una ciudad con ese ID. Ingresa un ID único.");
+					return;
+				}
+			}
 			//creo el objeto con sus parametros
 			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
 			//hago un push al final de vector
@@ -374,6 +384,7 @@ void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
 	PanelCiudades->Visible=false;
     TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=true;
+	TPanelHistorial->Visible=false;
 
 	//las actualizo
 	ActualizarGridRutas();
@@ -618,6 +629,17 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		camino_actual = camino;   //guardo el camino más rápido, pbMapaPaint lo pinta en rojo
 		pbMapa->Invalidate();    //fuerzo el redibujado del mapa con la ruta
 		lblResultadoViaje->Caption = "Distancia mínima: " + FloatToStr(kmTotales) + " km\nRecorrido: " + recorrido;
+
+		//obtengo fecha y hora actual
+		String fechaActual = Now().FormatString("dd/mm/yyyy hh:nn");
+		string strFecha = AnsiString(fechaActual).c_str();
+		string strOrigen = vector_ciudades[origen].getNombre();
+		string strDestino = vector_ciudades[destino].getNombre();
+		string strRecorrido = AnsiString(recorrido).c_str();
+
+		//creo el registro y lo guardo en historial.bin
+		Historial nuevoRegistro(strFecha, strOrigen, strDestino, strRecorrido, kmTotales);
+		nuevoRegistro.guardar();
 	}
 	else
 	{
@@ -636,6 +658,7 @@ void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 	TPanelConexiones->Visible = false;
 	TPanelMenu->Visible = false;
 	PanelCiudades->Visible = false;
+    TPanelHistorial->Visible = false;
 
 	//limpio el desplegable
 	cmbViajeOrigen->Items->Clear();
@@ -856,6 +879,79 @@ void __fastcall TForm1::btnCortarRutaClick(TObject *Sender)
 		ShowMessage("Ruta HABILITADA nuevamente.");
 	else
 		ShowMessage("Ruta CORTADA temporalmente.");
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::btnHistorialClick(TObject *Sender)
+{
+	TPanelHistorial->Visible=true;
+    TPanelMenu->Visible=false;
+	PanelCiudades->Visible=false;
+    TPanelViaje->Visible=false;
+	TPanelConexiones->Visible=false;
+
+    ActualizarGridHistorial();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ActualizarGridHistorial()
+{
+	vector<Historial> lista = Historial::leerTodo(); //leo todos los viajes de historial.bin
+
+    //configuro encabezados (5 columnas)
+	gridHistorial->ColCount = 5;
+	gridHistorial->Cells[0][0] = "Fecha y Hora";
+	gridHistorial->Cells[1][0] = "Origen";
+	gridHistorial->Cells[2][0] = "Destino";
+	gridHistorial->Cells[3][0] = "Recorrido Óptimo";
+	gridHistorial->Cells[4][0] = "Distancia";
+
+	if (lista.empty())
+	{
+    	gridHistorial->RowCount = 2;
+		for (int i = 0; i < 5; i++)
+		{
+			gridHistorial->Cells[i][1] = "";
+		}
+		return;
+	}
+    //reservo 1 fila para encabezados + N filas para los viajes guardados
+	gridHistorial->RowCount = lista.size() + 1;
+
+	int fila=1;
+
+    for (int i = lista.size() - 1; i >= 0; i--)
+	{
+		gridHistorial->Cells[0][fila] = String(lista[i].getFecha().c_str());
+        gridHistorial->Cells[1][fila] = String(lista[i].getOrigen().c_str());
+		gridHistorial->Cells[2][fila] = String(lista[i].getDestino().c_str());
+		gridHistorial->Cells[3][fila] = String(lista[i].getRecorrido().c_str());
+		gridHistorial->Cells[4][fila] = FloatToStr(lista[i].getDistanciaTotal()) + " km";
+		fila++;
+	}
+   //ajusto altura de filas y ancho de columnas de manera automatica para que no se corte ningún texto
+	gridHistorial->DefaultRowHeight = 28;
+
+    for (int col = 0; col < gridHistorial->ColCount; col++)
+	{
+		int anchoMax=100;
+        for (int r = 0; r < gridHistorial->RowCount; r++)
+		{
+			int anchoTexto = gridHistorial->Canvas->TextWidth(gridHistorial->Cells[col][r]) + 25;
+			if (anchoTexto > anchoMax)
+				anchoMax = anchoTexto;
+		}
+		gridHistorial->ColWidths[col] = anchoMax;
+
+	}
+
+}
+
+void __fastcall TForm1::btnLimpiarHistorialClick(TObject *Sender)
+{
+	remove("historial.bin");
+	ActualizarGridHistorial();
 }
 //---------------------------------------------------------------------------
 

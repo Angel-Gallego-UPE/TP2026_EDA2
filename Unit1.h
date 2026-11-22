@@ -12,6 +12,7 @@
 #include "clase.h"
 #include "Grafo.h"
 #include "Ruta.h"
+#include "Historial.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -85,6 +86,10 @@ __published:	// IDE-managed Components
 	TLabel *Label6;
 	TLabel *Label7;
 	TLabel *Label8;
+	TButton *btnHistorial;
+	TPanel *TPanelHistorial;
+	TStringGrid *gridHistorial;
+	TButton *btnLimpiarHistorial;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);
@@ -100,12 +105,15 @@ __published:	// IDE-managed Components
 	void __fastcall ButtonViajeClick(TObject *Sender);
 	void __fastcall pbMapaPaint(TObject *Sender);
 	void __fastcall btnCortarRutaClick(TObject *Sender);
+	void __fastcall btnHistorialClick(TObject *Sender);
+	void __fastcall btnLimpiarHistorialClick(TObject *Sender);
+	void __fastcall ActualizarGridHistorial();
+    void __fastcall ActualizarGridRutas();
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
 	int indiceModificar;
-    Grafo mi_grafo;
-	void __fastcall ActualizarGridRutas();
+	Grafo mi_grafo;
 	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
     std::vector<int> camino_actual;
 

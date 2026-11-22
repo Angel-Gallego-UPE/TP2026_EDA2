@@ -1,0 +1,11 @@
+#include "Historial.h"
+
+Historial::Historial()
+{
+	strcpy(fecha, "");
+	strcpy(origen, "");
+	strcpy(destino, "");
+	strcpy(recorrido, "");
+	distanciaTotal = 0;
+}
+

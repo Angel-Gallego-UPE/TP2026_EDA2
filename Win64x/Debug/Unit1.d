@@ -1058,4 +1058,4 @@
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\windows\rtl\System.ZLib.hpp \
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\windows\vcl\Vcl.Imaging.pnglang.hpp \
   c:\program\ files\ (x86)\embarcadero\studio\37.0\include\windows\vcl\Vcl.Grids.hpp \
-  clase.h Grafo.h Ruta.h
+  clase.h Grafo.h Ruta.h Historial.h
