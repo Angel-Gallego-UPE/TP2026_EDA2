@@ -101,6 +101,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnCalcularViajeClick(TObject *Sender);
 	void __fastcall ButtonViajeClick(TObject *Sender);
 	void __fastcall pbMapaPaint(TObject *Sender);
+
 	void __fastcall btnCortarRutaClick(TObject *Sender);
 	void __fastcall btnHistorialClick(TObject *Sender);
 	void __fastcall btnLimpiarHistorialClick(TObject *Sender);
@@ -111,9 +112,10 @@ __published:	// IDE-managed Components
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
-	int indiceModificar;
+	int indiceModificar; //correlacion entre el vector y la matriz
+	int contadorID=0;  //ID cada nodo va a ser unico
 	Grafo mi_grafo;
-    unsigned int contadorID=0;
+
 	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
     std::vector<int> camino_actual;
 
