@@ -3978,13 +3978,6 @@ object Form1: TForm1
         Height = 15
         Caption = 'Nombre'
       end
-      object Label2: TLabel
-        Left = 16
-        Top = 72
-        Width = 11
-        Height = 15
-        Caption = 'ID'
-      end
       object Label3: TLabel
         Left = 143
         Top = 16
@@ -4012,19 +4005,6 @@ object Form1: TForm1
         ParentFont = False
         TabOrder = 0
       end
-      object Edit_ID: TEdit
-        Left = 16
-        Top = 93
-        Width = 121
-        Height = 23
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clInactiveCaptionText
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 1
-      end
       object Edit_X: TEdit
         Left = 143
         Top = 37
@@ -4036,7 +4016,7 @@ object Form1: TForm1
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 1
       end
       object Edit_Y: TEdit
         Left = 143
@@ -4049,7 +4029,7 @@ object Form1: TForm1
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 2
       end
       object desaparecido: TButton
         Left = -440
@@ -4057,7 +4037,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Guardar'
-        TabOrder = 4
+        TabOrder = 3
       end
       object ButtonCargar: TButton
         Left = 136
@@ -4065,7 +4045,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Cargar'
-        TabOrder = 5
+        TabOrder = 4
         OnClick = ButtonCargarClick
       end
     end
@@ -4154,13 +4134,6 @@ object Form1: TForm1
         Height = 15
         Caption = 'Nombre'
       end
-      object idLabel: TLabel
-        Left = 16
-        Top = 72
-        Width = 11
-        Height = 15
-        Caption = 'ID'
-      end
       object LabelX: TLabel
         Left = 143
         Top = 16
@@ -4188,19 +4161,6 @@ object Form1: TForm1
         ParentFont = False
         TabOrder = 0
       end
-      object Edit__ID: TEdit
-        Left = 16
-        Top = 93
-        Width = 121
-        Height = 23
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clInactiveCaptionText
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 1
-      end
       object EditCoordX: TEdit
         Left = 143
         Top = 37
@@ -4212,7 +4172,7 @@ object Form1: TForm1
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 1
       end
       object EditCoordY: TEdit
         Left = 143
@@ -4225,7 +4185,7 @@ object Form1: TForm1
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 2
       end
       object ButtonModi: TButton
         Left = 136
@@ -4233,7 +4193,7 @@ object Form1: TForm1
         Width = 75
         Height = 25
         Caption = 'Guardar'
-        TabOrder = 4
+        TabOrder = 3
         OnClick = ButtonModiClick
       end
     end

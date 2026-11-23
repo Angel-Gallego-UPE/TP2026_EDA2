@@ -37,11 +37,9 @@ __published:	// IDE-managed Components
 	TLabel *LabelOPC;
 	TPanel *PanelCarga;
 	TLabel *Label1;
-	TLabel *Label2;
 	TLabel *Label3;
 	TLabel *Label4;
 	TEdit *EditNombre;
-	TEdit *Edit_ID;
 	TEdit *Edit_X;
 	TEdit *Edit_Y;
 	TButton *desaparecido;
@@ -50,11 +48,9 @@ __published:	// IDE-managed Components
 	TButton *Button_Eliminar_identificador;
 	TPanel *PanelModificar;
 	TLabel *LabelName;
-	TLabel *idLabel;
 	TLabel *LabelX;
 	TLabel *LabelY;
 	TEdit *Editname;
-	TEdit *Edit__ID;
 	TEdit *EditCoordX;
 	TEdit *EditCoordY;
 	TButton *ButtonModi;
@@ -111,11 +107,13 @@ __published:	// IDE-managed Components
 	void __fastcall ActualizarGridHistorial();
     void __fastcall ActualizarGridRutas();
 	void __fastcall btnEliminarRutaClick(TObject *Sender);
+
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
 	int indiceModificar;
 	Grafo mi_grafo;
+    unsigned int contadorID=0;
 	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
     std::vector<int> camino_actual;
 

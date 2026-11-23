@@ -14,3 +14,8 @@
 *.debug
 *.bookmarks
 *.win
+
+Win64x/ 
+__history/
+__recovery/ 
+*.local
