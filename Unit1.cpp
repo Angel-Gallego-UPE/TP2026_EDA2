@@ -306,9 +306,6 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
-//----modificar
 void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 {
 	//variables aux
@@ -343,7 +340,7 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 		else{
 			for (int i = 0; i < vector_ciudades.size(); i++)
 			{
-				if (vector_ciudades[i].getID() == auxID)
+				if (vector_ciudades[i].getID() == contadorID)
 				{
 					ShowMessage("Ya existe una ciudad con ese ID. Ingresa un ID único.");
 					return;
@@ -351,7 +348,7 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			}
 			//creo el objeto con sus parametros
 
-			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
+			Ciudad nuevaCiudad(contadorID, auxX, auxY, auxNombre);
 			//hago un push al final de vector
 			vector_ciudades.push_back(nuevaCiudad);
 			//escribo al final de archivo la nueva ciudad
