@@ -36,11 +36,9 @@ __published:	// IDE-managed Components
 	TLabel *LabelOPC;
 	TPanel *PanelCarga;
 	TLabel *Label1;
-	TLabel *Label2;
 	TLabel *Label3;
 	TLabel *Label4;
 	TEdit *EditNombre;
-	TEdit *Edit_ID;
 	TEdit *Edit_X;
 	TEdit *Edit_Y;
 	TButton *desaparecido;
@@ -49,11 +47,9 @@ __published:	// IDE-managed Components
 	TButton *Button_Eliminar_identificador;
 	TPanel *PanelModificar;
 	TLabel *LabelName;
-	TLabel *idLabel;
 	TLabel *LabelX;
 	TLabel *LabelY;
 	TEdit *Editname;
-	TEdit *Edit__ID;
 	TEdit *EditCoordX;
 	TEdit *EditCoordY;
 	TButton *ButtonModi;
@@ -94,6 +90,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnCalcularViajeClick(TObject *Sender);
 	void __fastcall ButtonViajeClick(TObject *Sender);
 	void __fastcall pbMapaPaint(TObject *Sender);
+	void __fastcall idLabelClick(TObject *Sender);
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro

@@ -21,14 +21,14 @@ TForm1 *Form1;
 __fastcall TForm1::TForm1(TComponent* Owner)
 	: TForm(Owner)
 {
-	//cargo las ciudades
+	//cargo las ciudades al vector[RAM]
 	vector_ciudades = Ciudad::leerArchivo();
 
 	//cargo la imagen de fondo
 	if (FileExists("stgo.png"))
 	Image1->Picture->LoadFromFile("stgo.png");
 
-	//cargo la matriz
+	//cargo la matriz    i<cantidad de ciudades i++
 	for (int i = 0; i < vector_ciudades.size(); i++)
 	{
 		mi_grafo.agregar_ciudad();
@@ -38,15 +38,16 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 }
 //---------------------------------------------------------------------------
 
-void TForm1::actualizarCuadro()
+void TForm1::actualizarCuadro()//rescribimos el cuadro completo
 {
 	//ajustamos la cantidad de filas según el tamaño del vector
-	GridCiudades->RowCount = vector_ciudades.size() + 1;
+	GridCiudades->RowCount = vector_ciudades.size() + 1; //+1 por la fila ocupada [campos]
 
 	//recorremos el vector[columnas][filas]
 	for(int i = 0; i < vector_ciudades.size(); i++)
 	{
 		GridCiudades->Cells[0][i+1] = vector_ciudades[i].getNombre().c_str();
+							//INT A STRING(grid)
 		GridCiudades->Cells[1][i+1] = IntToStr(vector_ciudades[i].getID());
 		GridCiudades->Cells[2][i+1] = IntToStr(vector_ciudades[i].getX());
 		GridCiudades->Cells[3][i+1] = IntToStr(vector_ciudades[i].getY());
@@ -65,10 +66,11 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	//calculo lo ancho/width de cada campo/columna
 	int ancho = GridCiudades->ClientWidth;
 
+	//cuadro->anchura de columnas[]
 	GridCiudades->ColWidths[0] = ancho * 40 / 100;
 	GridCiudades->ColWidths[1] = ancho * 15 / 100;
 	GridCiudades->ColWidths[2] = ancho * 22 / 100;
-	GridCiudades->ColWidths[3] = ancho * 22 / 100;
+	GridCiudades->ColWidths[3] = ancho * 22 / 100;  //40+15+22+22=99
 
 	//ingreso los nombres de cada campo (en la primera fila)
 	GridCiudades->Cells[0][0] = "Ciudad";
@@ -76,22 +78,23 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	GridCiudades->Cells[2][0] = "Coord. X";
 	GridCiudades->Cells[3][0] = "Coord. Y";
 
-	actualizarCuadro();
+	actualizarCuadro();//cargo el vector
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
 	//muestro solo el menú
+	TPanelMenu->Visible=true;
 	TPanelConexiones->Visible = false;
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
-	TPanelMenu->Visible=true;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 {
+	//muestro el panel cargar nueva ciudad
 	PanelCarga->Visible=true;
 	PanelEliminar->Visible=false;
 	PanelModificar->Visible=false;
@@ -101,6 +104,7 @@ void __fastcall TForm1::ButtonNuevoClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 {
+	//muestro el panel para eliminar
 	PanelEliminar->Visible=true;
 	PanelCarga->Visible=false;
 	PanelModificar->Visible=false;
@@ -110,16 +114,19 @@ void __fastcall TForm1::ButtonEliminarClick(TObject *Sender)
 
 void __fastcall TForm1::ButtonModificarClick(TObject *Sender)
 {
+	//muestro panel Identificador [identidicar cual]
 	PanelIdentificador->Visible=true;
 	PanelEliminar->Visible=false;
 	PanelCarga->Visible=false;
 }
 //---------------------------------------------------------------------------
 
+//Boton para eliminar
 void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 {
-	bool flag=false;
-	int indiceEliminar;
+	//variables
+	bool flag=false;	//bandera de empty
+	int indiceEliminar;	//varible global
 	bool encontrado=false;
 
 
@@ -137,9 +144,9 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 
 		   //variable aux
 		   string nombreBuscado = AnsiString(EditBuscador->Text).c_str();
-
+				 //recorriendo el vector
 			for(int i=0; i<vector_ciudades.size(); i++){
-
+							//igualdad
 				if(nombreBuscado == vector_ciudades[i].getNombre()){
 				   encontrado=true;
 				   indiceEliminar = i; //indice a eliminar
@@ -150,8 +157,9 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 		else if(RadioButtonID->Checked){//Eliminar por ID
 			//variable aux
 			int IDBuscado = StrToInt(EditBuscador->Text);
-
+				//recorro el vector
 			for(int i=0; i<vector_ciudades.size(); i++){
+						//igualdad
 				if(IDBuscado == vector_ciudades[i].getID())
 				{
 					encontrado=true;
@@ -186,20 +194,15 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-//boton para guardar nueva ciudad}
-//----------------------------------------------------¬-----------------------
-
+//boton para guardar nueva ciudad
 void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 {   //varibles aux
-	int auxID=0,auxX=0,auxY=0;
+	int auxX=0,auxY=0;
 	string auxNombre;
 
 	//variables creadas = convierto los tipos de datos
 	auxNombre = AnsiString(Editname->Text).c_str();
 	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
-	if(!Edit_ID->Text.Trim().IsEmpty()) {
-		auxID = StrToInt(Edit_ID->Text);
-	}
 	if(!EditCoordX->Text.Trim().IsEmpty()) {
 		auxX = StrToInt(EditCoordX->Text);
 	}
@@ -211,14 +214,10 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	   ShowMessage("No se aceptan numeros negativos");
 	   //limpio los Edit´s
 		EditNombre->Text="";
-		Edit_ID->Text="";
 		Edit_X->Text="";
 		Edit_Y->Text="";
 	}
 	else{
-		if(auxID != 0 ) { // Si es distinto de 0, lo modificamos
-			vector_ciudades[indiceModificar].setID(auxID);
-		}
 		if(auxX != 0){
 			vector_ciudades[indiceModificar].setX(auxX);
 		}
@@ -232,7 +231,6 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 
 		//limpio los Edit´s
 		EditNombre->Text="";
-		Edit_ID->Text="";
 		Edit_X->Text="";
 		Edit_Y->Text="";
 
@@ -260,7 +258,7 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 	}
 	else{
 		flag=true;
-	}
+	}   1
 
 	if(flag==true){
 		if(RadioButtonNombre->Checked){//Busca por nombre
@@ -294,7 +292,7 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 	if(encontrado==true){
 		PanelModificar->Visible=true;
 		PanelIdentificador->Visible=false;
-        ShowMessage("Ingrese 0 al que no quieras modificar");
+		ShowMessage("Ingrese 0 al que no quieras modificar");
 		EditBusca->Text="";
 	}
 	else{
@@ -306,12 +304,12 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 
 
 
-
+//----modificar
 void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 {
 	//variables aux
 	string auxNombre;
-	int auxID, auxX, auxY;
+	int auxX, auxY;
 
 	//validacion de los cambos obligatorios
 	if( EditNombre->Text.Trim().IsEmpty() || Edit_ID->Text.Trim().IsEmpty() || Edit_X->Text.Trim().IsEmpty() || Edit_Y->Text.Trim().IsEmpty() ){
@@ -319,7 +317,6 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 
 	   //limpio los Edit´s
 	   EditNombre->Text="";
-	   Edit_ID->Text="";
 	   Edit_X->Text="";
 	   Edit_Y->Text="";
 	}
@@ -327,22 +324,21 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 	else{
 		//copio lo ingresado
 		auxNombre= AnsiString(EditNombre->Text).c_str();
-		auxID= StrToInt(Edit_ID->Text);
 		auxX= StrToInt(Edit_X->Text);
 		auxY= StrToInt(Edit_Y->Text);
 
 		//lo valido
-		if(auxID<=0 || auxX<=0 || auxY<=0){
+		if(auxX<=0 || auxY<=0){
 		   ShowMessage("Valores no validas, Intentelo de nuevo");
 
 			//limpio los Edit´s
 			EditNombre->Text="";
-			Edit_ID->Text="";
 			Edit_X->Text="";
 			Edit_Y->Text="";
 		}
 		else{
 			//creo el objeto con sus parametros
+
 			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
 			//hago un push al final de vector
 			vector_ciudades.push_back(nuevaCiudad);
@@ -356,7 +352,6 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 
 			//limpio los Edit´s
 			EditNombre->Text="";
-			Edit_ID->Text="";
 			Edit_X->Text="";
 			Edit_Y->Text="";
 
@@ -373,7 +368,7 @@ void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
 	//muestro solo la matriz con las rutas
 	TPanelMenu->Visible=false;
 	PanelCiudades->Visible=false;
-    TPanelViaje->Visible=false;
+	TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=true;
 
 	//las actualizo
@@ -757,4 +752,3 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
-
