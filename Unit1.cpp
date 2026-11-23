@@ -24,6 +24,15 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 	//cargo las ciudades al vector[RAM]
 	vector_ciudades = Ciudad::leerArchivo();
 
+	//obtendo el id max
+	for(int i=0;i<vector_ciudades.size();i++){
+	   //recorro el vector pero los atributos id´s > contadorID=0
+	   if(vector_ciudades[i].getID() > contadorID){
+			//rescribo hasta al mayor (ultimo)
+			contadorID = vector_ciudades[i].getID();
+	   }
+	} //obtengo el ultimo Id mas grande, osea el ultimo creado
+
 	//cargo la imagen de fondo
 	if (FileExists("stgo.png"))
 	Image1->Picture->LoadFromFile("stgo.png");
@@ -61,7 +70,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	TPanelMenu->Visible=false;
 	TPanelViaje->Visible=false;
 	TPanelConexiones->Visible = false;
-    TPanelHistorial->Visible = false;
+	TPanelHistorial->Visible = false;
 
 
 	//calculo lo ancho/width de cada campo/columna
@@ -91,7 +100,7 @@ void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
 	TPanelMenu->Visible=true;
-    TPanelHistorial->Visible = false;
+	TPanelHistorial->Visible = false;
 
 }
 //---------------------------------------------------------------------------
@@ -308,7 +317,7 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 
 
 
-//----modificar
+
 void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 {
 	//variables aux
@@ -341,17 +350,10 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			Edit_Y->Text="";
 		}
 		else{
-			for (int i = 0; i < vector_ciudades.size(); i++)
-			{
-				if (vector_ciudades[i].getID() == auxID)
-				{
-					ShowMessage("Ya existe una ciudad con ese ID. Ingresa un ID único.");
-					return;
-				}
-			}
-			//creo el objeto con sus parametros
 
-			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
+			contadorID++;
+			//creo el objeto con sus parametros
+			Ciudad nuevaCiudad(contadorID, auxX, auxY, auxNombre);
 			//hago un push al final de vector
 			vector_ciudades.push_back(nuevaCiudad);
 			//escribo al final de archivo la nueva ciudad
@@ -448,7 +450,7 @@ void __fastcall TForm1::ActualizarGridRutas()
 			gridRutas->Cells[j + 1][i + 1] = "0";
 		}
 	}
-    //aumento un poco la altura de las filas para que no queden tan apretadas
+	//aumento un poco la altura de las filas para que no queden tan apretadas
 	gridRutas->DefaultRowHeight = 28;
 
 	//ajusto el ancho de cada columna según el texto más largo que contenga
@@ -511,9 +513,9 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 	//actualizamos la tabla
 	ActualizarGridRutas();
 
-    //limpiamos el recuadro de la distancia
+	//limpiamos el recuadro de la distancia
 	editDistancia->Text = "";
-    editNombreRuta->Text = "";
+	editNombreRuta->Text = "";
 	ShowMessage("Ruta cargada exitosamente.");
 }
 //---------------------------------------------------------------------------
@@ -529,7 +531,7 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 	std::vector<double> dist(n, INF); //guarda la menor distancia acumulada desde el origen hacia cada ciudad
 	std::vector<bool> visitado(n, false); //se guardan las ciudades que ya tienen su distancia mínima
 	std::vector<int> anterior(n, -1);  //guarda el índice de la ciudad anterior
-    bool terminado=false;
+	bool terminado=false;
 	dist[origen] = 0; //al ser la misma ciudad la distancia es 0 (o '-')
 
 	//se fija el camino mínimo hacia una ciudad nueva en cada vuelta
@@ -538,7 +540,7 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 		int u = -1; //guardará el índice de la ciudad no visitada más cercana
 		double minDist = INF;
 
-        //busco entre las ciudades no visitadas cuál tiene la menor distancia acumulada
+		//busco entre las ciudades no visitadas cuál tiene la menor distancia acumulada
 		for (int i = 0; i < n; i++)
 		{
 			if (!visitado[i] && dist[i] < minDist)
@@ -613,7 +615,7 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 	std::vector<int> camino; //vector que recibirá los índices de las ciudades del recorrido óptimo hecho por Djikstra
 	double kmTotales = 0; //variable que guarda la suma total de kilómetros
 
-    //se ejecuto Dijkstra; si encuentra un camino válido, armo el texto y actualizo el mapa
+	//se ejecuto Dijkstra; si encuentra un camino válido, armo el texto y actualizo el mapa
 	if (CalcularDijkstra(origen, destino, camino, kmTotales))
 	{
 		String recorrido = "";
@@ -643,7 +645,7 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 	{
 	//si no hay conexión posible entre las ciudades, limpio el mapa y aviso en pantalla
 		camino_actual.clear();
-        pbMapa->Invalidate();
+		pbMapa->Invalidate();
 		lblResultadoViaje->Caption = "No existe un camino conectado entre esas ciudades.";
 	}
 }
@@ -656,21 +658,21 @@ void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 	TPanelConexiones->Visible = false;
 	TPanelMenu->Visible = false;
 	PanelCiudades->Visible = false;
-    TPanelHistorial->Visible = false;
+	TPanelHistorial->Visible = false;
 
 	//limpio el desplegable
 	cmbViajeOrigen->Items->Clear();
 	cmbViajeDestino->Items->Clear();
 
 	//
-    for (int i = 0; i < vector_ciudades.size(); i++)
+	for (int i = 0; i < vector_ciudades.size(); i++)
 	{
 		String nombre = String(vector_ciudades[i].getNombre().c_str());
 		cmbViajeOrigen->Items->Add(nombre);
 		cmbViajeDestino->Items->Add(nombre);
 	}
 
-    camino_actual.clear();
+	camino_actual.clear();
 	lblResultadoViaje->Caption = "";
 	pbMapa->Invalidate();
 
@@ -758,7 +760,7 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 				c->TextOut(midX, midY, etiquetaRuta);
 				c->Brush->Style = bsSolid;
 			}
-            else if (r.getruta_existe() && !r.getestado_de_ruta())
+			else if (r.getruta_existe() && !r.getestado_de_ruta())
 			{
 				c->Pen->Style = psDash; //línea punteada para indicar corte
 				c->Pen->Color = clMaroon;
@@ -808,7 +810,7 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 			}
 		}
 
-        if (enCamino)
+		if (enCamino)
 		{
 			c->Brush->Color = clYellow;
 			c->Pen->Color = clRed;
@@ -886,17 +888,17 @@ void __fastcall TForm1::btnHistorialClick(TObject *Sender)
 	TPanelHistorial->Visible=true;
 	TPanelMenu->Visible=false;
 	PanelCiudades->Visible=false;
-    TPanelViaje->Visible=false;
+	TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=false;
 
-    ActualizarGridHistorial();
+	ActualizarGridHistorial();
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ActualizarGridHistorial()
 {
 	vector<Historial> lista = Historial::leerTodo(); //leo todos los viajes de historial.bin
 
-    //configuro encabezados (5 columnas)
+	//configuro encabezados (5 columnas)
 	gridHistorial->ColCount = 5;
 	gridHistorial->Cells[0][0] = "Fecha y Hora";
 	gridHistorial->Cells[1][0] = "Origen";
@@ -906,22 +908,22 @@ void __fastcall TForm1::ActualizarGridHistorial()
 
 	if (lista.empty())
 	{
-    	gridHistorial->RowCount = 2;
+		gridHistorial->RowCount = 2;
 		for (int i = 0; i < 5; i++)
 		{
 			gridHistorial->Cells[i][1] = "";
 		}
 		return;
 	}
-    //reservo 1 fila para encabezados + N filas para los viajes guardados
+	//reservo 1 fila para encabezados + N filas para los viajes guardados
 	gridHistorial->RowCount = lista.size() + 1;
 
 	int fila=1;
 
-    for (int i = lista.size() - 1; i >= 0; i--)
+	for (int i = lista.size() - 1; i >= 0; i--)
 	{
 		gridHistorial->Cells[0][fila] = String(lista[i].getFecha().c_str());
-        gridHistorial->Cells[1][fila] = String(lista[i].getOrigen().c_str());
+		gridHistorial->Cells[1][fila] = String(lista[i].getOrigen().c_str());
 		gridHistorial->Cells[2][fila] = String(lista[i].getDestino().c_str());
 		gridHistorial->Cells[3][fila] = String(lista[i].getRecorrido().c_str());
 		gridHistorial->Cells[4][fila] = FloatToStr(lista[i].getDistanciaTotal()) + " km";
@@ -930,10 +932,10 @@ void __fastcall TForm1::ActualizarGridHistorial()
    //ajusto altura de filas y ancho de columnas de manera automatica para que no se corte ningún texto
 	gridHistorial->DefaultRowHeight = 28;
 
-    for (int col = 0; col < gridHistorial->ColCount; col++)
+	for (int col = 0; col < gridHistorial->ColCount; col++)
 	{
 		int anchoMax=100;
-        for (int r = 0; r < gridHistorial->RowCount; r++)
+		for (int r = 0; r < gridHistorial->RowCount; r++)
 		{
 			int anchoTexto = gridHistorial->Canvas->TextWidth(gridHistorial->Cells[col][r]) + 25;
 			if (anchoTexto > anchoMax)

@@ -3629,7 +3629,7 @@ object Form1: TForm1
     end
     object ButtonViaje: TButton
       Left = 16
-      Top = 207
+      Top = 203
       Width = 209
       Height = 65
       Caption = 'VIAJE'
@@ -3659,7 +3659,7 @@ object Form1: TForm1
     end
     object ButtonConexiones: TButton
       Left = 16
-      Top = 294
+      Top = 299
       Width = 209
       Height = 65
       Caption = 'CONEXIONES'
@@ -3963,38 +3963,38 @@ object Form1: TForm1
       OnClick = ButtonModificarClick
     end
     object PanelCarga: TPanel
-      Left = 83
-      Top = 289
-      Width = 225
-      Height = 167
+      Left = 64
+      Top = 297
+      Width = 245
+      Height = 141
       Color = clMedGray
       ParentBackground = False
       TabOrder = 4
       Visible = False
       object Label1: TLabel
         Left = 16
-        Top = 16
+        Top = 70
         Width = 44
         Height = 15
         Caption = 'Nombre'
       end
       object Label3: TLabel
-        Left = 143
+        Left = 15
         Top = 16
         Width = 46
         Height = 15
         Caption = 'Coord. X'
       end
       object Label4: TLabel
-        Left = 143
-        Top = 72
+        Left = 103
+        Top = 16
         Width = 46
         Height = 15
         Caption = 'Coord. Y'
       end
       object EditNombre: TEdit
         Left = 16
-        Top = 37
+        Top = 91
         Width = 121
         Height = 23
         Font.Charset = DEFAULT_CHARSET
@@ -4006,7 +4006,7 @@ object Form1: TForm1
         TabOrder = 0
       end
       object Edit_X: TEdit
-        Left = 143
+        Left = 15
         Top = 37
         Width = 66
         Height = 23
@@ -4019,8 +4019,8 @@ object Form1: TForm1
         TabOrder = 1
       end
       object Edit_Y: TEdit
-        Left = 143
-        Top = 93
+        Left = 103
+        Top = 37
         Width = 66
         Height = 23
         Font.Charset = DEFAULT_CHARSET
@@ -4040,10 +4040,10 @@ object Form1: TForm1
         TabOrder = 3
       end
       object ButtonCargar: TButton
-        Left = 136
-        Top = 128
+        Left = 151
+        Top = 88
         Width = 75
-        Height = 25
+        Height = 33
         Caption = 'Cargar'
         TabOrder = 4
         OnClick = ButtonCargarClick
@@ -4119,38 +4119,38 @@ object Form1: TForm1
       end
     end
     object PanelModificar: TPanel
-      Left = 83
-      Top = 285
-      Width = 225
-      Height = 167
+      Left = 64
+      Top = 298
+      Width = 230
+      Height = 125
       Color = clMedGray
       ParentBackground = False
       TabOrder = 6
       Visible = False
       object LabelName: TLabel
-        Left = 16
-        Top = 16
+        Left = 13
+        Top = 58
         Width = 44
         Height = 15
         Caption = 'Nombre'
       end
       object LabelX: TLabel
-        Left = 143
-        Top = 16
+        Left = 12
+        Top = 8
         Width = 46
         Height = 15
         Caption = 'Coord. X'
       end
       object LabelY: TLabel
-        Left = 143
-        Top = 72
+        Left = 87
+        Top = 8
         Width = 46
         Height = 15
         Caption = 'Coord. Y'
       end
       object Editname: TEdit
-        Left = 16
-        Top = 37
+        Left = 15
+        Top = 79
         Width = 121
         Height = 23
         Font.Charset = DEFAULT_CHARSET
@@ -4162,8 +4162,8 @@ object Form1: TForm1
         TabOrder = 0
       end
       object EditCoordX: TEdit
-        Left = 143
-        Top = 37
+        Left = 15
+        Top = 29
         Width = 66
         Height = 23
         Font.Charset = DEFAULT_CHARSET
@@ -4175,8 +4175,8 @@ object Form1: TForm1
         TabOrder = 1
       end
       object EditCoordY: TEdit
-        Left = 143
-        Top = 93
+        Left = 95
+        Top = 29
         Width = 66
         Height = 23
         Font.Charset = DEFAULT_CHARSET
@@ -4188,10 +4188,10 @@ object Form1: TForm1
         TabOrder = 2
       end
       object ButtonModi: TButton
-        Left = 136
-        Top = 128
+        Left = 142
+        Top = 80
         Width = 75
-        Height = 25
+        Height = 31
         Caption = 'Guardar'
         TabOrder = 3
         OnClick = ButtonModiClick
