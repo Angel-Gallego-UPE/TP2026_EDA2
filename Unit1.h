@@ -116,7 +116,7 @@ private:	// User declarations
 	int contadorID=0;  //ID cada nodo va a ser unico
 	Grafo mi_grafo;
 
-	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
+	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal, std::vector<Ruta> &ruta);
     std::vector<int> camino_actual;
 
 public:		// User declarations
