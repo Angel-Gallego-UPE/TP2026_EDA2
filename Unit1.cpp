@@ -887,7 +887,7 @@ void __fastcall TForm1::btnCortarRutaClick(TObject *Sender)
 void __fastcall TForm1::btnHistorialClick(TObject *Sender)
 {
 	TPanelHistorial->Visible=true;
-    TPanelMenu->Visible=false;
+	TPanelMenu->Visible=false;
 	PanelCiudades->Visible=false;
     TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=false;
@@ -953,5 +953,44 @@ void __fastcall TForm1::btnLimpiarHistorialClick(TObject *Sender)
 	remove("historial.bin");
 	ActualizarGridHistorial();
 }
+//---------------------------------------------------------------------------
+
+//boton para eliminar rutas
+void __fastcall TForm1::btnEliminarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex;   //tomo la ciudad origen
+	int destino = cmbDestino->ItemIndex; //tomo la ciudad destino
+
+	//validaciones
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+
+	//obtengo la ruta actual desde la matriz
+	Ruta r = mi_grafo.getRuta(origen, destino);
+
+	//verifico que exista una ruta cargada entre ambas ciudades
+	if (!r.getruta_existe())
+	{
+		ShowMessage("No existe una ruta cargada entre estas dos ciudades.");
+		return;
+	}
+
+	//elimino la ruta en ida y vuelta usando los índices seleccionados en los ComboBox
+	mi_grafo.eliminar_ruta(origen, destino);
+
+	//guardo los cambios en rutas.bin y actualizo la tabla
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	ShowMessage("Ruta eliminada correctamente.");
+};
 //---------------------------------------------------------------------------
 

@@ -106,12 +106,14 @@ __published:	// IDE-managed Components
 	void __fastcall pbMapaPaint(TObject *Sender);
 	void __fastcall btnCortarRutaClick(TObject *Sender);
 	void __fastcall btnHistorialClick(TObject *Sender);
+	void __fastcall btnLimpiarHistorialClick(TObject *Sender);
+	void __fastcall ActualizarGridHistorial();
+    void __fastcall ActualizarGridRutas();
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
 	int indiceModificar;
 	Grafo mi_grafo;
-	void __fastcall ActualizarGridRutas();
 	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
     std::vector<int> camino_actual;
 

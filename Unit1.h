@@ -90,6 +90,7 @@ __published:	// IDE-managed Components
 	TPanel *TPanelHistorial;
 	TStringGrid *gridHistorial;
 	TButton *btnLimpiarHistorial;
+	TButton *btnEliminarRuta;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);
@@ -109,6 +110,7 @@ __published:	// IDE-managed Components
 	void __fastcall btnLimpiarHistorialClick(TObject *Sender);
 	void __fastcall ActualizarGridHistorial();
     void __fastcall ActualizarGridRutas();
+	void __fastcall btnEliminarRutaClick(TObject *Sender);
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro

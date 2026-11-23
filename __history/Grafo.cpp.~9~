@@ -1,6 +1,6 @@
 ﻿#include "Grafo.h"
 #include <iostream>
-//#include <fstream>
+#include <fstream>
 #include <vector>
 using namespace std;
 
@@ -154,11 +154,11 @@ void Grafo::cargar_ruta(){
 	//crea el objeto Ruta con los datos ingresados
 	//(origen, destino, distancia, estado_de_ruta=1, ruta_existe=true)
 	//Ruta de ida (origen -> destino)
-	Ruta ruta_ida(ciudad_origen, ciudad_destino, distancia, 1, true);
+	Ruta ruta_ida(ciudad_origen, ciudad_destino, "", distancia, 1, true);
 	set_ruta(ciudad_origen, ciudad_destino, ruta_ida); //guarda la ruta en la matriz del grafo usando el metodo set_ruta
-	
-    //Ruta de vuelta (destino -> origen)
-	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, distancia, 1, true);
+
+	//Ruta de vuelta (destino -> origen)
+	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, "", distancia, 1, true);
 	set_ruta(ciudad_destino, ciudad_origen, ruta_vuelta);
 	cout << "Ruta cargada exitosamente\n";
 			 
@@ -174,9 +174,12 @@ void Grafo::leerRuta()
 	ifstream archivo("rutas.bin", ios::binary);
 	if(archivo)
     {
-        int ciudades_guardadas = 0;
+		int ciudades_guardadas = 0;
+
+		//lee el archivo y lo guarda en ciudades guardadas
         if(archivo.read((char*)&ciudades_guardadas, sizeof(ciudades_guardadas)))
-        {
+		{
+
 			while(cantidad_de_ciudades < ciudades_guardadas)
             {
                 agregar_ciudad();
@@ -481,6 +484,62 @@ void Grafo::cambiar_estado_de_ruta(){
 		}
 	}
 }
+
+void Grafo::eliminar_ruta(){
+
+    	int ciudad_origen;
+	int ciudad_destino;
+	short continuar = 0;
+	short opcion;
+
+	while(continuar == 0){
+	//le pedimos al usuario el indice de la primer ciudad
+	cout << "ingrese el indice de la ciudad de origen: ";
+	cin >> ciudad_origen;
+
+	//le pedimos al usuario el indice de la segunda ciudad
+	cout << "ingrese el indice de la ciudad de destino: ";
+	cin >> ciudad_destino;
+
+
+	//compruebo el indice ingresado
+	if(ciudad_origen < 0 || ciudad_origen >= cantidad_de_ciudades || ciudad_destino < 0 || ciudad_destino >= cantidad_de_ciudades){
+
+		cout<<"el indice ingresado no coresponde a ninguna ciudad";
+		continuar = 1;
+	}
+
+	//compruebo que la ciudad origen y la ciudad destino no sean la misma
+	if(ciudad_origen == ciudad_destino){
+
+		cout<<"ciudad origen y ciudad destino son la misma";
+		continuar = 1;
+	}
+
+	if(matriz[ciudad_origen][ciudad_destino].getruta_existe() == false){
+
+		cout<<"no existe ninguna ruta entre estas dos ciudades\n";
+		continuar = 1;
+
+	}
+
+
+
+	matriz[ciudad_origen][ciudad_destino].~Ruta;
+
+
+
+	}
+
+
+
+
+
+
+}
+
+
+
 // SETTER: guarda o actualiza un objeto Ruta en coordenadas especificas [origen][destino]
 void Grafo::set_ruta(int ciudad_origen, int ciudad_destino, Ruta nueva_ruta) {
 
