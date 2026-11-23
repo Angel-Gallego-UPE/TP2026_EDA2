@@ -1,0 +1,22 @@
+#ifndef HISTORIAL_H
+#define HISTORIAL_H
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <cstring>
+#include <string>
+
+
+using namespace std;
+
+class Historial
+{
+private:
+	char fecha[25];
+	char origen[50];
+	char destino[50];
+	char recorrido[250];
+	double distanciaTotal;
+
+#endif

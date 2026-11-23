@@ -154,11 +154,11 @@ void Grafo::cargar_ruta(){
 	//crea el objeto Ruta con los datos ingresados
 	//(origen, destino, distancia, estado_de_ruta=1, ruta_existe=true)
 	//Ruta de ida (origen -> destino)
-	Ruta ruta_ida(ciudad_origen, ciudad_destino, distancia, 1, true);
+	Ruta ruta_ida(ciudad_origen, ciudad_destino, "", distancia, 1, true);
 	set_ruta(ciudad_origen, ciudad_destino, ruta_ida); //guarda la ruta en la matriz del grafo usando el metodo set_ruta
-	
-    //Ruta de vuelta (destino -> origen)
-	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, distancia, 1, true);
+
+	//Ruta de vuelta (destino -> origen)
+	Ruta ruta_vuelta(ciudad_destino, ciudad_origen, "", distancia, 1, true);
 	set_ruta(ciudad_destino, ciudad_origen, ruta_vuelta);
 	cout << "Ruta cargada exitosamente\n";
 			 
@@ -484,6 +484,32 @@ void Grafo::cambiar_estado_de_ruta(){
 		}
 	}
 }
+
+void Grafo::eliminar_ruta(int ciudad_origen, int ciudad_destino){
+
+
+if (ciudad_origen < 0 || ciudad_origen >= cantidad_de_ciudades || ciudad_destino < 0 || ciudad_destino >= cantidad_de_ciudades)
+	{
+		return;
+	}
+
+	if (ciudad_origen == ciudad_destino)
+	{
+		return;
+	}
+
+	if (matriz[ciudad_origen][ciudad_destino].getruta_existe() == false)
+	{
+		return;
+	}
+
+	matriz[ciudad_origen][ciudad_destino].set_ruta_existe(false);
+	matriz[ciudad_destino][ciudad_origen].set_ruta_existe(false);
+}
+
+
+
+
 // SETTER: guarda o actualiza un objeto Ruta en coordenadas especificas [origen][destino]
 void Grafo::set_ruta(int ciudad_origen, int ciudad_destino, Ruta nueva_ruta) {
 

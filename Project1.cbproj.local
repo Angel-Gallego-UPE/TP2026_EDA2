@@ -1,20 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2026/11/08 19:05:18.000.392,=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
     <Transaction>2026/11/08 19:05:18.000.298,=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2026/11/10 17:28:28.000.637,=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/11/08 19:05:18.000.392,=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
     <Transaction>2026/11/10 17:28:28.000.549,=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/11/10 17:28:28.000.637,=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
     <Transaction>2026/11/10 18:27:46.000.040,C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\Project1PCH1.h=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
-    <Transaction>2026/11/10 18:27:46.000.098,C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\Project1.cbproj=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
-    <Transaction>2026/11/10 18:27:46.000.071,C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\Unit1.h=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.h</Transaction>
     <Transaction>2026/11/10 18:27:46.000.071,C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\Unit1.cpp=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/11/10 18:27:46.000.098,C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\Project1.cbproj=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
     <Transaction>2026/11/10 18:27:46.000.071,C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\Unit1.dfm=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2026/11/10 18:27:46.000.071,C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\Unit1.h=C:\Users\Usuario\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.h</Transaction>
     <Transaction>2026/11/11 10:43:37.000.503,=C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\desarr_clase.cpp</Transaction>
     <Transaction>2026/11/11 10:44:06.000.921,=C:\Users\Usuario\OneDrive\Escritorio\Proyecto1\clase.h</Transaction>
-    <Transaction>2026/11/16 14:32:18.000.737,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Ruta.cpp</Transaction>
-    <Transaction>2026/11/16 14:32:18.000.735,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Grafo.h</Transaction>
-    <Transaction>2026/11/16 14:32:18.000.739,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Ruta.h</Transaction>
     <Transaction>2026/11/16 14:32:18.000.731,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Grafo.cpp</Transaction>
+    <Transaction>2026/11/16 14:32:18.000.737,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Ruta.cpp</Transaction>
+    <Transaction>2026/11/16 14:32:18.000.739,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Ruta.h</Transaction>
+    <Transaction>2026/11/16 14:32:18.000.735,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Grafo.h</Transaction>
+    <Transaction>2026/11/22 15:32:47.000.496,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.cpp</Transaction>
+    <Transaction>2026/11/22 15:32:47.000.502,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.h</Transaction>
+    <Transaction>2026/11/22 15:33:00.000.166,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.cpp=</Transaction>
+    <Transaction>2026/11/22 15:34:55.000.075,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.cpp</Transaction>
+    <Transaction>2026/11/22 15:34:55.000.078,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.h</Transaction>
+    <Transaction>2026/11/22 15:36:23.000.588,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.cpp=</Transaction>
+    <Transaction>2026/11/22 15:36:27.000.341,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.h=</Transaction>
+    <Transaction>2026/11/22 15:36:36.000.231,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Historial.cpp</Transaction>
+    <Transaction>2026/11/22 15:36:57.000.816,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\historial.cpp=</Transaction>
+    <Transaction>2026/11/22 15:38:29.000.860,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Historial.cpp</Transaction>
+    <Transaction>2026/11/22 15:38:46.000.370,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Historial.cpp=</Transaction>
+    <Transaction>2026/11/22 15:39:06.000.654,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Unit2.cpp</Transaction>
+    <Transaction>2026/11/22 15:39:26.000.506,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\File1.cpp</Transaction>
+    <Transaction>2026/11/22 15:39:33.000.559,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\File1.cpp=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Historial.cpp</Transaction>
+    <Transaction>2026/11/22 15:40:06.000.589,=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\File1.h</Transaction>
+    <Transaction>2026/11/22 15:40:13.000.489,C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\File1.h=C:\Users\Eliloq\Documents\UPE\EDA2\TP EDA2\TP Interfaz\TP2026_EDA2\Historial.h</Transaction>
   </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="clase.h"/>
+    <File Path="desarr_clase.cpp"/>
+    <File Path="Grafo.cpp"/>
+    <File Path="Grafo.h"/>
+    <File Path="Historial.cpp"/>
+    <File Path="Historial.cpp"/>
+    <File Path="Historial.h"/>
+    <File Path="Project1.cpp"/>
+    <File Path="Project1PCH1.h"/>
+    <File Path="Ruta.cpp"/>
+    <File Path="Ruta.h"/>
+    <File Path="Unit1.cpp"/>
+    <File Path="Unit1.cpp"/>
+    <File Path="Unit1.dfm"/>
+    <File Path="Unit1.h"/>
+  </ProjectSortOrder>
 </BorlandProject>

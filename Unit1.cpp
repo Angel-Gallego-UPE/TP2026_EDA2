@@ -61,6 +61,7 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 	TPanelMenu->Visible=false;
 	TPanelViaje->Visible=false;
 	TPanelConexiones->Visible = false;
+    TPanelHistorial->Visible = false;
 
 
 	//calculo lo ancho/width de cada campo/columna
@@ -85,10 +86,13 @@ void __fastcall TForm1::ButtonCiudadesClick(TObject *Sender)
 void __fastcall TForm1::ButtonMenuClick(TObject *Sender)
 {
 	//muestro solo el menú
-	TPanelMenu->Visible=true;
-	TPanelConexiones->Visible = false;
+
+	TPanelConexiones->Visible=false;
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
+	TPanelMenu->Visible=true;
+    TPanelHistorial->Visible = false;
+
 }
 //---------------------------------------------------------------------------
 
@@ -128,7 +132,6 @@ void __fastcall TForm1::Button_Eliminar_identificadorClick(TObject *Sender)
 	bool flag=false;	//bandera de empty
 	int indiceEliminar;	//varible global
 	bool encontrado=false;
-
 
 	//Valido si escribio algo en el buscador
 	if(EditBuscador->Text.Trim().IsEmpty())
@@ -203,6 +206,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 	//variables creadas = convierto los tipos de datos
 	auxNombre = AnsiString(Editname->Text).c_str();
 	//LECTURA SEGURA DE ENTEROS (Evita el error de cadena vacía "")
+
 	if(!EditCoordX->Text.Trim().IsEmpty()) {
 		auxX = StrToInt(EditCoordX->Text);
 	}
@@ -210,7 +214,7 @@ void __fastcall TForm1::ButtonModiClick(TObject *Sender)
 		auxY = StrToInt(EditCoordY->Text);
 	}
 
-	if(auxID<0 || auxX<0 || auxY<0){
+	if(auxX<0 || auxY<0){
 	   ShowMessage("No se aceptan numeros negativos");
 	   //limpio los Edit´s
 		EditNombre->Text="";
@@ -258,7 +262,7 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 	}
 	else{
 		flag=true;
-	}   1
+	}
 
 	if(flag==true){
 		if(RadioButtonNombre->Checked){//Busca por nombre
@@ -312,7 +316,7 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 	int auxX, auxY;
 
 	//validacion de los cambos obligatorios
-	if( EditNombre->Text.Trim().IsEmpty() || Edit_ID->Text.Trim().IsEmpty() || Edit_X->Text.Trim().IsEmpty() || Edit_Y->Text.Trim().IsEmpty() ){
+	if( EditNombre->Text.Trim().IsEmpty() || Edit_X->Text.Trim().IsEmpty() || Edit_Y->Text.Trim().IsEmpty() ){
 	   ShowMessage("Todos los campos son obligatorios.");
 
 	   //limpio los Edit´s
@@ -337,6 +341,14 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 			Edit_Y->Text="";
 		}
 		else{
+			for (int i = 0; i < vector_ciudades.size(); i++)
+			{
+				if (vector_ciudades[i].getID() == auxID)
+				{
+					ShowMessage("Ya existe una ciudad con ese ID. Ingresa un ID único.");
+					return;
+				}
+			}
 			//creo el objeto con sus parametros
 
 			Ciudad nuevaCiudad(auxID, auxX, auxY, auxNombre);
@@ -370,6 +382,7 @@ void __fastcall TForm1::ButtonConexionesClick(TObject *Sender)
 	PanelCiudades->Visible=false;
 	TPanelViaje->Visible=false;
 	TPanelConexiones->Visible=true;
+	TPanelHistorial->Visible=false;
 
 	//las actualizo
 	ActualizarGridRutas();
@@ -424,11 +437,33 @@ void __fastcall TForm1::ActualizarGridRutas()
 			if (i == j)
 			gridRutas->Cells[j + 1][i + 1] = "-"; //al ser la misma ciudad queda en -
 			else if (r.getruta_existe()) //si existe conexion cargada entre ambas ciudades
-			gridRutas->Cells[j + 1][i + 1] = FloatToStr(r.getdistancia()) + " km"; //muestro la distancia en la celda
+			{
+				String textoCelda = String(r.getNombre().c_str()) + " (" + FloatToStr(r.getdistancia()) + " km)";
+				if (!r.getestado_de_ruta()) //si la ruta está cortada, lo indico en la celda
+				textoCelda += " [CORTADA]";
+				gridRutas->Cells[j + 1][i + 1] = textoCelda; //muestro la distancia en la celda
+			}
 			else
 			//si no existe, es 0
 			gridRutas->Cells[j + 1][i + 1] = "0";
 		}
+	}
+    //aumento un poco la altura de las filas para que no queden tan apretadas
+	gridRutas->DefaultRowHeight = 28;
+
+	//ajusto el ancho de cada columna según el texto más largo que contenga
+	for (int col = 0; col < gridRutas->ColCount; col++)
+	{
+		int anchoMax = 95; //ancho mínimo base
+		for (int fila = 0; fila < gridRutas->RowCount; fila++)
+		{
+			int anchoTexto = gridRutas->Canvas->TextWidth(gridRutas->Cells[col][fila]) + 20;
+			if (anchoTexto > anchoMax)
+			{
+				anchoMax = anchoTexto;
+			}
+		}
+		gridRutas->ColWidths[col] = anchoMax;
 	}
 }
 
@@ -439,6 +474,7 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 	double distancia = StrToFloatDef(editDistancia->Text, -1);//tomo la distancia y lo convierto el texto a double;
 															  //si está vacío o tiene letras, devuelve -1
 	//si el valor de distancia es incorrecto o no selecciono origen/destino, el valor es -1 según la variable
+	string nombreRuta = AnsiString(editNombreRuta->Text.Trim()).c_str(); //tomo el nombre de la ruta
 
 	if (origen == -1 || destino == -1) //si no se seleccionó alguno de las dos ciudades
 	{
@@ -456,12 +492,18 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 		return;
 	}
 
+	if (nombreRuta.empty()) //valido si no está vacío
+	{
+		ShowMessage("Ingresa un nombre para la ruta o calle.");
+		return;
+	}
+
 	//si está todo ok:
 	//creamos ruta de ida (origen, destino, distancia, estado_activa = true, ruta_existe = true)
-	Ruta ruta_ida(origen, destino, distancia, true, true); //pasamos los datos de la ruta para la ida
+	Ruta ruta_ida(origen, destino, nombreRuta, distancia, true, true); //pasamos los datos de la ruta para la ida
 	mi_grafo.set_ruta(origen, destino, ruta_ida); //guardamos el objeto Ruta en [origen][destino]
 
-	Ruta ruta_vuelta(destino, origen, distancia, true, true); //creamos la ruta simétrica
+	Ruta ruta_vuelta(destino, origen, nombreRuta, distancia, true, true); //creamos la ruta simétrica
 	mi_grafo.set_ruta(destino, origen, ruta_vuelta); ////guardamos el objeto Ruta en [destino][origen]
 
 	//guardamos en rutas.bin y reescribimos la matriz
@@ -471,6 +513,7 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 
     //limpiamos el recuadro de la distancia
 	editDistancia->Text = "";
+    editNombreRuta->Text = "";
 	ShowMessage("Ruta cargada exitosamente.");
 }
 //---------------------------------------------------------------------------
@@ -584,6 +627,17 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		camino_actual = camino;   //guardo el camino más rápido, pbMapaPaint lo pinta en rojo
 		pbMapa->Invalidate();    //fuerzo el redibujado del mapa con la ruta
 		lblResultadoViaje->Caption = "Distancia mínima: " + FloatToStr(kmTotales) + " km\nRecorrido: " + recorrido;
+
+		//obtengo fecha y hora actual
+		String fechaActual = Now().FormatString("dd/mm/yyyy hh:nn");
+		string strFecha = AnsiString(fechaActual).c_str();
+		string strOrigen = vector_ciudades[origen].getNombre();
+		string strDestino = vector_ciudades[destino].getNombre();
+		string strRecorrido = AnsiString(recorrido).c_str();
+
+		//creo el registro y lo guardo en historial.bin
+		Historial nuevoRegistro(strFecha, strOrigen, strDestino, strRecorrido, kmTotales);
+		nuevoRegistro.guardar();
 	}
 	else
 	{
@@ -602,6 +656,7 @@ void __fastcall TForm1::ButtonViajeClick(TObject *Sender)
 	TPanelConexiones->Visible = false;
 	TPanelMenu->Visible = false;
 	PanelCiudades->Visible = false;
+    TPanelHistorial->Visible = false;
 
 	//limpio el desplegable
 	cmbViajeOrigen->Items->Clear();
@@ -686,15 +741,37 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 		for (int j = i + 1; j < n; j++)
 		{
 			Ruta r = mi_grafo.getRuta(i, j);
+			//se muestran kilómetros en el punto medio de la línea
+			int midX = (pos[i].x + pos[j].x) / 2;
+			int midY = (pos[i].y + pos[j].y) / 2;
 			if (r.getruta_existe() && r.getestado_de_ruta())
 			{
+				c->Pen->Style = psSolid; //línea continua
+				c->Pen->Color = clSilver;
+				c->Pen->Width = 2;
 				c->MoveTo(pos[i].x, pos[i].y);
 				c->LineTo(pos[j].x, pos[j].y);
 
-				//se muestran kilómetros en el punto medio de la línea
-				int midX = (pos[i].x + pos[j].x) / 2;
-				int midY = (pos[i].y + pos[j].y) / 2;
-				c->TextOut(midX, midY, FloatToStr(r.getdistancia()) + " km");
+
+				String etiquetaRuta = String(r.getNombre().c_str()) + " (" + FloatToStr(r.getdistancia()) + " km)";
+				c->Brush->Style = bsClear; //para que el fondo del texto no tape la línea
+				c->TextOut(midX, midY, etiquetaRuta);
+				c->Brush->Style = bsSolid;
+			}
+            else if (r.getruta_existe() && !r.getestado_de_ruta())
+			{
+				c->Pen->Style = psDash; //línea punteada para indicar corte
+				c->Pen->Color = clMaroon;
+				c->Pen->Width = 2;
+				c->MoveTo(pos[i].x, pos[i].y);
+				c->LineTo(pos[j].x, pos[j].y);
+
+				String etiquetaCortada = String(r.getNombre().c_str()) + " [CORTADA]";
+				c->Brush->Style = bsClear;
+				c->TextOut(midX, midY, etiquetaCortada);
+				c->Brush->Style = bsSolid;
+
+				c->Pen->Style = psSolid; //restauro el estilo sólido para lo que sigue
 			}
 		}
 	}
@@ -751,4 +828,165 @@ void __fastcall TForm1::pbMapaPaint(TObject *Sender)
 		c->Brush->Style = bsSolid;
 	}
 }
+//---------------------------------------------------------------------------
+void __fastcall TForm1::btnCortarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex; //tomo la ciudad origen
+	int destino = cmbDestino->ItemIndex; //tomo la ciudad destino
+
+	//validaciones
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+
+	//obtengo la ruta actual desde la matriz
+	Ruta r = mi_grafo.getRuta(origen, destino);
+
+	//verifico que exista una ruta cargada entre ambas ciudades
+	if (!r.getruta_existe())
+	{
+		ShowMessage("No existe una ruta cargada entre estas dos ciudades.");
+		return;
+	}
+
+	//invierto el estado: si estaba activa (true) pasa a cortada (false) y viceversa
+	bool nuevoEstado = !r.getestado_de_ruta();
+	string nombreRuta = r.getNombre(); //conservo el nombre de la ruta/calle
+	double dist = r.getdistancia(); //conservo los kilómetros
+
+	//actualizo ida y vuelta manteniendo nombre y distancia
+	Ruta ruta_ida(origen, destino, nombreRuta, dist, nuevoEstado, true);
+	mi_grafo.set_ruta(origen, destino, ruta_ida);
+
+	Ruta ruta_vuelta(destino, origen, nombreRuta, dist, nuevoEstado, true);
+	mi_grafo.set_ruta(destino, origen, ruta_vuelta);
+
+	//guardo los cambios en rutas.bin y actualizo la tabla
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	if (nuevoEstado)
+		ShowMessage("Ruta HABILITADA nuevamente.");
+	else
+		ShowMessage("Ruta CORTADA temporalmente.");
+}
+//---------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::btnHistorialClick(TObject *Sender)
+{
+	TPanelHistorial->Visible=true;
+	TPanelMenu->Visible=false;
+	PanelCiudades->Visible=false;
+    TPanelViaje->Visible=false;
+	TPanelConexiones->Visible=false;
+
+    ActualizarGridHistorial();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ActualizarGridHistorial()
+{
+	vector<Historial> lista = Historial::leerTodo(); //leo todos los viajes de historial.bin
+
+    //configuro encabezados (5 columnas)
+	gridHistorial->ColCount = 5;
+	gridHistorial->Cells[0][0] = "Fecha y Hora";
+	gridHistorial->Cells[1][0] = "Origen";
+	gridHistorial->Cells[2][0] = "Destino";
+	gridHistorial->Cells[3][0] = "Recorrido Óptimo";
+	gridHistorial->Cells[4][0] = "Distancia";
+
+	if (lista.empty())
+	{
+    	gridHistorial->RowCount = 2;
+		for (int i = 0; i < 5; i++)
+		{
+			gridHistorial->Cells[i][1] = "";
+		}
+		return;
+	}
+    //reservo 1 fila para encabezados + N filas para los viajes guardados
+	gridHistorial->RowCount = lista.size() + 1;
+
+	int fila=1;
+
+    for (int i = lista.size() - 1; i >= 0; i--)
+	{
+		gridHistorial->Cells[0][fila] = String(lista[i].getFecha().c_str());
+        gridHistorial->Cells[1][fila] = String(lista[i].getOrigen().c_str());
+		gridHistorial->Cells[2][fila] = String(lista[i].getDestino().c_str());
+		gridHistorial->Cells[3][fila] = String(lista[i].getRecorrido().c_str());
+		gridHistorial->Cells[4][fila] = FloatToStr(lista[i].getDistanciaTotal()) + " km";
+		fila++;
+	}
+   //ajusto altura de filas y ancho de columnas de manera automatica para que no se corte ningún texto
+	gridHistorial->DefaultRowHeight = 28;
+
+    for (int col = 0; col < gridHistorial->ColCount; col++)
+	{
+		int anchoMax=100;
+        for (int r = 0; r < gridHistorial->RowCount; r++)
+		{
+			int anchoTexto = gridHistorial->Canvas->TextWidth(gridHistorial->Cells[col][r]) + 25;
+			if (anchoTexto > anchoMax)
+				anchoMax = anchoTexto;
+		}
+		gridHistorial->ColWidths[col] = anchoMax;
+
+	}
+
+}
+
+void __fastcall TForm1::btnLimpiarHistorialClick(TObject *Sender)
+{
+	remove("historial.bin");
+	ActualizarGridHistorial();
+}
+//---------------------------------------------------------------------------
+
+//boton para eliminar rutas
+void __fastcall TForm1::btnEliminarRutaClick(TObject *Sender)
+{
+	int origen = cmbOrigen->ItemIndex;   //tomo la ciudad origen
+	int destino = cmbDestino->ItemIndex; //tomo la ciudad destino
+
+	//validaciones
+	if (origen == -1 || destino == -1)
+	{
+		ShowMessage("Selecciona una ciudad de origen y una de destino.");
+		return;
+	}
+	if (origen == destino)
+	{
+		ShowMessage("La ciudad de origen y destino no pueden ser la misma.");
+		return;
+	}
+
+	//obtengo la ruta actual desde la matriz
+	Ruta r = mi_grafo.getRuta(origen, destino);
+
+	//verifico que exista una ruta cargada entre ambas ciudades
+	if (!r.getruta_existe())
+	{
+		ShowMessage("No existe una ruta cargada entre estas dos ciudades.");
+		return;
+	}
+
+	//elimino la ruta en ida y vuelta usando los índices seleccionados en los ComboBox
+	mi_grafo.eliminar_ruta(origen, destino);
+
+	//guardo los cambios en rutas.bin y actualizo la tabla
+	mi_grafo.guardarRuta();
+	ActualizarGridRutas();
+
+	ShowMessage("Ruta eliminada correctamente.");
+};
 //---------------------------------------------------------------------------

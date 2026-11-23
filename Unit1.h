@@ -12,6 +12,7 @@
 #include "clase.h"
 #include "Grafo.h"
 #include "Ruta.h"
+#include "Historial.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -76,6 +77,16 @@ __published:	// IDE-managed Components
 	TLabel *lblResultadoViaje;
 	TPaintBox *pbMapa;
 	TImage *Image1;
+	TButton *btnCortarRuta;
+	TEdit *editNombreRuta;
+	TLabel *Label6;
+	TLabel *Label7;
+	TLabel *Label8;
+	TButton *btnHistorial;
+	TPanel *TPanelHistorial;
+	TStringGrid *gridHistorial;
+	TButton *btnLimpiarHistorial;
+	TButton *btnEliminarRuta;
 	void __fastcall ButtonCiudadesClick(TObject *Sender);
 	void __fastcall ButtonMenuClick(TObject *Sender);
 	void __fastcall ButtonNuevoClick(TObject *Sender);
@@ -90,13 +101,19 @@ __published:	// IDE-managed Components
 	void __fastcall btnCalcularViajeClick(TObject *Sender);
 	void __fastcall ButtonViajeClick(TObject *Sender);
 	void __fastcall pbMapaPaint(TObject *Sender);
-	void __fastcall idLabelClick(TObject *Sender);
+	void __fastcall btnCortarRutaClick(TObject *Sender);
+	void __fastcall btnHistorialClick(TObject *Sender);
+	void __fastcall btnLimpiarHistorialClick(TObject *Sender);
+	void __fastcall ActualizarGridHistorial();
+    void __fastcall ActualizarGridRutas();
+	void __fastcall btnEliminarRutaClick(TObject *Sender);
+
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
 	void actualizarCuadro(); //metodo para actualizar el cuadro
 	int indiceModificar;
-    Grafo mi_grafo;
-	void __fastcall ActualizarGridRutas();
+	Grafo mi_grafo;
+    unsigned int contadorID=0;
 	bool CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal);
     std::vector<int> camino_actual;
 

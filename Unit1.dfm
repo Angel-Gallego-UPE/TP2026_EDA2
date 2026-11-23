@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Sistema de rutas de Santiago del Estero'
-  ClientHeight = 892
+  ClientHeight = 749
   ClientWidth = 1318
   Color = clMediumslateblue
   Font.Charset = DEFAULT_CHARSET
@@ -15,7 +15,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 1318
-    Height = 892
+    Height = 749
     Align = alClient
     Center = True
     Picture.Data = {
@@ -3515,8 +3515,40 @@ object Form1: TForm1
       77D5667BEB1D5E24F7501DC961BE632A8DA7B775D75B8013CD1A6588D871E7CB
       9D1375975AD15D52077E09F60B000000803DC4FF07451D0412582FAB94000000
       0049454E44AE426082}
-    ExplicitLeft = -64
-    ExplicitTop = -56
+    ExplicitLeft = 8
+    ExplicitTop = 8
+  end
+  object TPanelHistorial: TPanel
+    Left = 263
+    Top = 116
+    Width = 645
+    Height = 513
+    Caption = 'TPanelHistorial'
+    Color = clMediumslateblue
+    ParentBackground = False
+    TabOrder = 6
+    object gridHistorial: TStringGrid
+      Left = 32
+      Top = 17
+      Width = 593
+      Height = 266
+      TabOrder = 0
+    end
+    object btnLimpiarHistorial: TButton
+      Left = 265
+      Top = 322
+      Width = 117
+      Height = 47
+      Caption = 'Limpiar'#13#10'historial'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnLimpiarHistorialClick
+    end
   end
   object TPanelTitulo: TPanel
     Left = 8
@@ -3597,7 +3629,7 @@ object Form1: TForm1
     end
     object ButtonViaje: TButton
       Left = 16
-      Top = 210
+      Top = 207
       Width = 209
       Height = 65
       Caption = 'VIAJE'
@@ -3609,6 +3641,21 @@ object Form1: TForm1
       ParentFont = False
       TabOrder = 2
       OnClick = ButtonViajeClick
+    end
+    object btnHistorial: TButton
+      Left = 16
+      Top = 381
+      Width = 209
+      Height = 65
+      Caption = 'HISTORIAL'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 30
+      Font.Name = 'Bahnschrift SemiBold SemiConden'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      OnClick = btnHistorialClick
     end
     object ButtonConexiones: TButton
       Left = 16
@@ -4225,7 +4272,7 @@ object Form1: TForm1
     Visible = False
     object lblResultadoViaje: TLabel
       Left = 16
-      Top = 89
+      Top = 71
       Width = 609
       Height = 90
       AutoSize = False
@@ -4240,14 +4287,14 @@ object Form1: TForm1
     end
     object pbMapa: TPaintBox
       Left = 16
-      Top = 185
+      Top = 167
       Width = 609
-      Height = 300
+      Height = 318
       OnPaint = pbMapaPaint
     end
     object cmbViajeOrigen: TComboBox
-      Left = 32
-      Top = 31
+      Left = 472
+      Top = 25
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4260,8 +4307,8 @@ object Form1: TForm1
       Text = 'Ciudad origen'
     end
     object cmbViajeDestino: TComboBox
-      Left = 464
-      Top = 25
+      Left = 16
+      Top = 23
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4274,10 +4321,10 @@ object Form1: TForm1
       Text = 'Ciudad destino'
     end
     object btnCalcularViaje: TButton
-      Left = 264
-      Top = 42
+      Left = 246
+      Top = 17
       Width = 121
-      Height = 41
+      Height = 39
       Caption = 'Calcular'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -4299,9 +4346,42 @@ object Form1: TForm1
     ParentBackground = False
     TabOrder = 4
     Visible = False
+    object Label6: TLabel
+      Left = 544
+      Top = 192
+      Width = 34
+      Height = 15
+      Caption = 'Label6'
+    end
+    object Label7: TLabel
+      Left = 246
+      Top = 404
+      Width = 111
+      Height = 21
+      Caption = 'Nombre de ruta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindow
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 265
+      Top = 346
+      Width = 75
+      Height = 21
+      Caption = 'Kilometros'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenuBar
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
     object btnCargarRuta: TButton
-      Left = 472
-      Top = 205
+      Left = 448
+      Top = 354
       Width = 137
       Height = 36
       Caption = 'Cargar ruta'
@@ -4315,8 +4395,8 @@ object Form1: TForm1
       OnClick = btnCargarRutaClick
     end
     object cmbDestino: TComboBox
-      Left = 468
-      Top = 88
+      Left = 43
+      Top = 411
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4331,8 +4411,8 @@ object Form1: TForm1
       Text = 'Ciudad destino'
     end
     object cmbOrigen: TComboBox
-      Left = 468
-      Top = 31
+      Left = 43
+      Top = 357
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4345,18 +4425,55 @@ object Form1: TForm1
       Text = 'Ciudad origen'
     end
     object editDistancia: TEdit
-      Left = 464
-      Top = 140
+      Left = 226
+      Top = 364
       Width = 153
       Height = 23
       TabOrder = 3
     end
     object gridRutas: TStringGrid
-      Left = 43
-      Top = 26
-      Width = 381
-      Height = 413
+      Left = 32
+      Top = 22
+      Width = 585
+      Height = 298
       TabOrder = 4
+    end
+    object btnCortarRuta: TButton
+      Left = 448
+      Top = 414
+      Width = 137
+      Height = 37
+      Caption = 'Cortar ruta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -18
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 5
+      OnClick = btnCortarRutaClick
+    end
+    object editNombreRuta: TEdit
+      Left = 226
+      Top = 423
+      Width = 153
+      Height = 23
+      TabOrder = 6
+    end
+    object btnEliminarRuta: TButton
+      Left = 448
+      Top = 472
+      Width = 137
+      Height = 37
+      Caption = 'Eliminar ruta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -18
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 7
+      OnClick = btnEliminarRutaClick
     end
   end
 end
