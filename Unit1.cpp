@@ -629,12 +629,10 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		{
 			int idx = camino[i];
 			recorrido += String(vector_ciudades[idx].getNombre().c_str());
-			if (i < camino.size() - 1)  //agrego la flecha (solo si no es la última ciudad)
-				recorrido += " -> ";
-				if (i < ruta.size())
-				{
-				 recorrido += "(" + String(ruta[i].getNombre().c_str()) + ") -> ";//muestro las rutas entre parentesis y con flecha señalando a la siguiente ciudad o intersecion
-				 }
+			if (i < camino.size() - 1 && i < ruta.size())
+			{
+				recorrido += " (" + String(ruta[i].getNombre().c_str()) + ") -> ";
+			}
 		}
 		camino_actual = camino;   //guardo el camino más rápido, pbMapaPaint lo pinta en rojo
 		pbMapa->Invalidate();    //fuerzo el redibujado del mapa con la ruta
