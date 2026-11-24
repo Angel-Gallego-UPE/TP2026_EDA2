@@ -517,10 +517,11 @@ void __fastcall TForm1::btnCargarRutaClick(TObject *Sender)
 	ShowMessage("Ruta cargada exitosamente.");
 }
 //---------------------------------------------------------------------------
-bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal)
+bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino, double &distanciaTotal, std::vector<Ruta> &ruta)
 {
 	int n = mi_grafo.obtener_cantidad_de_ciudades(); //obtengo la cantidad ciudades del grafo
 	camino.clear(); //limpio el vector por si traía datos de una búsqueda anterior
+	ruta.clear(); //limpio el vector por si traía datos de una búsqueda anterior
 
 	if (origen < 0 || origen >= n || destino < 0 || destino >= n || origen == destino)
 		return false;
@@ -529,6 +530,7 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 	std::vector<double> dist(n, INF); //guarda la menor distancia acumulada desde el origen hacia cada ciudad
 	std::vector<bool> visitado(n, false); //se guardan las ciudades que ya tienen su distancia mínima
 	std::vector<int> anterior(n, -1);  //guarda el índice de la ciudad anterior
+	std::vector<Ruta> ruta_anterior(n);
 	bool terminado=false;
 	dist[origen] = 0; //al ser la misma ciudad la distancia es 0 (o '-')
 
@@ -571,6 +573,7 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 						{
 							dist[v] = nuevaDist;
 							anterior[v] = u; //registro que para llegar más rápido a 'v' conviene venir desde 'u'
+							ruta_anterior[v] = r;//guardamos la ruta mas optima usada
 						}
 					}
 				}
@@ -587,8 +590,13 @@ bool TForm1::CalcularDijkstra(int origen, int destino, std::vector<int> &camino,
 	for (int actual = destino; actual != -1; actual = anterior[actual])
 	{
 		camino.push_back(actual);
+        if (anterior[actual] != -1)
+		   {
+		ruta.push_back(ruta_anterior[actual]);
+		   }
 	}
 	std::reverse(camino.begin(), camino.end());
+	std::reverse(ruta.begin(), ruta.end());
 
 	return true;
 }
@@ -612,9 +620,9 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 
 	std::vector<int> camino; //vector que recibirá los índices de las ciudades del recorrido óptimo hecho por Djikstra
 	double kmTotales = 0; //variable que guarda la suma total de kilómetros
-
+    std::vector<Ruta> ruta;
 	//se ejecuto Dijkstra; si encuentra un camino válido, armo el texto y actualizo el mapa
-	if (CalcularDijkstra(origen, destino, camino, kmTotales))
+	if (CalcularDijkstra(origen, destino, camino, kmTotales,ruta))
 	{
 		String recorrido = "";
 		for (int i = 0; i < camino.size(); i++)
@@ -623,6 +631,10 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 			recorrido += String(vector_ciudades[idx].getNombre().c_str());
 			if (i < camino.size() - 1)  //agrego la flecha (solo si no es la última ciudad)
 				recorrido += " -> ";
+				if (i < ruta.size())
+				{
+				 recorrido += "(" + String(ruta[i].getNombre().c_str()) + ") -> ";//muestro las rutas entre parentesis y con flecha señalando a la siguiente ciudad o intersecion
+				 }
 		}
 		camino_actual = camino;   //guardo el camino más rápido, pbMapaPaint lo pinta en rojo
 		pbMapa->Invalidate();    //fuerzo el redibujado del mapa con la ruta
@@ -990,3 +1002,5 @@ void __fastcall TForm1::btnEliminarRutaClick(TObject *Sender)
 	ShowMessage("Ruta eliminada correctamente.");
 };
 //---------------------------------------------------------------------------
+
+

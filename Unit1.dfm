@@ -1,9 +1,8 @@
 object Form1: TForm1
-  Left = 143
-  Top = 104
-  Anchors = [akLeft, akTop, akRight]
+  Left = 0
+  Top = 0
   Caption = 'Sistema de rutas de Santiago del Estero'
-  ClientHeight = 749
+  ClientHeight = 804
   ClientWidth = 1318
   Color = clMediumslateblue
   Font.Charset = DEFAULT_CHARSET
@@ -11,13 +10,12 @@ object Form1: TForm1
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Position = poDesigned
   TextHeight = 15
   object Image1: TImage
     Left = 0
     Top = 0
     Width = 1318
-    Height = 749
+    Height = 804
     Align = alClient
     Center = True
     Picture.Data = {
@@ -3518,7 +3516,8 @@ object Form1: TForm1
       9D1375975AD15D52077E09F60B000000803DC4FF07451D0412582FAB94000000
       0049454E44AE426082}
     ExplicitLeft = 8
-    ExplicitTop = 48
+    ExplicitTop = 8
+    ExplicitHeight = 749
   end
   object TPanelOpciones: TPanel
     Left = 8
@@ -3532,10 +3531,10 @@ object Form1: TForm1
     TabOrder = 1
     object ButtonMenu: TButton
       Left = 16
-      Top = 37
+      Top = 40
       Width = 209
       Height = 65
-      Caption = 'MENU'
+      Caption = 'INICIO'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = 30
@@ -3545,20 +3544,35 @@ object Form1: TForm1
       TabOrder = 0
       OnClick = ButtonMenuClick
     end
-    object ButtonCiudades: TButton
+    object btnHistorial: TButton
       Left = 16
-      Top = 140
+      Top = 455
       Width = 209
       Height = 65
-      Caption = 'CIUDADES'
+      Caption = 'HISTORIAL'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = 30
-      Font.Name = 'Bahnschrift SemiBold Condensed'
+      Font.Name = 'Bahnschrift SemiBold SemiConden'
       Font.Style = []
       ParentFont = False
-      TabOrder = 1
-      OnClick = ButtonCiudadesClick
+      TabOrder = 4
+      OnClick = btnHistorialClick
+    end
+    object ButtonConexiones: TButton
+      Left = 16
+      Top = 352
+      Width = 209
+      Height = 65
+      Caption = 'CONEXIONES'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 30
+      Font.Name = 'Bahnschrift SemiBold SemiConden'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = ButtonConexionesClick
     end
     object ButtonViaje: TButton
       Left = 16
@@ -3575,41 +3589,26 @@ object Form1: TForm1
       TabOrder = 2
       OnClick = ButtonViajeClick
     end
-    object btnHistorial: TButton
+    object ButtonCiudades: TButton
       Left = 16
-      Top = 469
+      Top = 146
       Width = 209
       Height = 65
-      Caption = 'HISTORIAL'
+      Caption = 'CIUDAD/INTERSECCION'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = 30
-      Font.Name = 'Bahnschrift SemiBold SemiConden'
+      Font.Name = 'Bahnschrift SemiBold Condensed'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
-      OnClick = btnHistorialClick
-    end
-    object ButtonConexiones: TButton
-      Left = 16
-      Top = 360
-      Width = 209
-      Height = 65
-      Caption = 'CONEXIONES'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = 30
-      Font.Name = 'Bahnschrift SemiBold SemiConden'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 3
-      OnClick = ButtonConexionesClick
+      TabOrder = 1
+      OnClick = ButtonCiudadesClick
     end
   end
   object TPanelTitulo: TPanel
     Left = 8
     Top = 8
-    Width = 1035
+    Width = 975
     Height = 102
     BorderWidth = 10
     BorderStyle = bsSingle
@@ -3646,7 +3645,7 @@ object Form1: TForm1
   object PanelCiudades: TPanel
     Left = 263
     Top = 116
-    Width = 780
+    Width = 720
     Height = 580
     Color = clMediumslateblue
     Font.Charset = DEFAULT_CHARSET
@@ -3659,7 +3658,7 @@ object Form1: TForm1
     TabOrder = 3
     Visible = False
     object LabelTituloCuadro: TLabel
-      Left = 246
+      Left = 160
       Top = 21
       Width = 119
       Height = 15
@@ -3672,8 +3671,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object LabelOPC: TLabel
-      Left = 648
-      Top = 58
+      Left = 504
+      Top = 21
       Width = 57
       Height = 15
       Caption = 'OPCIONES'
@@ -3681,8 +3680,8 @@ object Form1: TForm1
     object GridCiudades: TStringGrid
       Left = 32
       Top = 58
-      Width = 506
-      Height = 247
+      Width = 369
+      Height = 207
       Color = clTeal
       ColCount = 4
       FixedCols = 0
@@ -3699,8 +3698,8 @@ object Form1: TForm1
       TabOrder = 0
     end
     object ButtonNuevo: TButton
-      Left = 623
-      Top = 93
+      Left = 536
+      Top = 60
       Width = 99
       Height = 31
       Caption = 'Nuevo'
@@ -3714,8 +3713,8 @@ object Form1: TForm1
       OnClick = ButtonNuevoClick
     end
     object ButtonEliminar: TButton
-      Left = 623
-      Top = 163
+      Left = 536
+      Top = 148
       Width = 97
       Height = 31
       Caption = 'Eliminar'
@@ -3729,7 +3728,7 @@ object Form1: TForm1
       OnClick = ButtonEliminarClick
     end
     object ButtonModificar: TButton
-      Left = 623
+      Left = 536
       Top = 232
       Width = 97
       Height = 33
@@ -3745,7 +3744,7 @@ object Form1: TForm1
     end
     object PanelCarga: TPanel
       Left = 64
-      Top = 373
+      Top = 350
       Width = 245
       Height = 141
       Color = clMedGray
@@ -3831,8 +3830,8 @@ object Form1: TForm1
       end
     end
     object PanelEliminar: TPanel
-      Left = 425
-      Top = 326
+      Left = 369
+      Top = 396
       Width = 259
       Height = 97
       Color = clMedGray
@@ -3901,7 +3900,7 @@ object Form1: TForm1
     end
     object PanelModificar: TPanel
       Left = 64
-      Top = 373
+      Top = 351
       Width = 230
       Height = 125
       Color = clMedGray
@@ -3979,8 +3978,8 @@ object Form1: TForm1
       end
     end
     object PanelIdentificador: TPanel
-      Left = 464
-      Top = 380
+      Left = 418
+      Top = 378
       Width = 185
       Height = 139
       Color = clMedGray
@@ -4045,7 +4044,7 @@ object Form1: TForm1
   object TPanelConexiones: TPanel
     Left = 263
     Top = 116
-    Width = 780
+    Width = 720
     Height = 580
     Caption = 'TPanelConexiones'
     Color = clMediumslateblue
@@ -4060,8 +4059,8 @@ object Form1: TForm1
       Caption = 'Label6'
     end
     object Label7: TLabel
-      Left = 349
-      Top = 478
+      Left = 302
+      Top = 438
       Width = 111
       Height = 21
       Caption = 'Nombre de ruta'
@@ -4073,8 +4072,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label8: TLabel
-      Left = 368
-      Top = 420
+      Left = 321
+      Top = 380
       Width = 75
       Height = 21
       Caption = 'Kilometros'
@@ -4086,8 +4085,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object btnCargarRuta: TButton
-      Left = 567
-      Top = 393
+      Left = 499
+      Top = 354
       Width = 137
       Height = 36
       Caption = 'Cargar ruta'
@@ -4102,7 +4101,7 @@ object Form1: TForm1
     end
     object cmbDestino: TComboBox
       Left = 80
-      Top = 490
+      Top = 450
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4118,7 +4117,7 @@ object Form1: TForm1
     end
     object cmbOrigen: TComboBox
       Left = 80
-      Top = 436
+      Top = 396
       Width = 145
       Height = 29
       Font.Charset = DEFAULT_CHARSET
@@ -4131,8 +4130,8 @@ object Form1: TForm1
       Text = 'Ciudad origen'
     end
     object editDistancia: TEdit
-      Left = 329
-      Top = 438
+      Left = 282
+      Top = 398
       Width = 153
       Height = 23
       TabOrder = 3
@@ -4140,13 +4139,13 @@ object Form1: TForm1
     object gridRutas: TStringGrid
       Left = 32
       Top = 22
-      Width = 721
-      Height = 329
+      Width = 657
+      Height = 322
       TabOrder = 4
     end
     object btnCortarRuta: TButton
-      Left = 567
-      Top = 453
+      Left = 496
+      Top = 419
       Width = 137
       Height = 37
       Caption = 'Cortar ruta'
@@ -4160,15 +4159,15 @@ object Form1: TForm1
       OnClick = btnCortarRutaClick
     end
     object editNombreRuta: TEdit
-      Left = 329
-      Top = 497
+      Left = 282
+      Top = 457
       Width = 153
       Height = 23
       TabOrder = 6
     end
     object btnEliminarRuta: TButton
-      Left = 567
-      Top = 514
+      Left = 496
+      Top = 491
       Width = 137
       Height = 37
       Caption = 'Eliminar ruta'
@@ -4182,85 +4181,10 @@ object Form1: TForm1
       OnClick = btnEliminarRutaClick
     end
   end
-  object TPanelViaje: TPanel
-    Left = 263
-    Top = 116
-    Width = 780
-    Height = 580
-    Color = clMediumslateblue
-    ParentBackground = False
-    TabOrder = 5
-    Visible = False
-    object lblResultadoViaje: TLabel
-      Left = 16
-      Top = 89
-      Width = 745
-      Height = 90
-      AutoSize = False
-      Caption = 'Resultado'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMenuBar
-      Font.Height = -22
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-      WordWrap = True
-    end
-    object pbMapa: TPaintBox
-      Left = 16
-      Top = 213
-      Width = 745
-      Height = 337
-      OnPaint = pbMapaPaint
-    end
-    object cmbViajeOrigen: TComboBox
-      Left = 608
-      Top = 23
-      Width = 145
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 0
-      Text = 'Ciudad origen'
-    end
-    object cmbViajeDestino: TComboBox
-      Left = 32
-      Top = 23
-      Width = 145
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 1
-      Text = 'Ciudad destino'
-    end
-    object btnCalcularViaje: TButton
-      Left = 329
-      Top = 26
-      Width = 121
-      Height = 39
-      Caption = 'Calcular'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -18
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 2
-      OnClick = btnCalcularViajeClick
-    end
-  end
   object TPanelHistorial: TPanel
     Left = 263
     Top = 116
-    Width = 780
+    Width = 720
     Height = 580
     Caption = 'TPanelHistorial'
     Color = clMediumslateblue
@@ -4269,16 +4193,16 @@ object Form1: TForm1
     object gridHistorial: TStringGrid
       Left = 32
       Top = 17
-      Width = 729
-      Height = 350
+      Width = 657
+      Height = 396
       TabOrder = 0
     end
     object btnLimpiarHistorial: TButton
-      Left = 287
-      Top = 447
-      Width = 274
+      Left = 246
+      Top = 450
+      Width = 244
       Height = 47
-      Caption = 'Limpiar '#13#10'historial'
+      Caption = 'Limpiar'#13#10'historial'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -4292,7 +4216,7 @@ object Form1: TForm1
   object TPanelMenu: TPanel
     Left = 263
     Top = 116
-    Width = 780
+    Width = 720
     Height = 580
     BorderWidth = 10
     BorderStyle = bsSingle
@@ -4300,9 +4224,9 @@ object Form1: TForm1
     ParentBackground = False
     TabOrder = 2
     object LabelPresentacion: TLabel
-      Left = 14
-      Top = 39
-      Width = 747
+      Left = 6
+      Top = 40
+      Width = 707
       Height = 250
       Caption = 
         'Bienvenido!!'#13#10#13#10'Esta aplicacion es un sistema de rutas, que perm' +
@@ -4317,8 +4241,8 @@ object Form1: TForm1
       ParentFont = False
     end
     object ImageUPE: TImage
-      Left = 254
-      Top = 378
+      Left = 205
+      Top = 385
       Width = 305
       Height = 153
       Picture.Data = {
@@ -4476,6 +4400,81 @@ object Form1: TForm1
         B25A1C96B1C275A9EB8DBF3B6AA8E4CA038B4C0EFF81E14B9421FA4B9421FA4B
         9421FA4B9421FA4B9421FA4B9421FA4B9421FA4B9421FA4B94FF07A6BF9C3350
         7FAFE90000000049454E44AE426082}
+    end
+  end
+  object TPanelViaje: TPanel
+    Left = 263
+    Top = 116
+    Width = 720
+    Height = 580
+    Color = clMediumslateblue
+    ParentBackground = False
+    TabOrder = 5
+    Visible = False
+    object lblResultadoViaje: TLabel
+      Left = 16
+      Top = 80
+      Width = 689
+      Height = 99
+      AutoSize = False
+      Caption = 'Resultado'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenuBar
+      Font.Height = -22
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      WordWrap = True
+    end
+    object pbMapa: TPaintBox
+      Left = 16
+      Top = 213
+      Width = 689
+      Height = 337
+      OnPaint = pbMapaPaint
+    end
+    object cmbViajeOrigen: TComboBox
+      Left = 536
+      Top = 25
+      Width = 145
+      Height = 29
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 0
+      Text = 'Ciudad origen'
+    end
+    object cmbViajeDestino: TComboBox
+      Left = 16
+      Top = 23
+      Width = 145
+      Height = 29
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 1
+      Text = 'Ciudad destino'
+    end
+    object btnCalcularViaje: TButton
+      Left = 292
+      Top = 26
+      Width = 121
+      Height = 39
+      Caption = 'Calcular'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -18
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnCalcularViajeClick
     end
   end
 end
