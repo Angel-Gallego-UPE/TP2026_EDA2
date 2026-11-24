@@ -1,6 +1,6 @@
  Project1
 
- Timestamp is 6b04831e (Mon Nov 23 15:17:02 2026)
+ Timestamp is 6b048629 (Mon Nov 23 15:30:01 2026)
 
  Preferred load address is 0000000140000000
 
@@ -2733,7 +2733,7 @@
  000a:00000220 00000008H .tls$ZZZ                DATA
  000a:00000228 00000001H .tls$zzz                DATA
  000b:00000000 00000368H .rsrc$01                DATA
- 000b:00000370 0003efc8H .rsrc$02                DATA
+ 000b:00000370 0003efd0H .rsrc$02                DATA
 
   Address         Publics by Value              Rva+Base               Lib:Object
 
@@ -8049,16 +8049,16 @@
  000a:00000010       _ZL15exception_count       0000000140069010     libmingw32:lib64_libmingw32_a-hook_delphieh.o
  000a:00000020       _ZL16exception_object      0000000140069020     libmingw32:lib64_libmingw32_a-hook_delphieh.o
  000b:00000370       $R000000                   000000014006a370     internal .obj file created from .res files
- 000b:0001f9b8       $R000001                   00000001400899b8     internal .obj file created from .res files
- 000b:0001fbb8       $R000002                   0000000140089bb8     internal .obj file created from .res files
- 000b:000211e0       $R000003                   000000014008b1e0     internal .obj file created from .res files
- 000b:00022088       $R000004                   000000014008c088     internal .obj file created from .res files
- 000b:00022930       $R000005                   000000014008c930     internal .obj file created from .res files
- 000b:00022e98       $R000006                   000000014008ce98     internal .obj file created from .res files
- 000b:00029358       $R000007                   0000000140093358     internal .obj file created from .res files
- 000b:00039b80       $R000008                   00000001400a3b80     internal .obj file created from .res files
- 000b:0003dda8       $R000009                   00000001400a7da8     internal .obj file created from .res files
- 000b:0003e730       $R00000A                   00000001400a8730     internal .obj file created from .res files
- 000b:0003eb98       $R00000B                   00000001400a8b98     internal .obj file created from .res files
- 000b:0003ec20       $R00000C                   00000001400a8c20     internal .obj file created from .res files
- 000b:0003f330       $R00000D                   00000001400a9330     internal .obj file created from .res files
+ 000b:0001f9c0       $R000001                   00000001400899c0     internal .obj file created from .res files
+ 000b:0001fbc0       $R000002                   0000000140089bc0     internal .obj file created from .res files
+ 000b:000211e8       $R000003                   000000014008b1e8     internal .obj file created from .res files
+ 000b:00022090       $R000004                   000000014008c090     internal .obj file created from .res files
+ 000b:00022938       $R000005                   000000014008c938     internal .obj file created from .res files
+ 000b:00022ea0       $R000006                   000000014008cea0     internal .obj file created from .res files
+ 000b:00029360       $R000007                   0000000140093360     internal .obj file created from .res files
+ 000b:00039b88       $R000008                   00000001400a3b88     internal .obj file created from .res files
+ 000b:0003ddb0       $R000009                   00000001400a7db0     internal .obj file created from .res files
+ 000b:0003e738       $R00000A                   00000001400a8738     internal .obj file created from .res files
+ 000b:0003eba0       $R00000B                   00000001400a8ba0     internal .obj file created from .res files
+ 000b:0003ec28       $R00000C                   00000001400a8c28     internal .obj file created from .res files
+ 000b:0003f338       $R00000D                   00000001400a9338     internal .obj file created from .res files

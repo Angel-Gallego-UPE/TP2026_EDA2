@@ -3643,81 +3643,6 @@ object Form1: TForm1
       ParentFont = False
     end
   end
-  object TPanelViaje: TPanel
-    Left = 263
-    Top = 116
-    Width = 780
-    Height = 580
-    Color = clMediumslateblue
-    ParentBackground = False
-    TabOrder = 5
-    Visible = False
-    object lblResultadoViaje: TLabel
-      Left = 16
-      Top = 89
-      Width = 745
-      Height = 90
-      AutoSize = False
-      Caption = 'Resultado'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMenuBar
-      Font.Height = -22
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-      WordWrap = True
-    end
-    object pbMapa: TPaintBox
-      Left = 16
-      Top = 213
-      Width = 745
-      Height = 337
-      OnPaint = pbMapaPaint
-    end
-    object cmbViajeOrigen: TComboBox
-      Left = 608
-      Top = 23
-      Width = 145
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 0
-      Text = 'Ciudad origen'
-    end
-    object cmbViajeDestino: TComboBox
-      Left = 32
-      Top = 23
-      Width = 145
-      Height = 29
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 1
-      Text = 'Ciudad destino'
-    end
-    object btnCalcularViaje: TButton
-      Left = 329
-      Top = 26
-      Width = 121
-      Height = 39
-      Caption = 'Calcular'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -18
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold, fsItalic, fsUnderline]
-      ParentFont = False
-      TabOrder = 2
-      OnClick = btnCalcularViajeClick
-    end
-  end
   object PanelCiudades: TPanel
     Left = 263
     Top = 116
@@ -4257,6 +4182,81 @@ object Form1: TForm1
       OnClick = btnEliminarRutaClick
     end
   end
+  object TPanelViaje: TPanel
+    Left = 263
+    Top = 116
+    Width = 780
+    Height = 580
+    Color = clMediumslateblue
+    ParentBackground = False
+    TabOrder = 5
+    Visible = False
+    object lblResultadoViaje: TLabel
+      Left = 16
+      Top = 89
+      Width = 745
+      Height = 90
+      AutoSize = False
+      Caption = 'Resultado'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMenuBar
+      Font.Height = -22
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      WordWrap = True
+    end
+    object pbMapa: TPaintBox
+      Left = 16
+      Top = 213
+      Width = 745
+      Height = 337
+      OnPaint = pbMapaPaint
+    end
+    object cmbViajeOrigen: TComboBox
+      Left = 608
+      Top = 23
+      Width = 145
+      Height = 29
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 0
+      Text = 'Ciudad origen'
+    end
+    object cmbViajeDestino: TComboBox
+      Left = 32
+      Top = 23
+      Width = 145
+      Height = 29
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 1
+      Text = 'Ciudad destino'
+    end
+    object btnCalcularViaje: TButton
+      Left = 329
+      Top = 26
+      Width = 121
+      Height = 39
+      Caption = 'Calcular'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -18
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold, fsItalic, fsUnderline]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnCalcularViajeClick
+    end
+  end
   object TPanelHistorial: TPanel
     Left = 263
     Top = 116
@@ -4274,11 +4274,11 @@ object Form1: TForm1
       TabOrder = 0
     end
     object btnLimpiarHistorial: TButton
-      Left = 349
+      Left = 287
       Top = 447
-      Width = 117
+      Width = 274
       Height = 47
-      Caption = 'Limpiar'#13#10'historial'
+      Caption = 'Limpiar '#13#10'historial'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
