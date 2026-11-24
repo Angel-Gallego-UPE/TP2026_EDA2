@@ -108,6 +108,8 @@ __published:	// IDE-managed Components
 	void __fastcall ActualizarGridHistorial();
     void __fastcall ActualizarGridRutas();
 	void __fastcall btnEliminarRutaClick(TObject *Sender);
+	void __fastcall gridHistorialDrawCell(TObject *Sender, System::LongInt ACol, System::LongInt ARow,
+          TRect &Rect, TGridDrawState State);
 
 private:	// User declarations
 	std::vector<Ciudad> vector_ciudades; //agrego el vector[RAM]
