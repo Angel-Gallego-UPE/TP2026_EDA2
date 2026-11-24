@@ -315,9 +315,6 @@ void __fastcall TForm1::ButtonBuscarClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
-
-
 void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 {
 	//variables aux
@@ -353,6 +350,7 @@ void __fastcall TForm1::ButtonCargarClick(TObject *Sender)
 
 			contadorID++;
 			//creo el objeto con sus parametros
+
 			Ciudad nuevaCiudad(contadorID, auxX, auxY, auxNombre);
 			//hago un push al final de vector
 			vector_ciudades.push_back(nuevaCiudad);
@@ -631,12 +629,10 @@ void __fastcall TForm1::btnCalcularViajeClick(TObject *Sender)
 		{
 			int idx = camino[i];
 			recorrido += String(vector_ciudades[idx].getNombre().c_str());
-			if (i < camino.size() - 1)  //agrego la flecha (solo si no es la última ciudad)
-				recorrido += " -> ";
-				if (i < ruta.size())
-				{
-				 recorrido += "(" + String(ruta[i].getNombre().c_str()) + ") -> ";//muestro las rutas entre parentesis y con flecha señalando a la siguiente ciudad o intersecion
-				 }
+			if (i < camino.size() - 1 && i < ruta.size())
+			{
+				recorrido += " (" + String(ruta[i].getNombre().c_str()) + ") -> ";
+			}
 		}
 		camino_actual = camino;   //guardo el camino más rápido, pbMapaPaint lo pinta en rojo
 		pbMapa->Invalidate();    //fuerzo el redibujado del mapa con la ruta
@@ -908,6 +904,7 @@ void __fastcall TForm1::btnHistorialClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ActualizarGridHistorial()
 {
+	gridHistorial->DefaultDrawing = false;
 	vector<Historial> lista = Historial::leerTodo(); //leo todos los viajes de historial.bin
 
 	//configuro encabezados (5 columnas)
@@ -942,19 +939,20 @@ void __fastcall TForm1::ActualizarGridHistorial()
 		fila++;
 	}
    //ajusto altura de filas y ancho de columnas de manera automatica para que no se corte ningún texto
-	gridHistorial->DefaultRowHeight = 28;
+	gridHistorial->DefaultRowHeight = 48; // altura para 2 o 3 renglones
 
-	for (int col = 0; col < gridHistorial->ColCount; col++)
+	int ancho = gridHistorial->ClientWidth;
+	gridHistorial->ColWidths[0] = ancho * 15 / 100; // Fecha y Hora
+	gridHistorial->ColWidths[1] = ancho * 15 / 100; // Origen
+	gridHistorial->ColWidths[2] = ancho * 15 / 100; // Destino
+	gridHistorial->ColWidths[3] = ancho * 43 / 100; // Recorrido Óptimo
+	gridHistorial->ColWidths[4] = ancho * 12 / 100; // Distancia
+
+    //fuerzo la altura de cada fila para que entren hasta 3 renglones
+	gridHistorial->RowHeights[0] = 30;
+	for (int r = 1; r < gridHistorial->RowCount; r++)
 	{
-		int anchoMax=100;
-		for (int r = 0; r < gridHistorial->RowCount; r++)
-		{
-			int anchoTexto = gridHistorial->Canvas->TextWidth(gridHistorial->Cells[col][r]) + 25;
-			if (anchoTexto > anchoMax)
-				anchoMax = anchoTexto;
-		}
-		gridHistorial->ColWidths[col] = anchoMax;
-
+		gridHistorial->RowHeights[r] = 56;
 	}
 
 }
@@ -1005,4 +1003,33 @@ void __fastcall TForm1::btnEliminarRutaClick(TObject *Sender)
 };
 //---------------------------------------------------------------------------
 
+
+void __fastcall TForm1::gridHistorialDrawCell(TObject *Sender, System::LongInt ACol,
+          System::LongInt ARow, TRect &Rect, TGridDrawState State)
+{
+  	TCanvas *c = gridHistorial->Canvas;
+    c->Font->Assign(gridHistorial->Font);
+
+    if (ARow == 0) {
+        c->Brush->Color = clBtnFace;
+        c->Font->Style = TFontStyles() << fsBold;
+    } else if (State.Contains(gdSelected)) {
+        c->Brush->Color = clHighlight;
+        c->Font->Color = clHighlightText;
+    } else {
+        c->Brush->Color = clWindow;
+        c->Font->Color = clWindowText;
+    }
+
+    c->FillRect(Rect);
+
+    TRect areaTexto = Rect;
+    areaTexto.Left += 6;
+    areaTexto.Right -= 6;
+    areaTexto.Top += 4;
+
+    String texto = gridHistorial->Cells[ACol][ARow];
+    DrawText(c->Handle, texto.c_str(), -1, &areaTexto, DT_LEFT | DT_WORDBREAK | DT_NOPREFIX);
+}
+//---------------------------------------------------------------------------
 
